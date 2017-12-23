@@ -1,18 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Practices.ESB.Configuration;
-using Microsoft.Practices.Unity;
-using Microsoft.Practices.Unity.Configuration;
-using Microsoft.Practices.EnterpriseLibrary.Common.Configuration;
-using Microsoft.Practices.ESB.Resolver.Container;
-using System.Configuration;
-using Microsoft.BizTalk.Message.Interop;
-using Microsoft.BizTalk.Component.Interop;
 using System.Xml;
+using System.Configuration;
+using Microsoft.Practices.Unity;
 using Microsoft.XLANGs.BaseTypes;
 using Microsoft.Practices.ESB.Resolver;
+using Microsoft.BizTalk.Message.Interop;
+using Microsoft.BizTalk.Component.Interop;
+using Microsoft.Practices.Unity.Configuration;
+using Microsoft.Practices.ESB.Resolver.Container;
+using Microsoft.Practices.EnterpriseLibrary.Common.Configuration;
 
 namespace ESB.Extensions.Resolution.UNITY
 {

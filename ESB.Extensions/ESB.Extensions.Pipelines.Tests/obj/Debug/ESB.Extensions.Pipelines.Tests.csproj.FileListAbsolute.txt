@@ -1,0 +1,12 @@
+C:\Users\bhavsard\Documents\GitHub\ESB.Extensions\ESB.Extensions\ESB.Extensions.Pipelines.Tests\bin\Debug\ESB.Extensions.Pipelines.Tests.dll
+C:\Users\bhavsard\Documents\GitHub\ESB.Extensions\ESB.Extensions\ESB.Extensions.Pipelines.Tests\bin\Debug\ESB.Extensions.Pipelines.Tests.pdb
+C:\Users\bhavsard\Documents\GitHub\ESB.Extensions\ESB.Extensions\ESB.Extensions.Pipelines.Tests\bin\Debug\ESB.Extensions.Pipelines.dll
+C:\Users\bhavsard\Documents\GitHub\ESB.Extensions\ESB.Extensions\ESB.Extensions.Pipelines.Tests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\bhavsard\Documents\GitHub\ESB.Extensions\ESB.Extensions\ESB.Extensions.Pipelines.Tests\bin\Debug\Microsoft.XLANGs.BizTalk.Engine.dll
+C:\Users\bhavsard\Documents\GitHub\ESB.Extensions\ESB.Extensions\ESB.Extensions.Pipelines.Tests\bin\Debug\Microsoft.XLANGs.BaseTypes.dll
+C:\Users\bhavsard\Documents\GitHub\ESB.Extensions\ESB.Extensions\ESB.Extensions.Pipelines.Tests\bin\Debug\Microsoft.BizTalk.Pipeline.dll
+C:\Users\bhavsard\Documents\GitHub\ESB.Extensions\ESB.Extensions\ESB.Extensions.Pipelines.Tests\bin\Debug\Microsoft.XLANGs.Engine.dll
+C:\Users\bhavsard\Documents\GitHub\ESB.Extensions\ESB.Extensions\ESB.Extensions.Pipelines.Tests\bin\Debug\ESB.Extensions.Pipelines.pdb
+C:\Users\bhavsard\Documents\GitHub\ESB.Extensions\ESB.Extensions\ESB.Extensions.Pipelines.Tests\obj\Debug\ESB.Extensions.Pipelines.Tests.csprojResolveAssemblyReference.cache
+C:\Users\bhavsard\Documents\GitHub\ESB.Extensions\ESB.Extensions\ESB.Extensions.Pipelines.Tests\obj\Debug\ESB.Extensions.Pipelines.Tests.dll
+C:\Users\bhavsard\Documents\GitHub\ESB.Extensions\ESB.Extensions\ESB.Extensions.Pipelines.Tests\obj\Debug\ESB.Extensions.Pipelines.Tests.pdb

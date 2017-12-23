@@ -1,10 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESB.Extensions.Schemas", "ESB.Extensions.Schemas\ESB.Extensions.Schemas.btproj", "{E69D7FB7-A715-4618-A03A-CA20CD36C6E4}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESB.Extensions.Services", "ESB.Extensions.Services\ESB.Extensions.Services.btproj", "{0FD38FC1-EA51-4412-B6D2-0D9C4B76C305}"
-EndProject
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{804D45D9-4CB3-4664-B5AD-D023BAA04228}"
 	ProjectSection(SolutionItems) = preProject
 		BizTalkDeploymentFramework.targets = BizTalkDeploymentFramework.targets
@@ -14,10 +12,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		LocalTestRun.testrunconfig = LocalTestRun.testrunconfig
 		TODO.txt = TODO.txt
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESB.Extensions.Components", "ESB.Extensions.Components\ESB.Extensions.Components.csproj", "{CC0C6681-6AF5-4C79-918A-8F9520D8EF5F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESB.Extensions.Resolutions", "ESB.Extensions.Resolutions\ESB.Extensions.Resolutions.csproj", "{826B0F4D-C42C-4FDF-BA7A-A899A4F069AA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ESB.Extensions.Deployment", "ESB.Extensions.Deployment", "{E0742BCC-72B3-4A23-B56F-C829E47ADBE4}"
 	ProjectSection(SolutionItems) = preProject
@@ -30,6 +24,33 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ESB.Extensions.Deployment",
 		ESB.Extensions.Deployment\License.rtf = ESB.Extensions.Deployment\License.rtf
 		ESB.Extensions.Deployment\UnInstallWizard.xml = ESB.Extensions.Deployment\UnInstallWizard.xml
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EnvironmentSettings", "EnvironmentSettings", "{C4791A52-FF1C-4BD3-9AC3-679FCE932A45}"
+	ProjectSection(SolutionItems) = preProject
+		ESB.Extensions.Deployment\EnvironmentSettings\SettingsFileGenerator.xml = ESB.Extensions.Deployment\EnvironmentSettings\SettingsFileGenerator.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dependencies", "Dependencies", "{5028D903-F155-4DF8-A987-E91A8A6BCA11}"
+	ProjectSection(SolutionItems) = preProject
+		Dependencies\Microsoft.Practices.EnterpriseLibrary.Common.dll = Dependencies\Microsoft.Practices.EnterpriseLibrary.Common.dll
+		Dependencies\Microsoft.Practices.Unity.Configuration.dll = Dependencies\Microsoft.Practices.Unity.Configuration.dll
+		Dependencies\Microsoft.Practices.Unity.dll = Dependencies\Microsoft.Practices.Unity.dll
+		Dependencies\Microsoft.Practices.Unity.StaticFactory.dll = Dependencies\Microsoft.Practices.Unity.StaticFactory.dll
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EsbBatchDb", "EsbBatchDb", "{DB2E198C-2EA0-4FB1-8DF4-A511A273FFE2}"
+	ProjectSection(SolutionItems) = preProject
+		EsbBatchDb\EsbBatchDb.BatchComplete.trigger.sql = EsbBatchDb\EsbBatchDb.BatchComplete.trigger.sql
+		EsbBatchDb\EsbBatchDb.sql = EsbBatchDb\EsbBatchDb.sql
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESB.Extensions.Schemas", "ESB.Extensions.Schemas\ESB.Extensions.Schemas.btproj", "{E69D7FB7-A715-4618-A03A-CA20CD36C6E4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESB.Extensions.Services", "ESB.Extensions.Services\ESB.Extensions.Services.btproj", "{0FD38FC1-EA51-4412-B6D2-0D9C4B76C305}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESB.Extensions.Components", "ESB.Extensions.Components\ESB.Extensions.Components.csproj", "{CC0C6681-6AF5-4C79-918A-8F9520D8EF5F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESB.Extensions.Resolutions", "ESB.Extensions.Resolutions\ESB.Extensions.Resolutions.csproj", "{826B0F4D-C42C-4FDF-BA7A-A899A4F069AA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESB.Extensions.PipelineComponents", "ESB.Extensions.PipelineComponents\ESB.Extensions.PipelineComponents.csproj", "{AE48970B-4733-4E5F-BD2B-D1B6C12B9AA3}"
 EndProject
@@ -51,92 +72,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESB.Extensions.Resolution.T
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESB.Extensions.Itinerary.Extenders", "ESB.Extensions.Itinerary.Extenders\ESB.Extensions.Itinerary.Extenders.csproj", "{1586DD38-1ADF-4C62-A3EA-9CAB7883F909}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EnvironmentSettings", "EnvironmentSettings", "{C4791A52-FF1C-4BD3-9AC3-679FCE932A45}"
-	ProjectSection(SolutionItems) = preProject
-		ESB.Extensions.Deployment\EnvironmentSettings\SettingsFileGenerator.xml = ESB.Extensions.Deployment\EnvironmentSettings\SettingsFileGenerator.xml
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESB.Extensions.Resolution.UNITY", "ESB.Extensions.Resolution.UNITY\ESB.Extensions.Resolution.UNITY.csproj", "{C9E84DD4-18E2-4071-A43C-DECCF0C27629}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dependencies", "Dependencies", "{5028D903-F155-4DF8-A987-E91A8A6BCA11}"
-	ProjectSection(SolutionItems) = preProject
-		Dependencies\Microsoft.Practices.EnterpriseLibrary.Common.dll = Dependencies\Microsoft.Practices.EnterpriseLibrary.Common.dll
-		Dependencies\Microsoft.Practices.Unity.Configuration.dll = Dependencies\Microsoft.Practices.Unity.Configuration.dll
-		Dependencies\Microsoft.Practices.Unity.dll = Dependencies\Microsoft.Practices.Unity.dll
-		Dependencies\Microsoft.Practices.Unity.StaticFactory.dll = Dependencies\Microsoft.Practices.Unity.StaticFactory.dll
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EsbBatchDb", "EsbBatchDb", "{DB2E198C-2EA0-4FB1-8DF4-A511A273FFE2}"
-	ProjectSection(SolutionItems) = preProject
-		EsbBatchDb\EsbBatchDb.BatchComplete.trigger.sql = EsbBatchDb\EsbBatchDb.BatchComplete.trigger.sql
-		EsbBatchDb\EsbBatchDb.sql = EsbBatchDb\EsbBatchDb.sql
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESB.Extensions.Schemas.EsbBatchDb", "ESB.Extensions.Schemas.EsbBatchDb\ESB.Extensions.Schemas.EsbBatchDb.btproj", "{B97235B1-4C6D-42A0-A614-8357416E9157}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESB.Extensions.Schemas.WcfSql", "ESB.Extensions.Schemas.WcfSql\ESB.Extensions.Schemas.WcfSql.btproj", "{A911C091-C98A-4034-87CD-3602DA449341}"
 EndProject
 Global
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 18
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://tfs04.codeplex.com/
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = ESB.Extensions.Services\\ESB.Extensions.Services.btproj
-		SccProjectName1 = ESB.Extensions.Services
-		SccLocalPath1 = ESB.Extensions.Services
-		SccProjectUniqueName2 = ESB.Extensions.Components\\ESB.Extensions.Components.csproj
-		SccProjectName2 = ESB.Extensions.Components
-		SccLocalPath2 = ESB.Extensions.Components
-		SccProjectUniqueName3 = ESB.Extensions.Resolutions\\ESB.Extensions.Resolutions.csproj
-		SccProjectName3 = ESB.Extensions.Resolutions
-		SccLocalPath3 = ESB.Extensions.Resolutions
-		SccProjectUniqueName4 = ESB.Extensions.PipelineComponents\\ESB.Extensions.PipelineComponents.csproj
-		SccProjectName4 = ESB.Extensions.PipelineComponents
-		SccLocalPath4 = ESB.Extensions.PipelineComponents
-		SccProjectUniqueName5 = ESB.Extensions.Pipelines\\ESB.Extensions.Pipelines.btproj
-		SccProjectName5 = ESB.Extensions.Pipelines
-		SccLocalPath5 = ESB.Extensions.Pipelines
-		SccProjectUniqueName6 = ESB.Extensions.Resolutions.Tests\\ESB.Extensions.Resolutions.Tests.csproj
-		SccProjectName6 = ESB.Extensions.Resolutions.Tests
-		SccLocalPath6 = ESB.Extensions.Resolutions.Tests
-		SccProjectUniqueName7 = ESB.Extensions.Resolution.BRE\\ESB.Extensions.Resolution.BRE.csproj
-		SccProjectName7 = ESB.Extensions.Resolution.BRE
-		SccLocalPath7 = ESB.Extensions.Resolution.BRE
-		SccProjectUniqueName8 = ESB.Extensions.Resolution\\ESB.Extensions.Resolution.csproj
-		SccProjectName8 = ESB.Extensions.Resolution
-		SccLocalPath8 = ESB.Extensions.Resolution
-		SccProjectUniqueName9 = ESB.Extensions.Itinerary.Extenders\\ESB.Extensions.Itinerary.Extenders.csproj
-		SccProjectName9 = ESB.Extensions.Itinerary.Extenders
-		SccLocalPath9 = ESB.Extensions.Itinerary.Extenders
-		SccProjectUniqueName10 = ESB.Extensions.Pipelines.Tests\\ESB.Extensions.Pipelines.Tests.csproj
-		SccProjectName10 = ESB.Extensions.Pipelines.Tests
-		SccLocalPath10 = ESB.Extensions.Pipelines.Tests
-		SccProjectUniqueName11 = ESB.Extensions.Components.Tests\\ESB.Extensions.Components.Tests.csproj
-		SccProjectName11 = ESB.Extensions.Components.Tests
-		SccLocalPath11 = ESB.Extensions.Components.Tests
-		SccProjectUniqueName12 = ESB.Extensions.PipelineComponents.Tests\\ESB.Extensions.PipelineComponents.Tests.csproj
-		SccProjectName12 = ESB.Extensions.PipelineComponents.Tests
-		SccLocalPath12 = ESB.Extensions.PipelineComponents.Tests
-		SccProjectUniqueName13 = ESB.Extensions.Resolution.Tests\\ESB.Extensions.Resolution.Tests.csproj
-		SccProjectName13 = ESB.Extensions.Resolution.Tests
-		SccLocalPath13 = ESB.Extensions.Resolution.Tests
-		SccProjectUniqueName14 = ESB.Extensions.Resolution.UNITY\\ESB.Extensions.Resolution.UNITY.csproj
-		SccProjectName14 = ESB.Extensions.Resolution.UNITY
-		SccLocalPath14 = ESB.Extensions.Resolution.UNITY
-		SccProjectUniqueName15 = ESB.Extensions.Schemas\\ESB.Extensions.Schemas.btproj
-		SccProjectName15 = ESB.Extensions.Schemas
-		SccLocalPath15 = ESB.Extensions.Schemas
-		SccProjectUniqueName16 = ESB.Extensions.Schemas.WcfSql\\ESB.Extensions.Schemas.WcfSql.btproj
-		SccProjectName16 = ESB.Extensions.Schemas.WcfSql
-		SccLocalPath16 = ESB.Extensions.Schemas.WcfSql
-		SccProjectUniqueName17 = ESB.Extensions.Schemas.EsbBatchDb\\ESB.Extensions.Schemas.EsbBatchDb.btproj
-		SccProjectName17 = ESB.Extensions.Schemas.EsbBatchDb
-		SccLocalPath17 = ESB.Extensions.Schemas.EsbBatchDb
-	EndGlobalSection
-	GlobalSection(TestCaseManagementSettings) = postSolution
-		CategoryFile = ESB.Extensions.vsmdi
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -226,5 +168,8 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{C4791A52-FF1C-4BD3-9AC3-679FCE932A45} = {E0742BCC-72B3-4A23-B56F-C829E47ADBE4}
+	EndGlobalSection
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = ESB.Extensions.vsmdi
 	EndGlobalSection
 EndGlobal

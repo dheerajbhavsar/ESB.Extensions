@@ -1,0 +1,10 @@
+C:\Users\bhavsard\Documents\GitHub\ESB.Extensions\ESB.Extensions\ESB.Extensions.Pipelines\bin\Debug\ESB.Extensions.Pipelines.dll
+C:\Users\bhavsard\Documents\GitHub\ESB.Extensions\ESB.Extensions\ESB.Extensions.Pipelines\bin\Debug\ESB.Extensions.Pipelines.pdb
+C:\Users\bhavsard\Documents\GitHub\ESB.Extensions\ESB.Extensions\ESB.Extensions.Pipelines\bin\Debug\ESB.Extensions.PipelineComponents.dll
+C:\Users\bhavsard\Documents\GitHub\ESB.Extensions\ESB.Extensions\ESB.Extensions.Pipelines\bin\Debug\Microsoft.BizTalk.Pipeline.dll
+C:\Users\bhavsard\Documents\GitHub\ESB.Extensions\ESB.Extensions\ESB.Extensions.Pipelines\bin\Debug\Microsoft.BizTalk.TestTools.dll
+C:\Users\bhavsard\Documents\GitHub\ESB.Extensions\ESB.Extensions\ESB.Extensions.Pipelines\bin\Debug\Microsoft.Practices.ESB.Itinerary.PipelineComponents.dll
+C:\Users\bhavsard\Documents\GitHub\ESB.Extensions\ESB.Extensions\ESB.Extensions.Pipelines\bin\Debug\Microsoft.Practices.ESB.PipelineComponents.dll
+C:\Users\bhavsard\Documents\GitHub\ESB.Extensions\ESB.Extensions\ESB.Extensions.Pipelines\bin\Debug\Microsoft.XLANGs.BaseTypes.dll
+C:\Users\bhavsard\Documents\GitHub\ESB.Extensions\ESB.Extensions\ESB.Extensions.Pipelines\obj\Debug\ESB.Extensions.Pipelines.dll
+C:\Users\bhavsard\Documents\GitHub\ESB.Extensions\ESB.Extensions\ESB.Extensions.Pipelines\obj\Debug\ESB.Extensions.Pipelines.pdb

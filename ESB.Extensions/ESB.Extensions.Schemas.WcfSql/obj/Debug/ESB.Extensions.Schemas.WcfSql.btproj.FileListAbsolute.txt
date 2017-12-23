@@ -1,0 +1,7 @@
+C:\Users\bhavsard\Documents\GitHub\ESB.Extensions\ESB.Extensions\ESB.Extensions.Schemas.WcfSql\bin\Debug\ESB.Extensions.Schemas.WcfSql.dll
+C:\Users\bhavsard\Documents\GitHub\ESB.Extensions\ESB.Extensions\ESB.Extensions.Schemas.WcfSql\bin\Debug\ESB.Extensions.Schemas.WcfSql.pdb
+C:\Users\bhavsard\Documents\GitHub\ESB.Extensions\ESB.Extensions\ESB.Extensions.Schemas.WcfSql\bin\Debug\Microsoft.BizTalk.Pipeline.dll
+C:\Users\bhavsard\Documents\GitHub\ESB.Extensions\ESB.Extensions\ESB.Extensions.Schemas.WcfSql\bin\Debug\Microsoft.BizTalk.TestTools.dll
+C:\Users\bhavsard\Documents\GitHub\ESB.Extensions\ESB.Extensions\ESB.Extensions.Schemas.WcfSql\bin\Debug\Microsoft.XLANGs.BaseTypes.dll
+C:\Users\bhavsard\Documents\GitHub\ESB.Extensions\ESB.Extensions\ESB.Extensions.Schemas.WcfSql\obj\Debug\ESB.Extensions.Schemas.WcfSql.dll
+C:\Users\bhavsard\Documents\GitHub\ESB.Extensions\ESB.Extensions\ESB.Extensions.Schemas.WcfSql\obj\Debug\ESB.Extensions.Schemas.WcfSql.pdb

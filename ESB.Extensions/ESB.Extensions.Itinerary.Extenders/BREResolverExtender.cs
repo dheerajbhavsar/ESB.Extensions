@@ -1,17 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Practices.Services.Extenders.Resolvers.Bre;
-using Microsoft.Practices.Modeling.Common.Design;
 using System.ComponentModel;
-using Microsoft.Practices.Modeling.ExtensionProvider.Metadata;
 using Microsoft.Practices.Services.ItineraryDsl;
+using Microsoft.Practices.Modeling.ExtensionProvider.Metadata;
 using Microsoft.Practices.Modeling.ExtensionProvider.Extension;
 
 namespace ESB.Extensions.Itinerary.Extenders
 {
-    public class BREResolverExtender : BreResolver
+    public class BREResolverExtender : BreResolverExtensionProvider
     {
         [Category("Extender Settings"), Description("Specifies the context properties to include in the ResolutionDictionary. Type FullNames, seperated by pipe token ('|'), like the DocSpecNames for XmlDisassembler."), DisplayName("PropertyTypes"), ReadOnly(false), Browsable(true)]
         public string PropertyTypes { get; set; }

@@ -1,0 +1,7 @@
+C:\Users\bhavsard\Documents\GitHub\ESB.Extensions\ESB.Extensions\ESB.Extensions.Schemas\bin\Debug\ESB.Extensions.Schemas.dll
+C:\Users\bhavsard\Documents\GitHub\ESB.Extensions\ESB.Extensions\ESB.Extensions.Schemas\bin\Debug\ESB.Extensions.Schemas.pdb
+C:\Users\bhavsard\Documents\GitHub\ESB.Extensions\ESB.Extensions\ESB.Extensions.Schemas\bin\Debug\Microsoft.BizTalk.Pipeline.dll
+C:\Users\bhavsard\Documents\GitHub\ESB.Extensions\ESB.Extensions\ESB.Extensions.Schemas\bin\Debug\Microsoft.BizTalk.TestTools.dll
+C:\Users\bhavsard\Documents\GitHub\ESB.Extensions\ESB.Extensions\ESB.Extensions.Schemas\bin\Debug\Microsoft.XLANGs.BaseTypes.dll
+C:\Users\bhavsard\Documents\GitHub\ESB.Extensions\ESB.Extensions\ESB.Extensions.Schemas\obj\Debug\ESB.Extensions.Schemas.dll
+C:\Users\bhavsard\Documents\GitHub\ESB.Extensions\ESB.Extensions\ESB.Extensions.Schemas\obj\Debug\ESB.Extensions.Schemas.pdb

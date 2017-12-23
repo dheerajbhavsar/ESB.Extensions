@@ -1,125 +1,125 @@
 <!--
-      Scott Colestock / www.traceofthought.net
-      Thomas F. Abraham
-      
-      Version 5.0
-      
-      This is the core of the Deployment Framework for BizTalk.
-      
-      It should be included by the MSBuild file for a particular BizTalk project that is
-      leveraging this framework.  It has the targets necessary for most BizTalk deployment tasks.
-      
-      MSBuild files that include this file can indicate which components of a BizTalk solution they
-      have by including definition of the following properties and setting to true/false:
-      
-      <IncludeSchemas>true</IncludeSchemas>
-      <IncludeOrchestrations>true</IncludeOrchestrations>
-      <IncludeTransforms>true</IncludeTransforms>
-      <IncludePipelines>true</IncludePipelines>
-      <IncludeComponents>true</IncludeComponents>
-      <IncludePipelineComponents>false</IncludePipelineComponents>
-      <IncludeCustomFunctoids>false</IncludeCustomFunctoids>
-      <IncludeVocabAndRules>false</IncludeVocabAndRules>
-      <IncludeVirtualDirectories>false</IncludeVirtualDirectories>
-      <IncludeMessagingBindings>true</IncludeMessagingBindings>
-      <IncludeDeploymentTest>true</IncludeDeploymentTest>
-      <Includelog4net>false</Includelog4net>
-      <IncludeSSO>false</IncludeSSO>
-      <IncludeBAM>false</IncludeBAM>
+			Scott Colestock / www.traceofthought.net
+			Thomas F. Abraham
+			
+			Version 5.0
+			
+			This is the core of the Deployment Framework for BizTalk.
+			
+			It should be included by the MSBuild file for a particular BizTalk project that is
+			leveraging this framework.  It has the targets necessary for most BizTalk deployment tasks.
+			
+			MSBuild files that include this file can indicate which components of a BizTalk solution they
+			have by including definition of the following properties and setting to true/false:
+			
+			<IncludeSchemas>true</IncludeSchemas>
+			<IncludeOrchestrations>true</IncludeOrchestrations>
+			<IncludeTransforms>true</IncludeTransforms>
+			<IncludePipelines>true</IncludePipelines>
+			<IncludeComponents>true</IncludeComponents>
+			<IncludePipelineComponents>false</IncludePipelineComponents>
+			<IncludeCustomFunctoids>false</IncludeCustomFunctoids>
+			<IncludeVocabAndRules>false</IncludeVocabAndRules>
+			<IncludeVirtualDirectories>false</IncludeVirtualDirectories>
+			<IncludeMessagingBindings>true</IncludeMessagingBindings>
+			<IncludeDeploymentTest>true</IncludeDeploymentTest>
+			<Includelog4net>false</Includelog4net>
+			<IncludeSSO>false</IncludeSSO>
+			<IncludeBAM>false</IncludeBAM>
 
-      The primary targets of interest will be:
-      * DebugDeploy          Used for deploying debug binaries on a development machine
-      * UpdateOrchestration  Used during development when orchestration assemblies have changed
-                             but have NOT affected port configuration.  Also updates component assemblies and SSO,
-                             as well as maps and schemas per http://www.masteringbiztalk.com/blogs/jon/PermaLink,guid,628aecb9-4eaa-4044-88c9-92cb53f81bdf.aspx
-      * ReleaseDeploy        Used for deploying release binaries on a development machine
-      * ServerDeploy         Used for deploying binaries that are "co-located" with the build file, such
-                             as after an MSI-based deployment.
-                        
-      There are also the following targets for undeploying:
-      * DebugUndeploy
-      * ReleaseUndeploy
-      * ServerUndeploy                        
-      
-      To use this build file in conjunction with your own for daily use you will need to:
-      * Create a MSBuild file that includes this file using the <Import> task.  Name your <Project> tag after
-        your solution.  The expectation (unless you override properties below) is that your project name is also
-        a "prefix" for all your assemblies (i.e. <Project name="BizTalkSample"> corresponds to BizTalkSample.sln, which
-        has projects such as BizTalkSample.Orchestrations)
-      * Bootstrap your binding files, using a manual deployment and the BizTalk Deployment Wizard
-        if need be.  These are referenced by the PortBindings properties below.
-      * If you require virtual directories, customize the VDirList.txt file (see the VdirListFile property below
-        for additional information.
-   
-      Other properties of interest:
-      * DeployResults      Deployment results will be placed here (diagnostic outpout)
-      * DeployTools        External scripts required are located here. 
-      * SkipUndeploy       Note that the deploy targets will attempt to undeploy the project prior to 
-                           deploying.  You can override this behavior by passing in 
-                           -D:skipUndeploy=true on the msbuild.exe command line.
+			The primary targets of interest will be:
+			* DebugDeploy          Used for deploying debug binaries on a development machine
+			* UpdateOrchestration  Used during development when orchestration assemblies have changed
+														 but have NOT affected port configuration.  Also updates component assemblies and SSO,
+														 as well as maps and schemas per http://www.masteringbiztalk.com/blogs/jon/PermaLink,guid,628aecb9-4eaa-4044-88c9-92cb53f81bdf.aspx
+			* ReleaseDeploy        Used for deploying release binaries on a development machine
+			* ServerDeploy         Used for deploying binaries that are "co-located" with the build file, such
+														 as after an MSI-based deployment.
+												
+			There are also the following targets for undeploying:
+			* DebugUndeploy
+			* ReleaseUndeploy
+			* ServerUndeploy                        
+			
+			To use this build file in conjunction with your own for daily use you will need to:
+			* Create a MSBuild file that includes this file using the <Import> task.  Name your <Project> tag after
+				your solution.  The expectation (unless you override properties below) is that your project name is also
+				a "prefix" for all your assemblies (i.e. <Project name="BizTalkSample"> corresponds to BizTalkSample.sln, which
+				has projects such as BizTalkSample.Orchestrations)
+			* Bootstrap your binding files, using a manual deployment and the BizTalk Deployment Wizard
+				if need be.  These are referenced by the PortBindings properties below.
+			* If you require virtual directories, customize the VDirList.txt file (see the VdirListFile property below
+				for additional information.
+	 
+			Other properties of interest:
+			* DeployResults      Deployment results will be placed here (diagnostic outpout)
+			* DeployTools        External scripts required are located here. 
+			* SkipUndeploy       Note that the deploy targets will attempt to undeploy the project prior to 
+													 deploying.  You can override this behavior by passing in 
+													 -D:skipUndeploy=true on the msbuild.exe command line.
 
-      
-      Assumptions: This deployment framework assumes that on a developer machine, your assembly names, DLL names, 
-      and directory names are identical for a given project (i.e. BizTalkSample.Orchestrations.btproj corresponds
-      to BizTalkSample.Orchestrations.dll, which corresponds to the BizTalkSample.Orchestrations assembly.
-      
-      If this is not the case, you can certainly add a set of properties that
-      contain this information and substitute these where the current properties are used as directory names, etc.
-      Having the framework assume they are common enforces a degree of consistency that can be desirable, but might
-      not fit your needs.
+			
+			Assumptions: This deployment framework assumes that on a developer machine, your assembly names, DLL names, 
+			and directory names are identical for a given project (i.e. BizTalkSample.Orchestrations.btproj corresponds
+			to BizTalkSample.Orchestrations.dll, which corresponds to the BizTalkSample.Orchestrations assembly.
+			
+			If this is not the case, you can certainly add a set of properties that
+			contain this information and substitute these where the current properties are used as directory names, etc.
+			Having the framework assume they are common enforces a degree of consistency that can be desirable, but might
+			not fit your needs.
 
 -->
 
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Deploy">
-  <Import Project="Microsoft.Sdc.Common.tasks"/>
-  <UsingTask AssemblyFile="DeploymentFramework.BuildTasks.dll" TaskName="GetOsVersion" />
-  <UsingTask AssemblyFile="DeploymentFramework.BuildTasks.dll" TaskName="SetPropFromEnvSetting" />
-  <UsingTask AssemblyFile="DeploymentFramework.BuildTasks.dll" TaskName="PrependToBindingPortNames" />
-  <UsingTask AssemblyFile="DeploymentFramework.BuildTasks.dll" TaskName="MakeFilesWriteable" />
-  <UsingTask AssemblyFile="DeploymentFramework.BuildTasks.dll" TaskName="CheckForServiceInstances" />
-  <UsingTask AssemblyFile="DeploymentFramework.BuildTasks.dll" TaskName="AddAppReference" />
-  <UsingTask AssemblyFile="DeploymentFramework.BuildTasks.dll" TaskName="ControlBizTalkApp" />
-  <UsingTask AssemblyFile="DeploymentFramework.BuildTasks.dll" TaskName="GetBizTalkAppExists" />
-  <UsingTask AssemblyFile="DeploymentFramework.BuildTasks.dll" TaskName="ItemGroupFromSeparatedList" />
-  <UsingTask AssemblyFile="DeploymentFramework.BuildTasks.dll" TaskName="GeneratePdbCopyItemGroups" />
-  <UsingTask AssemblyFile="DeploymentFramework.BuildTasks.dll" TaskName="GenerateAssemblyNamesItemGroup" />
-  <UsingTask AssemblyFile="DeploymentFramework.BuildTasks.dll" TaskName="UpdateSSOConfigItem" />
-  <UsingTask AssemblyFile="DeploymentFramework.BuildTasks.dll" TaskName="UpdateBizTalkAppDomainConfig" />
-  <UsingTask AssemblyFile="DeploymentFramework.BuildTasks.dll" TaskName="ItemGroupFromCSVFile" />
-  <UsingTask AssemblyFile="DeploymentFramework.BuildTasks.dll" TaskName="GetParentPath" />
-  <UsingTask AssemblyFile="DeploymentFramework.BuildTasks.dll" TaskName="CreateVirtualDirectory" />
-  <UsingTask AssemblyFile="DeploymentFramework.BuildTasks.dll" TaskName="DeleteVirtualDirectory" />
-  <UsingTask AssemblyFile="DeploymentFramework.BuildTasks.dll" TaskName="StripFileSpecFromPath" />
-  <UsingTask AssemblyFile="DeploymentFramework.BuildTasks.dll" TaskName="TerminateServiceInstances" />
+	<Import Project="Microsoft.Sdc.Common.tasks"/>
+	<UsingTask AssemblyFile="DeploymentFramework.BuildTasks.dll" TaskName="GetOsVersion" />
+	<UsingTask AssemblyFile="DeploymentFramework.BuildTasks.dll" TaskName="SetPropFromEnvSetting" />
+	<UsingTask AssemblyFile="DeploymentFramework.BuildTasks.dll" TaskName="PrependToBindingPortNames" />
+	<UsingTask AssemblyFile="DeploymentFramework.BuildTasks.dll" TaskName="MakeFilesWriteable" />
+	<UsingTask AssemblyFile="DeploymentFramework.BuildTasks.dll" TaskName="CheckForServiceInstances" />
+	<UsingTask AssemblyFile="DeploymentFramework.BuildTasks.dll" TaskName="AddAppReference" />
+	<UsingTask AssemblyFile="DeploymentFramework.BuildTasks.dll" TaskName="ControlBizTalkApp" />
+	<UsingTask AssemblyFile="DeploymentFramework.BuildTasks.dll" TaskName="GetBizTalkAppExists" />
+	<UsingTask AssemblyFile="DeploymentFramework.BuildTasks.dll" TaskName="ItemGroupFromSeparatedList" />
+	<UsingTask AssemblyFile="DeploymentFramework.BuildTasks.dll" TaskName="GeneratePdbCopyItemGroups" />
+	<UsingTask AssemblyFile="DeploymentFramework.BuildTasks.dll" TaskName="GenerateAssemblyNamesItemGroup" />
+	<UsingTask AssemblyFile="DeploymentFramework.BuildTasks.dll" TaskName="UpdateSSOConfigItem" />
+	<UsingTask AssemblyFile="DeploymentFramework.BuildTasks.dll" TaskName="UpdateBizTalkAppDomainConfig" />
+	<UsingTask AssemblyFile="DeploymentFramework.BuildTasks.dll" TaskName="ItemGroupFromCSVFile" />
+	<UsingTask AssemblyFile="DeploymentFramework.BuildTasks.dll" TaskName="GetParentPath" />
+	<UsingTask AssemblyFile="DeploymentFramework.BuildTasks.dll" TaskName="CreateVirtualDirectory" />
+	<UsingTask AssemblyFile="DeploymentFramework.BuildTasks.dll" TaskName="DeleteVirtualDirectory" />
+	<UsingTask AssemblyFile="DeploymentFramework.BuildTasks.dll" TaskName="StripFileSpecFromPath" />
+	<UsingTask AssemblyFile="DeploymentFramework.BuildTasks.dll" TaskName="TerminateServiceInstances" />
 
-  <PropertyGroup>
-    <!-- Defaults for what deployment elements will be included.  Scripts that include this file should
-        set these properties to false if they wish to exclude elements. -->
-    <IncludeSchemas Condition="'$(IncludeSchemas)' == ''">true</IncludeSchemas>
-    <IncludeOrchestrations Condition="'$(IncludeOrchestrations)' == ''">true</IncludeOrchestrations>
-    <IncludeTransforms Condition="'$(IncludeTransforms)' == ''">true</IncludeTransforms>
-    <IncludePipelines Condition="'$(IncludePipelines)' == ''">true</IncludePipelines>
-    <IncludeComponents Condition="'$(IncludeComponents)' == ''">true</IncludeComponents>
-    <IncludeInstallUtilForComponents Condition="'$(IncludeInstallUtilForComponents)' == ''">false</IncludeInstallUtilForComponents>
-    <IncludePipelineComponents Condition="'$(IncludePipelineComponents)' == ''">true</IncludePipelineComponents>
-    <IncludeCustomFunctoids Condition="'$(IncludeCustomFunctoids)' == ''">true</IncludeCustomFunctoids>
-    <IncludeVocabAndRules Condition="'$(IncludeVocabAndRules)' == ''">true</IncludeVocabAndRules>
-    <IncludeVirtualDirectories Condition="'$(IncludeVirtualDirectories)' == ''">true</IncludeVirtualDirectories>
-    <IncludeMessagingBindings Condition="'$(IncludeMessagingBindings)' == ''">true</IncludeMessagingBindings>
-    <IncludeDeploymentTest Condition="'$(IncludeDeploymentTest)' == ''">true</IncludeDeploymentTest>
-    <Includelog4net Condition="'$(Includelog4net)' == ''">false</Includelog4net>
-    <IncludeSSO Condition="'$(IncludeSSO)' == ''">false</IncludeSSO>
+	<PropertyGroup>
+		<!-- Defaults for what deployment elements will be included.  Scripts that include this file should
+				set these properties to false if they wish to exclude elements. -->
+		<IncludeSchemas Condition="'$(IncludeSchemas)' == ''">true</IncludeSchemas>
+		<IncludeOrchestrations Condition="'$(IncludeOrchestrations)' == ''">true</IncludeOrchestrations>
+		<IncludeTransforms Condition="'$(IncludeTransforms)' == ''">true</IncludeTransforms>
+		<IncludePipelines Condition="'$(IncludePipelines)' == ''">true</IncludePipelines>
+		<IncludeComponents Condition="'$(IncludeComponents)' == ''">true</IncludeComponents>
+		<IncludeInstallUtilForComponents Condition="'$(IncludeInstallUtilForComponents)' == ''">false</IncludeInstallUtilForComponents>
+		<IncludePipelineComponents Condition="'$(IncludePipelineComponents)' == ''">true</IncludePipelineComponents>
+		<IncludeCustomFunctoids Condition="'$(IncludeCustomFunctoids)' == ''">true</IncludeCustomFunctoids>
+		<IncludeVocabAndRules Condition="'$(IncludeVocabAndRules)' == ''">true</IncludeVocabAndRules>
+		<IncludeVirtualDirectories Condition="'$(IncludeVirtualDirectories)' == ''">true</IncludeVirtualDirectories>
+		<IncludeMessagingBindings Condition="'$(IncludeMessagingBindings)' == ''">true</IncludeMessagingBindings>
+		<IncludeDeploymentTest Condition="'$(IncludeDeploymentTest)' == ''">true</IncludeDeploymentTest>
+		<Includelog4net Condition="'$(Includelog4net)' == ''">false</Includelog4net>
+		<IncludeSSO Condition="'$(IncludeSSO)' == ''">false</IncludeSSO>
 
-    <!-- Configure BizTalk to run this application in an isolated AppDomain? -->
-    <!-- This will update BTSNTSvc.exe.config to map this project's assemblies into a unique AppDomain. -->
-    <UseIsolatedAppDomain Condition="'$(UseIsolatedAppDomain)' == ''">false</UseIsolatedAppDomain>
+		<!-- Configure BizTalk to run this application in an isolated AppDomain? -->
+		<!-- This will update BTSNTSvc.exe.config to map this project's assemblies into a unique AppDomain. -->
+		<UseIsolatedAppDomain Condition="'$(UseIsolatedAppDomain)' == ''">false</UseIsolatedAppDomain>
 
-    <!-- BAM definitions may be deployed by the script, but they will never be auto-undeployed because doing so
-        will generally cause data loss.  BAM definitions may be undeployed using the target 'undeployBam'. -->
-    <IncludeBAM Condition="'$(IncludeBAM)' == ''">false</IncludeBAM>
+		<!-- BAM definitions may be deployed by the script, but they will never be auto-undeployed because doing so
+				will generally cause data loss.  BAM definitions may be undeployed using the target 'undeployBam'. -->
+		<IncludeBAM Condition="'$(IncludeBAM)' == ''">false</IncludeBAM>
 
-    <!-- BizTalk Side-by-Side (SxS) Application Versioning -->
-    <!--
+		<!-- BizTalk Side-by-Side (SxS) Application Versioning -->
+		<!--
 		Sometimes one must deploy multiple versions of the same BizTalk application to the same BizTalk server.
 		To make this easier, the script can auto-append a version number to the BizTalk application name and
 		to the SSO affiliate app name.  In the future it may auto-append a version number to the port names too.
@@ -142,1371 +142,1378 @@
 		but you are creating an installer for the specific build BTApp 1.1.2358.2 (ProductVersion).  ProductVersion
 		is used in the generated MSI filename and displays in Add/Remove Programs in the "support information" dialog.
 		The ProductVersion is a good choice to receive your automated build's version number.
-   -->
-    <EnableSideBySide Condition="'$(EnableSideBySide)' == ''">false</EnableSideBySide>
-    <ProjectVersion Condition="'$(ProjectVersion)' == ''">1.0</ProjectVersion>
-    <DisableAutomaticPortNameVersioning Condition="'$(DisableAutomaticPortNameVersioning)' == ''">false</DisableAutomaticPortNameVersioning>
-
-    <!-- 
-         Configuration properties that can be overridden by
-         build file that includes this file.
-   -->
-
-    <!-- Set this to false if you don't wish to deploy PDBs to the GAC.  Deploying PDBs
-        to the GAC means more meaningful stack traces.  Consider turning on PDB creation
-        for your release builds, too. Note that turning this on means a service-stop
-        prior to deployment/undeployment, since loading PDBs causes the BTSNTSvc.exe process to
-        hold on to assemblies even after orchestration unenlistment.  This means it might
-        only be desirable on servers, to avoid delay for developers. -->
-    <DeployPDBsToGac Condition="'$(DeployPDBsToGac)' == ''">true</DeployPDBsToGac>
-
-    <!-- Set this to true to indicate you are using a "master" bindings file - such that xmlpreprocess
-        doesn't overwrite it. -->
-    <UsingMasterBindings Condition="'$(UsingMasterBindings)' == ''">false</UsingMasterBindings>
-
-    <!-- Set this to true to indicate you are using ElementTunnel to maintain unescaped
-        TransportTypeData.  See ElementTunnel.exe for more info. -->
-    <ApplyXmlEscape Condition="'$(ApplyXmlEscape)' == ''">false</ApplyXmlEscape>
-
-    <!-- Set this to true to include components and virtual directories as resources
-        within the created BizTalk 2006 application artifact.  Use true if you intend
-        to export MSIs from BT2006 MMC.  -->
-    <IncludeCompsAndVDirsAsResources Condition="'$(IncludeCompsAndVDirsAsResources)' == ''">false</IncludeCompsAndVDirsAsResources>
-
-    <!-- Setting this property to true means that when you supply your own values for the
-        components, schemas, pipelines, transforms, etc. properties below you are supplying
-        full paths - and taking responsibility for varying the "debug" vs "release" in the
-        dev workstation case.  Much less work to just adhere to the convention of the 
-        directory name corresponding to the project name. -->
-    <UseCustomDirs Condition="'$(UseCustomDirs)' == ''">false</UseCustomDirs>
-
-    <!-- You can set this to true if you are not using HTTP/SOAP, or you are but no custom
-        pipelines are involved. -->
-    <SkipIISReset Condition="'$(SkipIISReset)' == ''">false</SkipIISReset>
-
-    <!-- One or more assemblies containing .NET classes required by your other assemblies (comma separated) -->
-    <Components Condition="'$(Components)' == ''">$(ProjectName).Components</Components>
-
-    <!-- One or more schema assemblies (comma separated - least dependent first, if schema assemblies
-        reference each other.) -->
-    <Schemas Condition="'$(Schemas)' == ''">$(ProjectName).Schemas</Schemas>
-
-    <!-- One or more pipeline assemblies (comma separated) -->
-    <Pipelines Condition="'$(Pipelines)' == ''">$(ProjectName).Pipelines</Pipelines>
-
-    <!-- One or more transform assemblies (comma separated) -->
-    <Transforms Condition="'$(Transforms)' == ''">$(ProjectName).Transforms</Transforms>
-
-    <!-- One or more pipeline component assemblies (comma separated) -->
-    <PipelineComponents Condition="'$(PipelineComponents)' == ''">$(ProjectName).PipelineComponents</PipelineComponents>
-
-    <!-- One or more pipeline component assemblies (comma separated) -->
-    <CustomFunctoids Condition="'$(CustomFunctoids)' == ''">$(ProjectName).CustomFunctoids</CustomFunctoids>
-
-    <!-- One or more orchestration assemblies (comma separated) -->
-    <Orchestrations Condition="'$(Orchestrations)' == ''">$(ProjectName).Orchestrations</Orchestrations>
-
-    <!-- One or more BAM definition files (comma separated) -->
-    <BamDefinitions Condition="'$(BamDefinitions)' == ''">$(ProjectName).BAM.xls</BamDefinitions>
-
-    <!-- An NUnit assembly that can be used for unit testing. -->
-    <DeploymentTest Condition="'$(DeploymentTest)' == ''">$(ProjectName).DeploymentTest</DeploymentTest>
-
-    <!-- This is one or more (comma separated) binding files that contains definitions for ports and orchestrations, as emitted by the BizTalk Deployment Wizard. -->
-    <PortBindings Condition="'$(PortBindings)' == ''">PortBindings.xml</PortBindings>
-
-    <!-- Only used if applyXmlEscape=true -->
-    <PortBindingsMaster Condition="'$(PortBindingsMaster)' == ''">PortBindingsMaster.xml</PortBindingsMaster>
-
-    <!-- A comma separated file (no spaces) with virtual directory, physical directory name, application pool name (IIS6) 
-         See deployVDirs target for exact definition of functionality.  Physical directory is interpreted relative
-         to the directory where the NAnt script is located. -->
-    <VdirListFile Condition="'$(VdirListFile)' == ''">VDirList.txt</VdirListFile>
-    <VdirListFileColumns Condition="'$(VdirListFileColumns)' == ''">Vdir,Physdir,AppPool</VdirListFileColumns>
-
-    <!-- A list of applications to add BizTalk references for (comma separated). -->
-    <AppsToReference Condition="'$(AppsToReference)' == ''"/>
-
-    <!-- These properties control the groups that will be used when creating an SSO affiliate app, if
-        includeSSO property is true.  Override these in your project-specific nant file with the groups
-        your targeted host account is a member of, or use SettingsFileGenerator.xls with propsFromEnvSettings  -->
-    <SsoAppUserGroup Condition="'$(SsoAppUserGroup)' == ''">BizTalk Application Users</SsoAppUserGroup>
-    <SsoAppAdminGroup Condition="'$(SsoAppAdminGroup)' == ''">BizTalk Server Administrators</SsoAppAdminGroup>
-
-    <!-- Subdirectory that contains a btshttpreceive.dll and btshttpreceive64.dll that should be added to IIS6 web service extension list. -->
-    <!--   
-    <WseExtensionPath>BTSHTTP_VD" />
-    <WseExtensionName>BTSHTTP_VD" />
-    -->
-
-    <!-- override this property in your project's build file if deploying on win2003 as a developer -->
-    <AppPoolAccount Condition="'$(AppPoolAccount)' == ''">$(USERNAME)</AppPoolAccount>
-
-    <!-- Customize if needed (in seconds) -->
-    <IisResetTime Condition="'$(IisResetTime)' == ''">60</IisResetTime>
-    <!-- Customize if needed (in milliseconds) -->
-    <BiztalkHostResetTime Condition="'$(BiztalkHostResetTime)' == ''">60000</BiztalkHostResetTime>
-
-    <!-- Whether a BT 2006 application start should be performed after deployment. -->
-    <StartApplicationOnDeploy Condition="'$(StartApplicationOnDeploy)' == ''">true</StartApplicationOnDeploy>
-
-    <!-- Location of deployment-related scripts and tools, and target directory for deployment results. -->
-    <!-- Note corresponding directories in MSI project. -->
-    <DeployResults Condition="'$(DeployResults)' == ''">..\DeployResults</DeployResults>
-
-    <!-- Will determine if running on 64 bit OS -->
-    <Is64bitOS Condition="'$(Is64bitOS)' == '' and Exists('$(windir)\syswow64')">True</Is64bitOS>
-    <Is64bitOS Condition="'$(Is64bitOS)' == ''">false</Is64bitOS>
-
-    <!-- Use 64 bit btshttpreceive.dll if on 64 bit windows.  Note: Grab
-       btshttpreceive.dll from HttpReceive64 subdirectory of your installation
-       and rename to btshttpreceive64.dll to make this work - allows for deployment
-       to function both for dev workstations and servers. -->
-    <Btshttpreceive Condition="'$(Is64bitOS)' == 'false' and '$(Btshttpreceive)' == ''">btshttpreceive.dll</Btshttpreceive>
-    <Btshttpreceive Condition="'$(Is64bitOS)' == 'true' and '$(Btshttpreceive)' == ''">btshttpreceive.dll</Btshttpreceive>
-
-    <!-- Flag typically used on NAnt command line to indicate that undeploy targets should be skipped.
-        This speeds up a first-time server-style deployment.  Referenced by the "unless" attribute on many targets below. -->
-    <SkipUndeploy Condition="'$(SkipUndeploy)' == ''">false</SkipUndeploy>
-
-    <!-- Indicates that BAM profile definitions should not be undeployed.  Undeploying a profile may cause existing BAM
-        data to be lost.  Referenced by the "unless" attribute on the undeployBam target below. -->
-    <SkipBamUndeploy Condition="'$(SkipBamUndeploy)' == ''">true</SkipBamUndeploy>
-
-    <!-- Flag typically used on MSBuild command line to indicate whether we are deploying to BizTalk management database. -->
-    <DeployBizTalkMgmtDB Condition="'$(DeployBizTalkMgmtDB)' == ''">true</DeployBizTalkMgmtDB>
-
-    <!-- The list of additional assemblies that will be deployed to the GAC from the
-        DeployTools folder.  Overrideable of course. -->
-    <AdditionalAssemblies Condition="'$(AdditionalAssemblies)' == '' and '$(Includelog4net)' == 'true'">log4net,log4net.Ext.Serializable,SSOSettingsFileReader</AdditionalAssemblies>
-    <AdditionalAssemblies Condition="'$(AdditionalAssemblies)' == '' and '$(Includelog4net)' == 'false'">SSOSettingsFileReader</AdditionalAssemblies>
-
-    <!-- A path to a project-level folder holding assemblies that must be deployed to the GAC along with the rest of the solution. -->
-    <ExternalAssembliesPath Condition="'$(ExternalAssembliesPath)' == ''">..\ExternalAssemblies</ExternalAssembliesPath>
-    
-    <!-- A list of assembly filenames in the ExternalAssembliesPath to be included with the solution and GAC'd during deployment. -->
-    <ExternalAssemblies Condition="'$(ExternalAssemblies)' == ''"></ExternalAssemblies>
-    
-    <!-- Indicates whether to un-GAC external assemblies during undeployment or to leave them alone. -->
-    <UndeployExternalAssemblies Condition="'$(UndeployExternalAssemblies)' == ''">true</UndeployExternalAssemblies>
-
-    <!-- The registry key where log4net configuration file location information 
-        will be written to/read from if we are using log4net -->
-    <Log4netRegKey Condition="'$(Log4netRegKey)' == ''">HKLM\SOFTWARE\$(ProjectName)\log4netConfig</Log4netRegKey>
-
-    <!-- If you wish to limit which BizTalk hosts are restarted, provided a comma-separated list in this property. -->
-    <BizTalkHosts Condition="'$(BizTalkHosts)' == ''">ALL</BizTalkHosts>
-
-    <!-- Comma-separated list of files to preprocess with XmlPreprocess -->
-    <FilesToXmlPreprocess Condition="'$(FilesToXmlPreprocess)' == ''"></FilesToXmlPreprocess>
-  </PropertyGroup>
-
-  <Target Name="SetWinVer">
-    <GetOsVersion>
-      <Output TaskParameter="OSVersion" PropertyName="OSVersion" />
-    </GetOsVersion>
-    <Message Text="Running on Windows V$(OSVersion)"/>
-    <CallTarget Targets="SetWinVer$(OSVersion)"/>
-  </Target>
-
-  <!-- Windows 2000  -->
-  <Target Name="SetWinVer50">
-    <CreateProperty Value="true">
-      <Output TaskParameter="Value" PropertyName="Win2000" />
-    </CreateProperty>
-    <CreateProperty Value="true">
-      <Output TaskParameter="Value" PropertyName="WinXPOr2000" />
-    </CreateProperty>
-  </Target>
-
-  <!-- Windows XP -->
-  <Target Name="SetWinVer51">
-    <CreateProperty Value="true">
-      <Output TaskParameter="Value" PropertyName="WinXP" />
-    </CreateProperty>
-    <CreateProperty Value="true">
-      <Output TaskParameter="Value" PropertyName="WinXPOr2000" />
-    </CreateProperty>
-  </Target>
-
-  <!-- Windows 2003 -->
-  <Target Name="SetWinVer52">
-    <CreateProperty Value="true">
-      <Output TaskParameter="Value" PropertyName="Win2003" />
-    </CreateProperty>
-  </Target>
-
-  <!-- Windows 2008 -->
-  <Target Name="SetWinVer60">
-    <CreateProperty Value="true">
-      <Output TaskParameter="Value" PropertyName="Win2003" />
-    </CreateProperty>
-  </Target>
-
-  <Target Name="ExportSettings" DependsOnTargets="InitSettingsFilePath;GetSoftwarePaths">
-    <Exec Command="&quot;$(DeployTools)\EnvironmentSettingsExporter.exe&quot; &quot;$(MSBuildProjectDirectory)\EnvironmentSettings\SettingsFileGenerator.xml&quot; &quot;$(MSBuildProjectDirectory)\EnvironmentSettings&quot;"
-          ContinueOnError="false" />
-  </Target>
-
-  <!-- DebugDeploy/DebugUndeploy are the work horses for most day-to-day development.  
-        Release variants exist as well. -->
-  <Target Name="DebugDeploy" DependsOnTargets="Deploy" />
-  <Target Name="DebugUndeploy" DependsOnTargets="Undeploy" />
-  <Target Name="ReleaseDeploy" DependsOnTargets="Deploy" />
-  <Target Name="ReleaseUndeploy" DependsOnTargets="Undeploy" />
-
-  <!-- ServerDeploy/ServerUndeploy are all about deploying binaries that arrive via MSI installation!
-        Note that this target expects a property to have been defined - most likely on the command line -
-        that defines whether we are supposed to deploy to the BizTalk management database or not, since
-        that only has to happen once in a multi-server group -->
-  <Target Name="ServerDeploy">
-    <!-- Deploy co-located binaries for a server installation. -->
-    <CallTarget Targets="DeployBizTalkMgmtDB_$(DeployBizTalkMgmtDB)"/>
-  </Target>
-
-  <!-- Note this target is consulting the deployBizTalkMgmtDB property, which is generally passed in on the command line,
-        to determine whether we will be deploying to the biztalk management database. -->
-  <Target Name="ServerUndeploy">
-    <!-- Un-Deploy co-located binaries. -->
-    <CallTarget Targets="UndeployBizTalkMgmtDB_$(DeployBizTalkMgmtDB)"/>
-  </Target>
-
-  <Target Name="DeployBizTalkMgmtDB_true">
-    <!-- Supports server deployments that include the BizTalk management database. -->
-    <!-- In this case, do a full deployment. -->
-    <CallTarget Targets="DevDeploy" />
-  </Target>
-
-  <PropertyGroup>
-    <DeployBizTalkMgmtDBfalseDependsOn>
-      FrameworkInitialize;
-      PreprocessBindings;
-      PreprocessFiles;
-      PreprocessLog4netFile;
-      CustomDeployTarget;
-      DeployComponents;
-      DeployPipelineComponents;
-      DeployCustomFunctoids;
-      DeployVDirs;
-      CustomPostDeployTarget
-    </DeployBizTalkMgmtDBfalseDependsOn>
-  </PropertyGroup>
-
-  <!-- Used for a deployment that will NOT deploy assemblies to the BizTalk management database. 
-        Only one server in a BizTalk group should actually deploy assemblies to the management database. -->
-  <Target Name="DeployBizTalkMgmtDB_false" DependsOnTargets="$(DeployBizTalkMgmtDBfalseDependsOn)">
-    <!-- Support server deployments that do not include Biztalk management database. -->
-    <!-- Need to handle these differently than standard targets - just putting in gac... -->
-    <ItemGroupFromSeparatedList SeparatedList="$(Schemas)" FormatString="$(FullPathFormatString)" ReverseList="false" Condition="'$(IncludeSchemas)' == 'true'">
-      <Output TaskParameter="ItemGroup" ItemName="DeploySchemasGroup" />
-    </ItemGroupFromSeparatedList>
-    <Exec Command="&quot;$(Gacutil)&quot; /i &quot;@(DeploySchemasGroup)&quot;" Condition="%(Identity) == %(Identity) and '$(IncludeSchemas)' == 'true'" />
-
-    <ItemGroupFromSeparatedList SeparatedList="$(Pipelines)" FormatString="$(FullPathFormatString)" ReverseList="false" Condition="'$(IncludePipelines)' == 'true'">
-      <Output TaskParameter="ItemGroup" ItemName="DeployPipelinesGroup" />
-    </ItemGroupFromSeparatedList>
-    <Exec Command="&quot;$(Gacutil)&quot; /i &quot;@(DeployPipelinesGroup)&quot;" Condition="%(Identity) == %(Identity) and '$(IncludePipelines)' == 'true'" />
-
-    <ItemGroupFromSeparatedList SeparatedList="$(Transforms)" FormatString="$(FullPathFormatString)" ReverseList="false" Condition="'$(IncludeTransforms)' == 'true'">
-      <Output TaskParameter="ItemGroup" ItemName="DeployTransformsGroup" />
-    </ItemGroupFromSeparatedList>
-    <Exec Command="&quot;$(Gacutil)&quot; /i &quot;@(DeployTransformsGroup)&quot;" Condition="%(Identity) == %(Identity) and '$(IncludeTransforms)' == 'true'" />
-
-    <ItemGroupFromSeparatedList SeparatedList="$(Orchestrations)" FormatString="$(FullPathFormatString)" ReverseList="false" Condition="'$(IncludeOrchestrations)' == 'true'">
-      <Output TaskParameter="ItemGroup" ItemName="DeployOrchestrationsGroup" />
-    </ItemGroupFromSeparatedList>
-    <Exec Command="&quot;$(Gacutil)&quot; /i &quot;@(DeployOrchestrationsGroup)&quot;" Condition="%(Identity) == %(Identity) and '$(IncludeOrchestrations)' == 'true'" />
-  </Target>
-
-  <Target Name="UndeployBizTalkMgmtDB_true">
-    <!-- Supports server undeployments that include undeploying from the BizTalk management database. -->
-    <!-- In this case, do a standard deployment. -->
-    <CallTarget Targets="DevUndeploy" />
-  </Target>
-
-  <PropertyGroup>
-    <UndeployBizTalkMgmtDBfalseDependsOn>
-      FrameworkInitialize;
-      CustomUndeployTarget;
-      UndeployComponents;
-      UndeployPipelineComponents;
-      UndeployCustomFunctoids;
-      UndeployVDirs;
-      CustomPostUndeployTarget;
-    </UndeployBizTalkMgmtDBfalseDependsOn>
-  </PropertyGroup>
-
-  <!-- Used for undeployment that will NOT undeploy assemblies from the BizTalk management database. 
-        Only one server in a BizTalk group should undeploy assemblies to the management database. -->
-  <Target Name="UndeployBizTalkMgmtDB_false" DependsOnTargets="$(UndeployBizTalkMgmtDBfalseDependsOn)">
-    <!-- Support server undeployments that do not include Biztalk management database. -->
-    <!-- Need to handle these differently than standard targets - just removing from gac... -->
-    <ItemGroupFromSeparatedList SeparatedList="$(Schemas)" FormatString="$(FullPathFormatString)" ReverseList="true" Condition="'$(IncludeSchemas)' == 'true'">
-      <Output TaskParameter="ItemGroup" ItemName="UndeploySchemasGroup" />
-    </ItemGroupFromSeparatedList>
-    <!--
-      Use the assembly's display name to remove the specific assembly from the GAC.
-      If the version is not specified, gacutil removes all assemblies from the GAC that match on
-      the filename, even if they have different strong names.
-    -->
-    <GenerateAssemblyNamesItemGroup SourceAssemblies="@(UndeploySchemasGroup)" Condition="'$(IncludeSchemas)' == 'true'">
-      <Output TaskParameter="AssemblyNamesItemGroup" ItemName="SchemaAssemblyNamesGroup" />
-    </GenerateAssemblyNamesItemGroup>
-
-    <!-- When GACUTIL removes the assembly from the GAC, it will also remove the PDB file (copied when DeployPDBsToGac is enabled). -->
-    <Exec Command="&quot;$(Gacutil)&quot; /u &quot;@(SchemaAssemblyNamesGroup)&quot;" Condition="%(Identity) == %(Identity) and '$(IncludeSchemas)' == 'true'" />
-
-
-    <ItemGroupFromSeparatedList SeparatedList="$(Pipelines)" FormatString="$(FullPathFormatString)" ReverseList="true" Condition="'$(IncludePipelines)' == 'true'">
-      <Output TaskParameter="ItemGroup" ItemName="UndeployPipelinesGroup" />
-    </ItemGroupFromSeparatedList>
-
-    <GenerateAssemblyNamesItemGroup SourceAssemblies="@(UndeployPipelinesGroup)" Condition="'$(IncludePipelines)' == 'true'">
-      <Output TaskParameter="AssemblyNamesItemGroup" ItemName="PipelineAssemblyNamesGroup" />
-    </GenerateAssemblyNamesItemGroup>
-
-    <!-- When GACUTIL removes the assembly from the GAC, it will also remove the PDB file (copied when DeployPDBsToGac is enabled). -->
-    <Exec Command="&quot;$(Gacutil)&quot; /u &quot;@(PipelineAssemblyNamesGroup)&quot;" Condition="%(Identity) == %(Identity) and '$(IncludePipelines)' == 'true'" />
-
-
-    <ItemGroupFromSeparatedList SeparatedList="$(Transforms)" FormatString="$(FullPathFormatString)" ReverseList="true" Condition="'$(IncludeTransforms)' == 'true'">
-      <Output TaskParameter="ItemGroup" ItemName="UndeployTransformsGroup" />
-    </ItemGroupFromSeparatedList>
-
-    <GenerateAssemblyNamesItemGroup SourceAssemblies="@(UndeployTransformsGroup)" Condition="'$(IncludeTransforms)' == 'true'">
-      <Output TaskParameter="AssemblyNamesItemGroup" ItemName="TransformAssemblyNamesGroup" />
-    </GenerateAssemblyNamesItemGroup>
-
-    <!-- When GACUTIL removes the assembly from the GAC, it will also remove the PDB file (copied when DeployPDBsToGac is enabled). -->
-    <Exec Command="&quot;$(Gacutil)&quot; /u &quot;@(TransformAssemblyNamesGroup)&quot;" Condition="%(Identity) == %(Identity) and '$(IncludeTransforms)' == 'true'" />
-
-
-    <ItemGroupFromSeparatedList SeparatedList="$(Orchestrations)" FormatString="$(FullPathFormatString)" ReverseList="true" Condition="'$(IncludeOrchestrations)' == 'true'">
-      <Output TaskParameter="ItemGroup" ItemName="UndeployOrchestrationsGroup" />
-    </ItemGroupFromSeparatedList>
-
-    <GenerateAssemblyNamesItemGroup SourceAssemblies="@(UndeployOrchestrationsGroup)" Condition="'$(IncludeOrchestrations)' == 'true'">
-      <Output TaskParameter="AssemblyNamesItemGroup" ItemName="OrchestrationAssemblyNamesGroup" />
-    </GenerateAssemblyNamesItemGroup>
-
-    <!-- When GACUTIL removes the assembly from the GAC, it will also remove the PDB file (copied when DeployPDBsToGac is enabled). -->
-    <Exec Command="&quot;$(Gacutil)&quot; /u &quot;@(OrchestrationAssemblyNamesGroup)&quot;" Condition="%(Identity) == %(Identity) and '$(IncludeOrchestrations)' == 'true'" />
-  </Target>
-
-  <PropertyGroup>
-    <UpdateOrchestrationsDependsOn>
-      InitUpdateOrchestration;
-      FrameworkInitialize;
-      DeploySchemas;
-      DeployComponents;
-      DeployPipelines;
-      DeployPipelineComponents;
-      DeployTransforms;
-      DeployOrchestrations;
-      DeployCustomFunctoids;
-      DeploySSO;
-      BounceBizTalk
-    </UpdateOrchestrationsDependsOn>
-  </PropertyGroup>
-
-  <!-- This is a target you may want to create an external tool for in VS.NET - if you haven't changed any of the
-       ports in your orchestration, you can simply replace the orchestration assembly in the GAC and bounce the service.
-       This is much faster than a full redeploy, and speeds the edit/run/debug cycle quite a bit. 
-       A similar thing can be done for the components assembly, SSO configuration and other items. -->
-  <Target Name="UpdateOrchestration" DependsOnTargets="$(UpdateOrchestrationsDependsOn)" />
-
-  <Target Name="InitUpdateOrchestration">
-    <CreateProperty Value="false">
-      <Output TaskParameter="Value" PropertyName="DeployBizTalkMgmtDB" />
-    </CreateProperty>
-  </Target>
-
-  <PropertyGroup>
-    <DeployDependsOn>
-      FrameworkInitialize;
-      PreprocessBindings;
-      PreprocessFiles;
-      PreprocessLog4netFile;
-      CustomDeployTarget;
-      DeployAppDefinition;
-      DeploySchemas;
-      DeployComponents;
-      DeployPipelineComponents;
-      DeployPipelines;
-      DeployTransforms;
-      DeployOrchestrations;
-      DeployAndStartPorts;
-      DeployVDirs;
-      DeployVocabAndRules;
-      DeployCustomFunctoids;
-      DeploySSO;
-      DeployBtsNtSvcExeConfig;
-      DeployBam;
-      StartApplication;
-      CustomPostDeployTarget;
-      BounceBizTalk
-    </DeployDependsOn>
-
-    <UndeployDependsOn>
-      FrameworkInitialize;
-      CustomUndeployTarget;
-      UndeployBam;
-      UndeployBtsNtSvcExeConfig;
-      UndeploySchemas;
-      UndeployOrchestrations;
-      UndeployTransforms;
-      UndeployPipelines;
-      UndeployPipelineComponents;
-      UndeployComponents;
-      UndeployVDirs;
-      UndeployVocabAndRules;
-      UndeployCustomFunctoids;
-      UndeploySSO;
-      UndeployAppDefinition;
-      CustomPostUndeployTarget;
-      BounceBizTalk
-    </UndeployDependsOn>
-  </PropertyGroup>
-
-  <!-- Master dependency list for deploying, including BizTalk management database. -->
-  <Target Name="DevDeploy" DependsOnTargets="$(DeployDependsOn)" />
-
-  <!-- Master dependency list for undeploying, including BizTalk management database. -->
-  <Target Name="DevUndeploy" DependsOnTargets="$(UndeployDependsOn)" />
-
-  <Target Name="Deploy">
-    <CallTarget Targets="DevDeploy" Condition="'$(Configuration)' != 'Server'" />
-    <CallTarget Targets="ServerDeploy" Condition="'$(Configuration)' == 'Server'" />
-  </Target>
-
-  <Target Name="Undeploy">
-    <CallTarget Targets="DevUndeploy" Condition="'$(Configuration)' != 'Server'" />
-    <CallTarget Targets="ServerUndeploy" Condition="'$(Configuration)' == 'Server'" />
-  </Target>
-
-  <PropertyGroup>
-    <FrameworkInitializeDependsOn>
-      Bootstrap;
-      SetWinVer;
-      GetSoftwarePaths;
-      ExportSettings;
-      SetPropertiesFromEnvironmentSettings;
-      ConditionalHostStop;
-      InitializeAppName;
-      InitLog4netFile;
-      InitFullPathFormatString
-    </FrameworkInitializeDependsOn>
-  </PropertyGroup>
-
-  <Target Name="FrameworkInitialize" DependsOnTargets="$(FrameworkInitializeDependsOn)" />
-
-  <Target Name="Bootstrap">
-    <GetParentPath Path="$(MSBuildProjectDirectory)">
-      <Output TaskParameter="ParentPath" PropertyName="MSBuildProjectDirectoryParent" />
-    </GetParentPath>
-
-  </Target>
-
-  <Target Name="GetSoftwarePaths">
-    <GetFrameworkPath>
-      <Output TaskParameter="Path" PropertyName="FrameworkDir" />
-    </GetFrameworkPath>
-    <Message Text="Using .NET Framework Install Path '$(FrameworkDir)'." />
-
-    <!-- Used for copying pipeline components to the correct directory, among other things.
-        This registry key is unchanged between BizTalk 2004 and BizTalk 2006. -->
-    <Registry.GetKey RegistryHive="LocalMachine" Key="SOFTWARE\Microsoft\BizTalk Server\3.0" Value="InstallPath">
-      <Output TaskParameter="Data" PropertyName="BtsDir"/>
-    </Registry.GetKey>
-    <Message Text="Using BizTalk Install Path '$(BtsDir)'." />
-
-    <Registry.GetKey RegistryHive="LocalMachine" Key="SOFTWARE\DeploymentFrameworkForBizTalk\5.0" Value="InstallPath" ContinueOnError="false"
-                     Condition="'$(Configuration)' != 'Server'">
-      <Output TaskParameter="Data" PropertyName="DeploymentFrameworkRootDir"/>
-    </Registry.GetKey>
-    <CreateProperty Value="$(MSBuildProjectDirectory)\" Condition="'$(Configuration)' == 'Server'">
-      <Output TaskParameter="Value" PropertyName="DeploymentFrameworkRootDir" />
-    </CreateProperty>
-    <Message Text="Using Deployment Framework Install Path '$(DeploymentFrameworkRootDir)'." />
-
-    <CreateProperty Value="$(DeploymentFrameworkRootDir)Framework">
-      <Output TaskParameter="Value" PropertyName="DeploymentFrameworkDir" />
-    </CreateProperty>
-
-    <CreateProperty Value="$(DeploymentFrameworkRootDir)Developer">
-      <Output TaskParameter="Value" PropertyName="DeploymentFrameworkDeveloperDir" />
-    </CreateProperty>
-
-    <CreateProperty Value="$(DeploymentFrameworkDir)\DeployTools" Condition="'$(DeployTools)' == ''">
-      <Output TaskParameter="Value" PropertyName="DeployTools" />
-    </CreateProperty>
-    <Message Text="Using Deployment Framework Tools Path '$(DeployTools)'." />
-
-    <CreateProperty Value="$(windir)\system32\iisext.vbs" Condition="Exists('$(windir)\system32\iisext.vbs')">
-      <Output TaskParameter="Value" PropertyName="IisExtVbs" />
-    </CreateProperty>
-    <CreateProperty Value="$(DeployTools)\iisext.vbs" Condition="!Exists('$(windir)\system32\iisext.vbs')">
-      <Output TaskParameter="Value" PropertyName="IisExtVbs" />
-    </CreateProperty>
-
-    <CreateProperty Value="$(DeployTools)\gacutil.exe" Condition="'$(Gacutil)' == ''">
-      <Output TaskParameter="Value" PropertyName="Gacutil" />
-    </CreateProperty>
-
-    <CreateProperty Value="cscript.exe" Condition="'$(Is64bitOS)' == 'false' and '$(Cscript)' == ''">
-      <Output TaskParameter="Value" PropertyName="Cscript" />
-    </CreateProperty>
-    <!-- Use 64 bit cscript.exe if on 64 bit windows -->
-    <CreateProperty Value="$(DeployTools)\cscript64.exe" Condition="'$(Is64bitOS)' == 'true' and '$(Cscript)' == ''">
-      <Output TaskParameter="Value" PropertyName="Cscript" />
-    </CreateProperty>
-  </Target>
-
-  <Target Name="InitSettingsFilePath" Condition="'$(SettingsFilePath)' == ''">
-    <!-- Use either the settings file that comes from SetEnvUI, or devl/local settings if doing workstation deployment. -->
-    <CreateProperty Value="$(ENV_SETTINGS)" Condition="'$(Configuration)' == 'Server' and '$(ENV_SETTINGS)' != ''">
-      <Output TaskParameter="Value" PropertyName="SettingsFilePath" />
-    </CreateProperty>
-
-    <CreateProperty Value="$(DeveloperPreProcessSettings)" Condition="('$(Configuration)' == 'Debug' or '$(Configuration)' == 'Release') and '$(DeveloperPreProcessSettings)' != ''">
-      <Output TaskParameter="Value" PropertyName="SettingsFilePath" />
-    </CreateProperty>
-
-    <CreateProperty Value="$(MSBuildProjectDirectory)\EnvironmentSettings\DEV.xml" Condition="('$(Configuration)' == 'Debug' or '$(Configuration)' == 'Release') and '$(DeveloperPreProcessSettings)' == ''">
-      <Output TaskParameter="Value" PropertyName="SettingsFilePath" />
-    </CreateProperty>
-
-    <Message Text="Using settings file $(SettingsFilePath)" />
-  </Target>
-
-  <Target Name="InitializeAppName" Condition="'$(BizTalkAppName)' == ''">
-    <CreateProperty Value="$(ProjectName)_$(ProjectVersion)" Condition="'$(EnableSideBySide)' == 'true'">
-      <Output TaskParameter="Value" PropertyName="BizTalkAppName" />
-    </CreateProperty>
-    <CreateProperty Value="$(ProjectName)" Condition="'$(EnableSideBySide)' != 'true'">
-      <Output TaskParameter="Value" PropertyName="BizTalkAppName" />
-    </CreateProperty>
-    <Message Text="BizTalk Application Name is $(BizTalkAppName)" />
-  </Target>
-
-  <!-- This target sets the FullPathFormatString property with a full path to a binary based on whether we are doing
-       a debug deploy, release deploy, or server deploy as a result of a formal installation. -->
-  <Target Name="InitFullPathFormatString" DependsOnTargets="Bootstrap">
-    <!-- Creates correct path formulation based on type of deployment. -->
-    <CreateProperty Value="$(MSBuildProjectDirectoryParent)\{0}\bin\debug\{0}.dll" Condition="'$(Configuration)' == 'Debug'">
-      <Output TaskParameter="Value" PropertyName="FullPathFormatString" />
-    </CreateProperty>
-
-    <CreateProperty Value="$(MSBuildProjectDirectoryParent)\{0}\bin\release\{0}.dll" Condition="'$(Configuration)' == 'Release'">
-      <Output TaskParameter="Value" PropertyName="FullPathFormatString" />
-    </CreateProperty>
-
-    <CreateProperty Value="$(MSBuildProjectDirectoryParent)\{0}.dll" Condition="'$(Configuration)' == 'Server'">
-      <Output TaskParameter="Value" PropertyName="FullPathFormatString" />
-    </CreateProperty>
-
-    <Message Text="Using custom directory..." Condition="'$(UseCustomDirs)' == 'true'" />
-    <CreateProperty Value="$(MSBuildProjectDirectoryParent)\{0}" Condition="'$(UseCustomDirs)' == 'true'">
-      <Output TaskParameter="Value" PropertyName="FullPathFormatString" />
-    </CreateProperty>
-  </Target>
-
-  <Target Name="InitLog4netFile" DependsOnTargets="Bootstrap">
-    <CreateItem Include="$(MSBuildProjectDirectoryParent)\$(ProjectName).log4net">
-      <Output TaskParameter="Include" ItemName="Log4netFile"/>
-    </CreateItem>
-  </Target>
-
-  <ItemGroup>
-    <AllPatternAssignmentRule Include="*">
-      <AssemblyNamePattern>$(ProjectName).*</AssemblyNamePattern>
-    </AllPatternAssignmentRule>
-  </ItemGroup>
-
-  <Target Name="DeployBtsNtSvcExeConfig" Condition="'$(UseIsolatedAppDomain)' == 'true'">
-    <UpdateBizTalkAppDomainConfig AppDomainName="$(BizTalkAppName)" PatternAssignmentRules="@(AllPatternAssignmentRule)" />
-  </Target>
-
-  <Target Name="UndeployBtsNtSvcExeConfig" Condition="'$(UseIsolatedAppDomain)' == 'true'">
-    <UpdateBizTalkAppDomainConfig AppDomainName="$(BizTalkAppName)" Remove="true" />
-  </Target>
-
-  <Target Name="SetPropertiesFromEnvironmentSettings" Condition="'$(PropsFromEnvSettings)' != ''" DependsOnTargets="InitSettingsFilePath">
-    <!--
-    Takes a comma separated list of properties and obtains their value from the settings file
-    specified through $ENV_SETTINGS, typically passed by SetEnvUI.
-    -->
-
-    <Message Text="Setting properties from environment settings file ($(SettingsFilePath))" Condition="'$(SettingsFilePath)' != ''" />
-
-    <ItemGroupFromSeparatedList SeparatedList="$(PropsFromEnvSettings)" FormatString="{0}" ReverseList="false">
-      <Output TaskParameter="ItemGroup" ItemName="PropsFromEnvSettingsGroup" />
-    </ItemGroupFromSeparatedList>
-
-    <SetPropFromEnvSetting
-      SettingsFilePath="$(SettingsFilePath)"
-      XPath="/settings/property[@name='@(PropsFromEnvSettingsGroup)']"
-      Identity="%(Identity)"
-      Condition="'$(SettingsFilePath)' != ''">
-      <Output TaskParameter="Value" PropertyName="@(PropsFromEnvSettingsGroup)" />
-    </SetPropFromEnvSetting>
-  </Target>
-
-  <Target Name="ConditionalHostStop" Condition="'$(DeployPDBsToGac)' == 'true' and '$(SkipUndeploy)' == 'false'" DependsOnTargets="StopBizTalk">
-    <!-- Since host instance processes will be hanging on to DLLs... -->
-  </Target>
-
-  <Target Name="BounceBizTalk">
-    <!-- Reset BizTalk hosts and IIS -->
-    
-    <!-- An iisreset is needed when doing things with http & the isolated host, since your binaries will be loaded into 
-            dllhost.exe proceses. -->
-    <Exec Command="iisreset.exe /noforce /restart /timeout:$(IisResetTime)" Condition="'$(SkipIISReset)' == 'false'" />
-
-    <CallTarget Targets="BounceAllBizTalkHosts" Condition="'$(BizTalkHosts)' == 'ALL'" />
-    <CallTarget Targets="BounceSelectedBizTalkHosts" Condition="'$(BizTalkHosts)' != 'ALL'" />
-  </Target>
-
-  <Target Name="StopBizTalk">
-    <!-- An iisreset is needed when doing things with http & the isolated host, since your binaries will be loaded into 
-            dllhost.exe or inetinfo.exe proceses. -->
-    <Exec Command="iisreset.exe /noforce /stop /timeout:$(IisResetTime)" Condition="'$(SkipIISReset)' == 'false'" />
-
-    <CallTarget Targets="StopAllBizTalkHosts" Condition="'$(BizTalkHosts)' == 'ALL'" />
-    <CallTarget Targets="StopSelectedBizTalkHosts" Condition="'$(BizTalkHosts)' != 'ALL'" />
-  </Target>
-
-  <Target Name="StopAllBizTalkHosts" DependsOnTargets="GetSoftwarePaths">
-    <Message Text="Host list (BizTalkHosts property) not customized." />
-    <Exec Command="&quot;$(Cscript)&quot; /nologo &quot;$(DeployTools)\StopBizTalkHost.vbs&quot; ALL" />
-  </Target>
-
-  <Target Name="StopSelectedBizTalkHosts" DependsOnTargets="GetSoftwarePaths">
-    <ItemGroupFromSeparatedList SeparatedList="$(BizTalkHosts)" FormatString="{0}" ReverseList="false">
-      <Output TaskParameter="ItemGroup" ItemName="StopHostsGroup" />
-    </ItemGroupFromSeparatedList>
-    <Exec Command="&quot;$(Cscript)&quot; /nologo &quot;$(DeployTools)\StopBizTalkHost.vbs&quot; @(StopHostsGroup)" Condition="%(Identity) == %(Identity)" />
-  </Target>
-
-  <Target Name="BounceAllBizTalkHosts" DependsOnTargets="GetSoftwarePaths">
-    <Message Text="Host list (BizTalkHosts property) not customized." />
-    <Exec Command="&quot;$(Cscript)&quot; /nologo &quot;$(DeployTools)\BounceBizTalkHost.vbs&quot; ALL" />
-  </Target>
-
-  <Target Name="BounceSelectedBizTalkHosts" DependsOnTargets="GetSoftwarePaths">
-    <ItemGroupFromSeparatedList SeparatedList="$(BizTalkHosts)" FormatString="{0}" ReverseList="false">
-      <Output TaskParameter="ItemGroup" ItemName="BounceHostsGroup" />
-    </ItemGroupFromSeparatedList>
-    <Exec Command="&quot;$(Cscript)&quot; /nologo &quot;$(DeployTools)\BounceBizTalkHost.vbs&quot; @(BounceHostsGroup)" Condition="%(Identity) == %(Identity)" />
-  </Target>
-
-  <ItemGroup>
-    <PortBindingsFile Include="$(PortBindings)" />
-  </ItemGroup>
-
-  <PropertyGroup>
-    <PreprocessBindingsDependsOn>
-      Bootstrap;
-      GetSoftwarePaths;
-      ExportSettings;
-      SetPropertiesFromEnvironmentSettings;
-      InitializeAppName;
-    </PreprocessBindingsDependsOn>
-  </PropertyGroup>
-
-  <Target Name="PreprocessBindings" Condition="'$(IncludeMessagingBindings)' == 'true'" DependsOnTargets="$(PreprocessBindingsDependsOn)">
-    <CreateProperty Value="$(PortBindings)" Condition="'$(UsingMasterBindings)' == 'false'">
-      <Output TaskParameter="Value" PropertyName="SourceBindingFile" />
-    </CreateProperty>
-    <CreateProperty Value="$(PortBindingsMaster)" Condition="'$(UsingMasterBindings)' == 'true'">
-      <Output TaskParameter="Value" PropertyName="SourceBindingFile" />
-    </CreateProperty>
-
-    <!-- in case readonly from version control -->
-    <MakeFilesWriteable InputFiles="@(PortBindingsFile)" />
-    <Exec
-      Command="&quot;$(DeployTools)\xmlpreprocess.exe&quot; /c /i:&quot;$(MSBuildProjectDirectory)\$(SourceBindingFile)&quot; /o:&quot;$(MSBuildProjectDirectory)\$(PortBindings)&quot; /d:CurDir=&quot;$(MSBuildProjectDirectoryParent)&quot; /s:&quot;$(SettingsFilePath)&quot;"
-      ContinueOnError="false" />
-
-    <!-- Update the app name in the bindings file -->
-    <XmlFile.SetValue Path="$(PortBindings)" XPath="//ApplicationName" Value="$(BizTalkAppName)" IgnoreNoMatchFailure="true" Force="true" />
-
-    <PrependToBindingPortNames StringToPrepend="$(BizTalkAppName)" BindingFilePath="$(MSBuildProjectDirectory)\$(PortBindings)" Condition="'$(EnableSideBySide)' == 'true' and '$(DisableAutomaticPortNameVersioning)' == 'false'" />
-
-    <Exec
-      Command="&quot;$(DeployTools)\ElementTunnel.exe&quot; /i:&quot;$(MSBuildProjectDirectory)\$(PortBindings)&quot; /o:&quot;$(MSBuildProjectDirectory)\$(PortBindings)&quot; /x:&quot;$(DeployTools)\adapterXPaths.txt&quot; /encode+"
-      ContinueOnError="false"
-      Condition="'$(ApplyXmlEscape)' == 'true'" />
-  </Target>
-
-  <Target Name="PreprocessLog4netFile" DependsOnTargets="InitLog4netFile;GetSoftwarePaths" Condition="'$(Includelog4net)' == 'true'">
-    <!-- preprocess log4net file -->
-    <!-- in case readonly from version control -->
-    <MakeFilesWriteable InputFiles="@(Log4netFile)" />
-    <Exec
-	    Command="&quot;$(DeployTools)\xmlpreprocess.exe&quot; /i:&quot;@(Log4netFile)&quot; /o:&quot;@(Log4netFile)&quot; /d:CurDir=&quot;$(MSBuildProjectDirectoryParent)&quot; /s:&quot;$(SettingsFilePath)&quot;"
-	    ContinueOnError="false" />
-  </Target>
-
-  <Target Name="PreprocessFiles" DependsOnTargets="InitSettingsFilePath;GetSoftwarePaths" Condition="'$(FilesToXmlPreprocess)' != ''">
-    <ItemGroupFromSeparatedList SeparatedList="$(FilesToXmlPreprocess)" FormatString="$(MSBuildProjectDirectory)\{0}" ReverseList="false">
-      <Output TaskParameter="ItemGroup" ItemName="XmlPreprocessGroup" />
-    </ItemGroupFromSeparatedList>
-
-    <!-- in case readonly from version control -->
-    <MakeFilesWriteable InputFiles="@(XmlPreprocessGroup)" />
-    <Exec
-	    Command="&quot;$(DeployTools)\xmlpreprocess.exe&quot; /i:&quot;@(XmlPreprocessGroup)&quot; /o:&quot;@(XmlPreprocessGroup)&quot; /d:CurDir=&quot;$(MSBuildProjectDirectoryParent)&quot; /s:&quot;$(SettingsFilePath)&quot;"
-	    ContinueOnError="false"
-      Condition="%(Identity) == %(Identity)"/>
-  </Target>
-
-  <!-- If the script that includes this include file would like to supply custom functionality when deploying
-        and undeploying, they will supply CustomDeployTarget and CustomUndeployTarget (and/or CustomPostDeployTarget
-        and CustomPostUndeployTarget)
-   -->
-  <!-- Redefine in project file if required -->
-  <Target Name="CustomDeployTarget" />
-  <Target Name="CustomUndeployTarget" />
-  <Target Name="CustomPostDeployTarget" />
-  <Target Name="CustomPostUndeployTarget" />
-  <Target Name="CustomSSO" />
-
-  <Target Name="DeployAppDefinition" DependsOnTargets="UndeployAppDefinition">
-    <!-- Create BizTalk 2006 application definition -->
-    <ItemGroupFromSeparatedList SeparatedList="$(AppsToReference)" FormatString="{0}" ReverseList="false" Condition="'$(AppsToReference)' != ''">
-      <Output TaskParameter="ItemGroup" ItemName="DeployAppRefsGroup" />
-    </ItemGroupFromSeparatedList>
-
-    <Exec Command="BTSTask.exe AddApp -ApplicationName:$(BizTalkAppName) -Description:&quot;$(ProjectName)&quot;" />
-    <AddAppReference ApplicationName="$(BizTalkAppName)" AppsToReference="@(DeployAppRefsGroup)" Condition="%(Identity) == %(Identity) and '$(AppsToReference)' != ''" />
-  </Target>
-
-  <Target Name="UndeployAppDefinition" Condition="'$(SkipUndeploy)' == 'false'">
-    <!-- Remove BizTalk 2006 application definition -->
-
-    <GetBizTalkAppExists ApplicationName="$(BizTalkAppName)">
-      <Output TaskParameter="AppExists" PropertyName="AppExists" />
-    </GetBizTalkAppExists>
-
-    <CheckForServiceInstances Application="$(BizTalkAppName)" Condition="'$(AppExists)' == 'true'" />
-
-    <ControlBizTalkApp ApplicationName="$(BizTalkAppName)" StopOption="DisableAllReceiveLocations,UndeployAllPolicies,UnenlistAllOrchestrations,UnenlistAllSendPortGroups,UnenlistAllSendPorts" Condition="'$(AppExists)' == 'true'" ContinueOnError="true" />
-    <Exec Command="BTSTask.exe RemoveApp -ApplicationName:$(BizTalkAppName)" Condition="'$(AppExists)' == 'true'" ContinueOnError="true"/>
-  </Target>
-
-  <Target Name="DeploySchemas" DependsOnTargets="UndeploySchemas" Condition="'$(IncludeSchemas)' == 'true'">
-    <!-- Deploy schema assemblies. -->
-
-    <ItemGroupFromSeparatedList SeparatedList="$(Schemas)" FormatString="$(FullPathFormatString)" ReverseList="false">
-      <Output TaskParameter="ItemGroup" ItemName="DeploySchemasGroup" />
-    </ItemGroupFromSeparatedList>
-
-    <Exec
-      Command="BTSTask.exe AddResource -Type:BizTalkAssembly -Source:&quot;@(DeploySchemasGroup)&quot; -ApplicationName:$(BizTalkAppName) -Options:GacOnAdd,GacOnImport,GacOnInstall"
-      Condition="%(Identity) == %(Identity) and '$(DeployBizTalkMgmtDB)' == 'true'" />
-    
-    <Exec Command="&quot;$(Gacutil)&quot; /i &quot;@(DeploySchemasGroup)&quot;"
-          Condition="%(Identity) == %(Identity) and '$(DeployBizTalkMgmtDB)' == 'false'" />
-  </Target>
-
-  <Target Name="UndeploySchemas" 
-     DependsOnTargets="UndeployOrchestrations;UndeployTransforms" Condition="'$(IncludeSchemas)' == 'true' and '$(SkipUndeploy)' != 'true'">
-    <!-- Undeploy schema assemblies. -->
-
-    <ItemGroupFromSeparatedList SeparatedList="$(Schemas)" FormatString="$(FullPathFormatString)" ReverseList="true">
-      <Output TaskParameter="ItemGroup" ItemName="UndeploySchemasGroup" />
-    </ItemGroupFromSeparatedList>
-
-    <!--
-      Use the assembly's display name to remove the specific assembly from the GAC.
-      If the version is not specified, gacutil removes all assemblies from the GAC that match on
-      the filename, even if they have different strong names.
-    -->
-    <GenerateAssemblyNamesItemGroup SourceAssemblies="@(UndeploySchemasGroup)">
-      <Output TaskParameter="AssemblyNamesItemGroup" ItemName="SchemaAssemblyNamesGroup" />
-    </GenerateAssemblyNamesItemGroup>
-
-    <!-- When GACUTIL removes the assembly from the GAC, it will also remove the PDB file (copied when DeployPDBsToGac is enabled). -->
-    <Exec Command="&quot;$(Gacutil)&quot; /u &quot;@(SchemaAssemblyNamesGroup)&quot;" Condition="%(Identity) == %(Identity)" />
-  </Target>
-
-  <Target Name="DeployOrchestrations" Condition="'$(IncludeOrchestrations)' == 'true'">
-    <!-- Deploy orchestration assemblies. -->
-
-    <ItemGroupFromSeparatedList SeparatedList="$(Orchestrations)" FormatString="$(FullPathFormatString)" ReverseList="false">
-      <Output TaskParameter="ItemGroup" ItemName="DeployOrchestrationsGroup" />
-    </ItemGroupFromSeparatedList>
-
-    <Exec
-      Command="BTSTask.exe AddResource -Type:BizTalkAssembly -Source:&quot;@(DeployOrchestrationsGroup)&quot; -ApplicationName:$(BizTalkAppName) -Options:GacOnAdd,GacOnImport,GacOnInstall"
-      Condition="%(Identity) == %(Identity) and '$(DeployBizTalkMgmtDB)' == 'true'" />
-
-    <Exec Command="&quot;$(Gacutil)&quot; /i &quot;@(DeployOrchestrationsGroup)&quot;"
-          Condition="%(Identity) == %(Identity) and '$(DeployBizTalkMgmtDB)' == 'false'" />
-
-    <!-- Deploy PDBS to gac. This likely won't work with custom directories - a little more work required yet -->
-    <GeneratePdbCopyItemGroups SourceAssemblies="@(DeployOrchestrationsGroup)" Condition="'$(DeployPDBsToGac)' == 'true'">
-      <Output TaskParameter="SourceItemGroup" ItemName="PdbSourceFilesGroup" />
-      <Output TaskParameter="DestinationItemGroup" ItemName="PdbDestinationFilesGroup" />
-    </GeneratePdbCopyItemGroups>
-    <Copy SourceFiles="@(PdbSourceFilesGroup)" DestinationFiles="@(PdbDestinationFilesGroup)" Condition="'$(DeployPDBsToGac)' == 'true'" />
-  </Target>
-
-  <Target Name="UndeployOrchestrations" Condition="'$(IncludeOrchestrations)' == 'true' and '$(SkipUndeploy)' == 'false'">
-    <!-- Undeploy orchestration assemblies. -->
-
-    <ItemGroupFromSeparatedList SeparatedList="$(Orchestrations)" FormatString="$(FullPathFormatString)" ReverseList="true">
-      <Output TaskParameter="ItemGroup" ItemName="UndeployOrchestrationsGroup" />
-    </ItemGroupFromSeparatedList>
-
-    <!--
-      Use the assembly's display name to remove the specific assembly from the GAC.
-      If the version is not specified, gacutil removes all assemblies from the GAC that match on
-      the filename, even if they have different strong names.
-    -->
-    <GenerateAssemblyNamesItemGroup SourceAssemblies="@(UndeployOrchestrationsGroup)">
-      <Output TaskParameter="AssemblyNamesItemGroup" ItemName="OrchestrationAssemblyNamesGroup" />
-    </GenerateAssemblyNamesItemGroup>
-
-    <!-- When GACUTIL removes the assembly from the GAC, it will also remove the PDB file (copied when DeployPDBsToGac is enabled). -->
-    <Exec Command="&quot;$(Gacutil)&quot; /u &quot;@(OrchestrationAssemblyNamesGroup)&quot;" Condition="%(Identity) == %(Identity)" />
-  </Target>
-
-  <!-- This target uses a collection (comma separated list) of component assemblies in the components property.  Likewise for undeployComponents.  -->
-  <Target Name="DeployComponents" Condition="'$(IncludeComponents)' == 'true'" DependsOnTargets="InitLog4netFile;GetSoftwarePaths">
-    <!-- Deploy components to the gac. -->
-
-    <ItemGroupFromSeparatedList SeparatedList="$(Components)" FormatString="$(FullPathFormatString)" ReverseList="false">
-      <Output TaskParameter="ItemGroup" ItemName="DeployComponentsGroup" />
-    </ItemGroupFromSeparatedList>
-
-    <Exec Command="&quot;$(Gacutil)&quot; /i &quot;@(DeployComponentsGroup)&quot;" Condition="%(Identity) == %(Identity)" />
-
-    <!-- Deploy PDBS to gac. This likely won't work with custom directories - a little more work required yet -->
-    <GeneratePdbCopyItemGroups SourceAssemblies="@(DeployComponentsGroup)" Condition="'$(DeployPDBsToGac)' == 'true'">
-      <Output TaskParameter="SourceItemGroup" ItemName="PdbSourceFilesGroup" />
-      <Output TaskParameter="DestinationItemGroup" ItemName="PdbDestinationFilesGroup" />
-    </GeneratePdbCopyItemGroups>
-    <Copy SourceFiles="@(PdbSourceFilesGroup)" DestinationFiles="@(PdbDestinationFilesGroup)" Condition="'$(DeployPDBsToGac)' == 'true'" />
-
-    <Exec
-      Command="$(FrameworkDir)\installutil.exe /ShowCallStack &quot;@(DeployComponentsGroup)&quot;"
-      Condition="'$(IncludeInstallUtilForComponents)' == 'true' and %(Identity) == %(Identity)" />
-
-    <Exec
-      Command="BTSTask.exe AddResource -Type:Assembly -Source:&quot;@(DeployComponentsGroup)&quot; -ApplicationName:$(BizTalkAppName) -Options:GacOnImport,GacOnInstall"
-      Condition="'$(IncludeCompsAndVDirsAsResources)' == 'true' and %(Identity) == %(Identity) and '$(DeployBizTalkMgmtDB)' == 'true'" />
-
-    <!-- Write registry key with location of our log4net configuration file. -->
-    <!-- Note: If you're doing 32 bit hosts on win64, hard code this to cscript.exe rather than using macro. -->
-    <Exec
-      Command="&quot;$(Cscript)&quot; /nologo &quot;$(DeployTools)\WriteRegValue.vbs&quot; $(Log4netRegKey) &quot;@(Log4netFile)&quot;"
-      Condition="'$(Includelog4net)' == 'true'" />
-
-    <!--
-      Deploy additional assemblies.  We aren't undeploying them since they are shared components,
-      though this could be debated.
-    -->
-    <ItemGroupFromSeparatedList SeparatedList="$(AdditionalAssemblies)" FormatString="$(DeployTools)\{0}.dll" ReverseList="false">
-      <Output TaskParameter="ItemGroup" ItemName="DeployAdditionalAssembliesGroup" />
-    </ItemGroupFromSeparatedList>
-
-    <Exec Command="&quot;$(Gacutil)&quot; /i &quot;@(DeployAdditionalAssembliesGroup)&quot;" Condition="%(Identity) == %(Identity)" />
-
-    <Exec
-      Command="BTSTask.exe AddResource -Type:Assembly -Source:&quot;@(DeployAdditionalAssembliesGroup)&quot; -ApplicationName:$(BizTalkAppName) -Options:GacOnImport,GacOnInstall"
-      Condition="'$(IncludeCompsAndVDirsAsResources)' == 'true' and %(Identity) == %(Identity) and '$(DeployBizTalkMgmtDB)' == 'true'" />
-
-    <!--
-      Deploy external dependencies.
-    -->
-    <ItemGroupFromSeparatedList SeparatedList="$(ExternalAssemblies)" FormatString="$(ExternalAssembliesPath)\{0}" ReverseList="false" Condition="'$(ExternalAssemblies)' != ''">
-      <Output TaskParameter="ItemGroup" ItemName="DeployExternalAssembliesGroup" />
-    </ItemGroupFromSeparatedList>
-
-    <Exec Command="&quot;$(Gacutil)&quot; /i &quot;@(DeployExternalAssembliesGroup)&quot;" Condition="'$(ExternalAssemblies)' != '' and %(Identity) == %(Identity)" />
-
-    <Exec
-      Command="BTSTask.exe AddResource -Type:Assembly -Source:&quot;@(DeployExternalAssembliesGroup)&quot; -ApplicationName:$(BizTalkAppName) -Options:GacOnImport,GacOnInstall"
-      Condition="'$(ExternalAssemblies)' != '' and '$(IncludeCompsAndVDirsAsResources)' == 'true' and %(Identity) == %(Identity) and '$(DeployBizTalkMgmtDB)' == 'true'" />
-  </Target>
-
-  <Target Name="UndeployComponents" Condition="'$(IncludeComponents)' == 'true' and '$(SkipUndeploy)' == 'false'">
-    <!-- Undeploy Component assemblies. -->
-
-    <ItemGroupFromSeparatedList SeparatedList="$(Components)" FormatString="$(FullPathFormatString)" ReverseList="true">
-      <Output TaskParameter="ItemGroup" ItemName="UndeployComponentsGroup" />
-    </ItemGroupFromSeparatedList>
-
-    <!--
-      Use the assembly's display name to remove the specific assembly from the GAC.
-      If the version is not specified, gacutil removes all assemblies from the GAC that match on
-      the filename, even if they have different strong names.
-    -->
-    <GenerateAssemblyNamesItemGroup SourceAssemblies="@(UndeployComponentsGroup)">
-      <Output TaskParameter="AssemblyNamesItemGroup" ItemName="ComponentAssemblyNamesGroup" />
-    </GenerateAssemblyNamesItemGroup>
-
-    <!-- When GACUTIL removes the assembly from the GAC, it will also remove the PDB file (copied when DeployPDBsToGac is enabled). -->
-    <Exec Command="&quot;$(Gacutil)&quot; /u &quot;@(ComponentAssemblyNamesGroup)&quot;" Condition="%(Identity) == %(Identity)" />
-
-    <Exec
-      Command="$(FrameworkDir)\installutil.exe /u /ShowCallStack &quot;@(UndeployComponentsGroup)&quot;"
-      Condition="'$(IncludeInstallUtilForComponents)' == 'true' and %(Identity) == %(Identity)" />
-
-    <!--
-      Undeploy external dependencies.
-    -->
-    <ItemGroupFromSeparatedList SeparatedList="$(ExternalAssemblies)" FormatString="$(ExternalAssembliesPath)\{0}" ReverseList="false" Condition="'$(ExternalAssemblies)' != '' and '$(UndeployExternalAssemblies)' == 'true'">
-      <Output TaskParameter="ItemGroup" ItemName="UndeployExternalAssembliesGroup" />
-    </ItemGroupFromSeparatedList>
-
-    <!--
-      Use the assembly's display name to remove the specific assembly from the GAC.
-      If the version is not specified, gacutil removes all assemblies from the GAC that match on
-      the filename, even if they have different strong names.
-    -->
-    <GenerateAssemblyNamesItemGroup SourceAssemblies="@(UndeployExternalAssembliesGroup)" Condition="'$(UndeployExternalAssemblies)' == 'true' and '$(ExternalAssemblies)' != ''">
-      <Output TaskParameter="AssemblyNamesItemGroup" ItemName="ExternalAssembliesAssemblyNamesGroup" />
-    </GenerateAssemblyNamesItemGroup>
-
-    <Exec Command="&quot;$(Gacutil)&quot; /u &quot;@(ExternalAssembliesAssemblyNamesGroup)&quot;" Condition="'$(UndeployExternalAssemblies)' == 'true' and '$(ExternalAssemblies)' != '' and %(Identity) == %(Identity)" />
-  </Target>
-
-  <Target Name="DeployPipelines" Condition="'$(IncludePipelines)' == 'true'" DependsOnTargets="UndeployPipelines">
-    <!-- Deploy pipeline assemblies. -->
-
-    <ItemGroupFromSeparatedList SeparatedList="$(Pipelines)" FormatString="$(FullPathFormatString)" ReverseList="false">
-      <Output TaskParameter="ItemGroup" ItemName="DeployPipelinesGroup" />
-    </ItemGroupFromSeparatedList>
-
-    <Exec
-      Command="BTSTask.exe AddResource -Type:BizTalkAssembly -Source:&quot;@(DeployPipelinesGroup)&quot; -ApplicationName:$(BizTalkAppName) -Options:GacOnAdd,GacOnImport,GacOnInstall"
-      Condition="%(Identity) == %(Identity) and '$(DeployBizTalkMgmtDB)' == 'true'" />
-
-    <Exec Command="&quot;$(Gacutil)&quot; /i &quot;@(DeployPipelinesGroup)&quot;"
-          Condition="%(Identity) == %(Identity) and '$(DeployBizTalkMgmtDB)' == 'false'" />
-
-    <!-- Deploy PDBS to gac. This likely won't work with custom directories - a little more work required yet -->
-    <GeneratePdbCopyItemGroups SourceAssemblies="@(DeployPipelinesGroup)" Condition="'$(DeployPDBsToGac)' == 'true'">
-      <Output TaskParameter="SourceItemGroup" ItemName="PdbSourceFilesGroup" />
-      <Output TaskParameter="DestinationItemGroup" ItemName="PdbDestinationFilesGroup" />
-    </GeneratePdbCopyItemGroups>
-    <Copy SourceFiles="@(PdbSourceFilesGroup)" DestinationFiles="@(PdbDestinationFilesGroup)" Condition="'$(DeployPDBsToGac)' == 'true'" />
-  </Target>
-
-  <Target Name="UndeployPipelines" DependsOnTargets="UndeployOrchestrations" Condition="'$(IncludePipelines)' == 'true' and '$(SkipUndeploy)' == 'false'">
-    <!-- Undeploy Pipeline assemblies. -->
-
-    <ItemGroupFromSeparatedList SeparatedList="$(Pipelines)" FormatString="$(FullPathFormatString)" ReverseList="true">
-      <Output TaskParameter="ItemGroup" ItemName="UndeployPipelinesGroup" />
-    </ItemGroupFromSeparatedList>
-
-    <!--
-      Use the assembly's display name to remove the specific assembly from the GAC.
-      If the version is not specified, gacutil removes all assemblies from the GAC that match on
-      the filename, even if they have different strong names.
-    -->
-    <GenerateAssemblyNamesItemGroup SourceAssemblies="@(UndeployPipelinesGroup)">
-      <Output TaskParameter="AssemblyNamesItemGroup" ItemName="PipelineAssemblyNamesGroup" />
-    </GenerateAssemblyNamesItemGroup>
-
-    <!-- When GACUTIL removes the assembly from the GAC, it will also remove the PDB file (copied when DeployPDBsToGac is enabled). -->
-    <Exec Command="&quot;$(Gacutil)&quot; /u &quot;@(PipelineAssemblyNamesGroup)&quot;" Condition="%(Identity) == %(Identity)" />
-  </Target>
-
-  <Target Name="DeployPipelineComponents" Condition="'$(IncludePipelineComponents)' == 'true'">
-    <!-- Deploy pipeline components. -->
-
-    <ItemGroupFromSeparatedList SeparatedList="$(PipelineComponents)" FormatString="$(FullPathFormatString)" ReverseList="false">
-      <Output TaskParameter="ItemGroup" ItemName="DeployPipelineComponentsGroup" />
-    </ItemGroupFromSeparatedList>
-
-    <Copy SourceFiles="@(DeployPipelineComponentsGroup)" DestinationFolder="$(BtsDir)Pipeline Components" ContinueOnError="true" />
-
-    <Exec Command="&quot;$(Gacutil)&quot; /i &quot;@(DeployPipelineComponentsGroup)&quot;" Condition="%(Identity) == %(Identity)" />
-
-    <!-- Deploy PDBS to gac. This likely won't work with custom directories - a little more work required yet -->
-    <GeneratePdbCopyItemGroups SourceAssemblies="@(DeployPipelineComponentsGroup)" Condition="'$(DeployPDBsToGac)' == 'true'">
-      <Output TaskParameter="SourceItemGroup" ItemName="PdbSourceFilesGroup" />
-      <Output TaskParameter="DestinationItemGroup" ItemName="PdbDestinationFilesGroup" />
-    </GeneratePdbCopyItemGroups>
-    <Copy SourceFiles="@(PdbSourceFilesGroup)" DestinationFiles="@(PdbDestinationFilesGroup)" Condition="'$(DeployPDBsToGac)' == 'true'" />
-
-    <Exec
-      Command="BTSTask.exe AddResource -Type:Assembly -Source:&quot;@(DeployPipelineComponentsGroup)&quot; -ApplicationName:$(BizTalkAppName) -Options:GacOnImport,GacOnInstall"
-      Condition="'$(IncludeCompsAndVDirsAsResources)' == 'true' and %(Identity) == %(Identity) and '$(DeployBizTalkMgmtDB)' == 'true'" />
-  </Target>
-
-  <Target Name="UndeployPipelineComponents" Condition="'$(IncludePipelineComponents)' == 'true' and '$(SkipUndeploy)' == 'false'">
-    <!-- Undeploy Pipeline Component assemblies. -->
-
-    <!-- To deal with pipeline components loaded in isolated host. -->
-    <Exec Command="iisreset.exe /noforce /restart /timeout:$(IisResetTime)" Condition="'$(SkipIISReset)' == 'false'" />
-
-    <!-- Delete pipeline component assemblies from BizTalk's Pipeline Components folder. -->
-    <ItemGroupFromSeparatedList SeparatedList="$(PipelineComponents)" FormatString="$(BtsDir)Pipeline Components\{0}.dll" ReverseList="true">
-      <Output TaskParameter="ItemGroup" ItemName="DeletePipelineComponentsGroup" />
-    </ItemGroupFromSeparatedList>
-
-    <Delete Files="@(DeletePipelineComponentsGroup)" ContinueOnError="true" />
-
-    <!-- Remove pipeline component assemblies from the GAC. -->
-    <ItemGroupFromSeparatedList SeparatedList="$(PipelineComponents)" FormatString="$(FullPathFormatString)" ReverseList="true">
-      <Output TaskParameter="ItemGroup" ItemName="UndeployPipelineComponentsGroup" />
-    </ItemGroupFromSeparatedList>
-
-    <!--
-      Use the assembly's display name to remove the specific assembly from the GAC.
-      If the version is not specified, gacutil removes all assemblies from the GAC that match on
-      the filename, even if they have different strong names.
-    -->
-    <GenerateAssemblyNamesItemGroup SourceAssemblies="@(UndeployPipelineComponentsGroup)">
-      <Output TaskParameter="AssemblyNamesItemGroup" ItemName="PipelineComponentAssemblyNamesGroup" />
-    </GenerateAssemblyNamesItemGroup>
-
-    <!-- When GACUTIL removes the assembly from the GAC, it will also remove the PDB file (copied when DeployPDBsToGac is enabled). -->
-    <Exec Command="&quot;$(Gacutil)&quot; /u &quot;@(PipelineComponentAssemblyNamesGroup)&quot;" Condition="%(Identity) == %(Identity)" />
-  </Target>
-
-  <Target Name="DeployTransforms" DependsOnTargets="UndeployTransforms" Condition="'$(IncludeTransforms)' == 'true'">
-    <!-- Deploy transform assemblies. -->
-
-    <ItemGroupFromSeparatedList SeparatedList="$(Transforms)" FormatString="$(FullPathFormatString)" ReverseList="false">
-      <Output TaskParameter="ItemGroup" ItemName="DeployTransformsGroup" />
-    </ItemGroupFromSeparatedList>
-
-    <Exec
-      Command="BTSTask.exe AddResource -Type:BizTalkAssembly -Source:&quot;@(DeployTransformsGroup)&quot; -ApplicationName:$(BizTalkAppName) -Options:GacOnAdd,GacOnImport,GacOnInstall"
-      Condition="%(Identity) == %(Identity) and '$(DeployBizTalkMgmtDB)' == 'true'" />
-
-    <Exec Command="&quot;$(Gacutil)&quot; /i &quot;@(DeployTransformsGroup)&quot;"
-          Condition="%(Identity) == %(Identity) and '$(DeployBizTalkMgmtDB)' == 'false'" />
-
-    <!-- Deploy PDBS to gac. This likely won't work with custom directories - a little more work required yet -->
-    <GeneratePdbCopyItemGroups SourceAssemblies="@(DeployTransformsGroup)" Condition="'$(DeployPDBsToGac)' == 'true'">
-      <Output TaskParameter="SourceItemGroup" ItemName="PdbSourceFilesGroup" />
-      <Output TaskParameter="DestinationItemGroup" ItemName="PdbDestinationFilesGroup" />
-    </GeneratePdbCopyItemGroups>
-    <Copy SourceFiles="@(PdbSourceFilesGroup)" DestinationFiles="@(PdbDestinationFilesGroup)" Condition="'$(DeployPDBsToGac)' == 'true'" />
-  </Target>
-
-  <Target Name="UndeployTransforms" DependsOnTargets="UndeployOrchestrations" Condition="'$(IncludeTransforms)' == 'true' and '$(SkipUndeploy)' == 'false'">
-    <!-- Undeploy Transform assemblies. -->
-
-    <ItemGroupFromSeparatedList SeparatedList="$(Transforms)" FormatString="$(FullPathFormatString)" ReverseList="true">
-      <Output TaskParameter="ItemGroup" ItemName="UndeployTransformsGroup" />
-    </ItemGroupFromSeparatedList>
-
-    <!--
-      Use the assembly's display name to remove the specific assembly from the GAC.
-      If the version is not specified, gacutil removes all assemblies from the GAC that match on
-      the filename, even if they have different strong names.
-    -->
-    <GenerateAssemblyNamesItemGroup SourceAssemblies="@(UndeployTransformsGroup)">
-      <Output TaskParameter="AssemblyNamesItemGroup" ItemName="TransformAssemblyNamesGroup" />
-    </GenerateAssemblyNamesItemGroup>
-
-    <!-- When GACUTIL removes the assembly from the GAC, it will also remove the PDB file (copied when DeployPDBsToGac is enabled). -->
-    <Exec Command="&quot;$(Gacutil)&quot; /u &quot;@(TransformAssemblyNamesGroup)&quot;" Condition="%(Identity) == %(Identity)" />
-  </Target>
-
-  <Target Name="DeployCustomFunctoids" Condition="'$(IncludeCustomFunctoids)' == 'true'">
-    <!-- Deploy custom functoids. -->
-    
-    <ItemGroupFromSeparatedList SeparatedList="$(CustomFunctoids)" FormatString="$(FullPathFormatString)" ReverseList="false">
-      <Output TaskParameter="ItemGroup" ItemName="DeployCustomFunctoidsGroup" />
-    </ItemGroupFromSeparatedList>
-
-    <Copy SourceFiles="@(DeployCustomFunctoidsGroup)" DestinationFolder="$(BtsDir)Developer Tools\Mapper Extensions" ContinueOnError="true" />
-
-    <Exec Command="&quot;$(Gacutil)&quot; /i &quot;@(DeployCustomFunctoidsGroup)&quot;" Condition="%(Identity) == %(Identity)" />
-
-    <!-- Deploy PDBS to gac. This likely won't work with custom directories - a little more work required yet -->
-    <GeneratePdbCopyItemGroups SourceAssemblies="@(DeployCustomFunctoidsGroup)" Condition="'$(DeployPDBsToGac)' == 'true'">
-      <Output TaskParameter="SourceItemGroup" ItemName="PdbSourceFilesGroup" />
-      <Output TaskParameter="DestinationItemGroup" ItemName="PdbDestinationFilesGroup" />
-    </GeneratePdbCopyItemGroups>
-    <Copy SourceFiles="@(PdbSourceFilesGroup)" DestinationFiles="@(PdbDestinationFilesGroup)" Condition="'$(DeployPDBsToGac)' == 'true'" />
-
-    <Exec
-      Command="BTSTask.exe AddResource -Type:Assembly -Source:&quot;@(DeployCustomFunctoidsGroup)&quot; -ApplicationName:$(BizTalkAppName) -Options:GacOnImport,GacOnInstall"
-      Condition="'$(IncludeCompsAndVDirsAsResources)' == 'true' and %(Identity) == %(Identity) and '$(DeployBizTalkMgmtDB)' == 'true'" />
-  </Target>
-
-  <Target Name="UndeployCustomFunctoids" Condition="'$(IncludeCustomFunctoids)' == 'true' and '$(SkipUndeploy)' == 'false'">
-    <!-- Undeploy Pipeline Component assemblies. -->
-
-    <!-- Delete pipeline component assemblies from BizTalk's Pipeline Components folder. -->
-    <ItemGroupFromSeparatedList SeparatedList="$(CustomFunctoids)" FormatString="$(BtsDir)Developer Tools\Mapper Extensions\{0}.dll" ReverseList="true">
-      <Output TaskParameter="ItemGroup" ItemName="DeleteCustomFunctoidsGroup" />
-    </ItemGroupFromSeparatedList>
-
-    <Delete Files="@(DeleteCustomFunctoidsGroup)" />
-
-    <!-- Remove pipeline component assemblies from the GAC. -->
-    <ItemGroupFromSeparatedList SeparatedList="$(CustomFunctoids)" FormatString="$(FullPathFormatString)" ReverseList="true">
-      <Output TaskParameter="ItemGroup" ItemName="UndeployCustomFunctoidsGroup" />
-    </ItemGroupFromSeparatedList>
-
-    <!--
-      Use the assembly's display name to remove the specific assembly from the GAC.
-      If the version is not specified, gacutil removes all assemblies from the GAC that match on
-      the filename, even if they have different strong names.
-    -->
-    <GenerateAssemblyNamesItemGroup SourceAssemblies="@(UndeployCustomFunctoidsGroup)">
-      <Output TaskParameter="AssemblyNamesItemGroup" ItemName="CustomFunctoidAssemblyNamesGroup" />
-    </GenerateAssemblyNamesItemGroup>
-
-    <!-- When GACUTIL removes the assembly from the GAC, it will also remove the PDB file (copied when DeployPDBsToGac is enabled). -->
-    <Exec Command="&quot;$(Gacutil)&quot; /u &quot;@(CustomFunctoidAssemblyNamesGroup)&quot;" Condition="%(Identity) == %(Identity)" />
-  </Target>
-
-  <Target Name="DeployVocabAndRules" DependsOnTargets="GetSoftwarePaths" Condition="'$(IncludeVocabAndRules)' == 'true'" >
-    <!-- Deploy vocabularies and rules. -->
-
-    <Exec Condition="'$(RuleVocabulary)' != ''" Command="&quot;$(DeployTools)\DeployBTRules.exe&quot; /ruleSetFile $(RuleVocabulary)" ContinueOnError="true" />
-    <Exec Condition="'$(RulePolicy)' != ''" Command="&quot;$(DeployTools)\DeployBTRules.exe&quot; /ruleSetFile $(RulePolicy) /ruleSetName $(RulePolicyName)" ContinueOnError="true" />
-
-    <ItemGroupFromSeparatedList Condition="'$(Policies)' != ''" SeparatedList="$(Policies)" FormatString="{0}" ReverseList="false">
-      <Output TaskParameter="ItemGroup" ItemName="DeployPoliciesGroup" />
-    </ItemGroupFromSeparatedList>
-
-    <Exec Command="&quot;$(DeployTools)\DeployBTRules.exe&quot; /ruleSetFile @(DeployPoliciesGroup).xml /ruleSetName @(DeployPoliciesGroup)"  Condition="%(Identity) == %(Identity)" ContinueOnError="true" />
-  </Target>
-
-  <Target Name="UndeployVocabAndRules" DependsOnTargets="GetSoftwarePaths" Condition="'$(IncludeVocabAndRules)' == 'true' and '$(SkipUndeploy)' == 'false'">
-    <!-- Undeploy vocabularies and rules. -->
-
-    <Exec Command="&quot;$(DeployTools)\DeployBTRules.exe&quot; /ruleSetName $(RulePolicyName) /undeploy" ContinueOnError="true" />
-
-    <ItemGroupFromSeparatedList Condition="'$(Policies)' != ''" SeparatedList="$(Policies)" FormatString="{0}" ReverseList="false">
-      <Output TaskParameter="ItemGroup" ItemName="DeployPoliciesGroup" />
-    </ItemGroupFromSeparatedList>
-
-    <Exec Command="&quot;$(DeployTools)\DeployBTRules.exe&quot; /ruleSetName @(DeployPoliciesGroup) /undeploy" Condition="%(Identity) == %(Identity)" ContinueOnError="true" />
-  </Target>
-
-  <Target Name="DeploySSO" DependsOnTargets="Bootstrap;InitializeAppName;GetSoftwarePaths" Condition="'$(IncludeSSO)' == 'true'">
-    <!-- Create affiliate app and import settings file into SSO. -->
-    
-    <Exec
-      Command="&quot;$(DeployTools)\SSOSettingsFileImport.exe&quot; $(BizTalkAppName) /settingsFile &quot;$(ENV_SETTINGS)&quot; /userGroupName:&quot;$(SsoAppUserGroup)&quot; /adminGroupName:&quot;$(SsoAppAdminGroup)&quot;"
-      Condition="'$(Configuration)' == 'Server'"/>
-
-    <!-- If we aren't doing a server deployment, delegate to the DevlSSO target which will deploy either
-         DeveloperPreProcessSettings if it exists or devl_settings.xml to the SSO. -->
-    <CallTarget Targets="DevlSSO" Condition="'$(Configuration)' == 'Debug' or '$(Configuration)' == 'Release'" />
-    <CallTarget Targets="CustomSSO" />
-
-    <!-- Make sure we can always access our project (and install path) at run time -->
-    <UpdateSSOConfigItem BizTalkAppName="$(BizTalkAppName)" SSOItemName="ProjectPath" SSOItemValue="$(MSBuildProjectDirectoryParent)" />
-  </Target>
-
-  <Target Name="DevlSSO" DependsOnTargets="GetSoftwarePaths">
-    <!-- This target will use DeveloperPreProcessSettings if it exists, otherwise it will use devl_settings.xml to deploy to the SSO. -->
-    <Exec
-      Command="&quot;$(DeployTools)\SSOSettingsFileImport.exe&quot; $(BizTalkAppName) /settingsFile:&quot;$(DeveloperPreProcessSettings)&quot; /userGroupName:&quot;$(SsoAppUserGroup)&quot; /adminGroupName:&quot;$(SsoAppAdminGroup)&quot;"
-      Condition="'$(DeveloperPreProcessSettings)' != ''" />
-    <Exec
-      Command="&quot;$(DeployTools)\SSOSettingsFileImport.exe&quot; $(BizTalkAppName) /settingsFile:&quot;$(MSBuildProjectDirectory)\EnvironmentSettings\Devl_settings.xml&quot; /userGroupName:&quot;$(SsoAppUserGroup)&quot; /adminGroupName:&quot;$(SsoAppAdminGroup)&quot;"
-      Condition="'$(DeveloperPreProcessSettings)' == ''"/>
-  </Target>
-
-  <Target Name="UndeploySSO" DependsOnTargets="GetSoftwarePaths" Condition="'$(IncludeSSO)' == 'true' and '$(SkipUndeploy)' == 'false'">
-    <!-- Delete affiliate app and associated settings. -->
-
-    <Exec Command="&quot;$(DeployTools)\SSOSettingsFileImport.exe&quot; $(BizTalkAppName) /deleteApp" />
-  </Target>
-
-  <!-- Create our virtual directories, and handle service account assignment. -->
-  <Target Name="DeployVDirs" DependsOnTargets="SetWinVer;GetSoftwarePaths" Condition="'$(IncludeVirtualDirectories)' == 'true'">
-    <!-- Deploy virtual directories and handle service account assignment. -->
-
-    <ItemGroupFromCSVFile ColumnNames="$(VdirListFileColumns)" Filename="$(VdirListFile)" Condition="'@(VDirList)' == ''">
-      <Output TaskParameter="ItemGroup" ItemName="VDirList" />
-    </ItemGroupFromCSVFile>
-
-    <CreateVirtualDirectory Name="%(VDirList.Vdir)" Path="$(MSBuildProjectDirectory)\%(VDirList.Physdir)" />
-
-    <!-- Make sure aspnet account can read physical directory & its contents.  
-         For workstation deployments, you would need to supply the account value through an MSBuild property. -->
-    <Exec Command="cacls %(VDirList.Physdir) /E /G aspnet:R" Condition="'$(WinXPor2000)' == 'true'" />
-    <Exec Command="cacls %(VDirList.Physdir)\*.* /E /G aspnet:R" Condition="'$(WinXPor2000)' == 'true'" />
-      
-    <!-- Take the username value from install wizard if doing a formal install -->
-    <Exec Command="cacls %(VDirList.Physdir) /E /G $(VDIR_UserName):R" Condition="'$(Win2003)' == 'true' and '$(Configuration)' == 'Server'" />
-    <Exec Command="cacls %(VDirList.Physdir)\*.* /E /G $(VDIR_UserName):R" Condition="'$(Win2003)' == 'true' and '$(Configuration)' == 'Server'" />
-
-    <Exec Command="cacls %(VDirList.Physdir) /E /G $(AppPoolAccount):R" Condition="'$(Win2003)' == 'true' and '$(Configuration)' != 'Server'" />
-    <Exec Command="cacls %(VDirList.Physdir)\*.* /E /G $(AppPoolAccount):R" Condition="'$(Win2003)' == 'true' and '$(Configuration)' != 'Server'" />
-
-    <!-- Set package identity for winxp or win2000 -->
-    <Exec
-       Command="&quot;$(Cscript)&quot; /nologo &quot;$(DeployTools)\SetPackageIdentity.vbs&quot; &quot;IIS-{Default Web Site//Root/%(VDirList.Vdir)}&quot;"
-       Condition="'$(WinXPor2000)' == 'true' and '$(Configuration)' == 'Server'" />
-
-    <!-- Create app pool and place vdir in app pool for win2003 -->
-    <Exec
-       Command="&quot;$(Cscript)&quot; /nologo &quot;$(DeployTools)\SetAppPoolInfo.vbs&quot; %(VDirList.AppPool)"
-       Condition="'$(Win2003)' == 'true' and '$(Configuration)' == 'Server'" />
-    <Exec
-       Command="&quot;$(Cscript)&quot; /nologo &quot;$(DeployTools)\PlaceVDirInAppPool.vbs&quot; &quot;%(VDirList.Vdir)&quot; %(VDirList.AppPool)"
-       Condition="'$(Win2003)' == 'true' and '$(Configuration)' == 'Server'" />
-
-    <Exec
-       Command="BTSTask.exe AddResource -Type:WebDirectory -Source:&quot;http://localhost/%(VDirList.Vdir)&quot; -ApplicationName:$(BizTalkAppName)"
-       Condition="'$(IncludeCompsAndVDirsAsResources)' == 'true'"/>
-
-    <!-- We are setting up our biztalk isapi extension as web svc extension for 2003 -->
-
-    <!-- We remove in case it is already there.  We could have DeployVDirs depend on UndeployVDirs instead,
-           but that seems excessive since the vdir portion itself doesn't require that. -->
-    <CreateItem Include="$(MSBuildProjectDirectory)\$(WseExtensionPath)\$(Btshttpreceive)">
-      <Output TaskParameter="Include" ItemName="BtsHttpReceivePath" />
-    </CreateItem>
-
-    <Exec
-      Command="&quot;$(Cscript)&quot; /nologo &quot;$(IisExtVbs)&quot; /RmFile &quot;@(BtsHttpReceivePath->'%(FullPath)')&quot;"
-      ContinueOnError="true" IgnoreExitCode="true"
-      Condition="'$(Win2003)' == 'true' and '$(WseExtensionPath)' != ''"/>
-
-    <Exec
-      Command="&quot;$(Cscript)&quot; /nologo &quot;$(IisExtVbs)&quot; /AddFile &quot;@(BtsHttpReceivePath->'%(FullPath)')&quot; 1 $(WseExtensionName) 1 $(WseExtensionName)"
-      Condition="'$(Win2003)' == 'true' and '$(WseExtensionPath)' != ''"/>
-  </Target>
-
-  <Target Name="UndeployVDirs" DependsOnTargets="SetWinVer;GetSoftwarePaths" Condition="'$(IncludeVirtualDirectories)' == 'true' and '$(SkipUndeploy)' == 'false' and '$(Configuration)' == 'Server'">
-    <!-- Delete virtual directories and relevant IIS configuration. -->
-    
-    <!-- We don't want to undeploy vdirs for developers - if we do, they might not be able to load web projects that are
-           part of their solution the next time they load the solution file. -->
-
-    <ItemGroupFromCSVFile ColumnNames="$(VdirListFileColumns)" Filename="$(VdirListFile)" Condition="'@(VDirList)' == ''">
-      <Output TaskParameter="ItemGroup" ItemName="VDirList" />
-    </ItemGroupFromCSVFile>
-
-    <DeleteVirtualDirectory Name="%(VDirList.Vdir)" ContinueOnError="true" />
-
-    <!-- We are removing our biztalk isapi extension as web svc extension for 2003 -->
-    <CreateItem Include="$(MSBuildProjectDirectory)\$(WseExtensionPath)\$(Btshttpreceive)">
-      <Output TaskParameter="Include" ItemName="BtsHttpReceivePath" />
-    </CreateItem>
-
-    <Exec
-       Command="&quot;$(Cscript)&quot; /nologo &quot;$(IisExtVbs)&quot; /RmFile &quot;@(BtsHttpReceivePath->'%(FullPath)')&quot;"
-       Condition="'$(Win2003)' == 'true' and '$(WseExtensionPath)' != ''" />
-  </Target>
-
-  <!-- This target examines our portBindings file to deploy and start our ports... -->
-  <Target Name="DeployAndStartPorts" DependsOnTargets="InitializeAppName" Condition="'$(IncludeMessagingBindings)' == 'true'" >
-    <!-- Deploy and start messaging ports. -->
-
-    <ItemGroupFromSeparatedList SeparatedList="$(PortBindings)" FormatString="$(MSBuildProjectDirectory)\{0}" ReverseList="false">
-      <Output TaskParameter="ItemGroup" ItemName="DeployPortBindingsGroup" />
-    </ItemGroupFromSeparatedList>
-
-    <!-- Binding file name must be unique for the whole BizTalk group, so prepend the app name incl. version number -->
-    <ItemGroupFromSeparatedList SeparatedList="$(PortBindings)" FormatString="$(MSBuildProjectDirectory)\$(BizTalkAppName)_{0}" ReverseList="false"
-                                     Condition="'$(EnableSideBySide)' == 'true'">
-      <Output TaskParameter="ItemGroup" ItemName="DeployQualifiedPortBindingsGroup" />
-    </ItemGroupFromSeparatedList>
-
-    <Copy SourceFiles="@(DeployPortBindingsGroup)" DestinationFiles="@(DeployQualifiedPortBindingsGroup)" Condition="'$(EnableSideBySide)' == 'true'" />
-
-    <Exec
-      Command="BTSTask.exe AddResource -Type:BizTalkBinding -Overwrite -Source:&quot;@(DeployPortBindingsGroup)&quot; -ApplicationName:$(BizTalkAppName)"
-      Condition="%(Identity) == %(Identity) and '$(EnableSideBySide)' == 'false'" />
-    <Exec
-      Command="BTSTask.exe AddResource -Type:BizTalkBinding -Overwrite -Source:&quot;@(DeployQualifiedPortBindingsGroup)&quot; -ApplicationName:$(BizTalkAppName)"
-      Condition="%(Identity) == %(Identity) and '$(EnableSideBySide)' == 'true'" />
-
-    <Delete Files="@(DeployQualifiedPortBindingsGroup)" Condition="'$(EnableSideBySide)' == 'true'" />
-
-    <Exec
-        Command="BTSTask.exe ImportBindings -Source:&quot;@(DeployPortBindingsGroup)&quot; -ApplicationName:$(BizTalkAppName)"
-        Condition="%(Identity) == %(Identity)"/>
-  </Target>
-
-  <Target Name="StartApplication" Condition="'$(StartApplicationOnDeploy)' == 'true'">
-    <!-- Start orchestrations and ports. -->
-
-    <Time.GetTime Format="MM-dd-yy hh:mm:ss">
-      <Output TaskParameter="Time" PropertyName="StartApplicationTime" />
-    </Time.GetTime>
-    <Message Text="Starting $(BizTalkAppName) application at $(StartApplicationTime)."/>
-    <Message Text="Note: Starting the app may take 3-6 secs PER ORCHESTRATION. Please wait..."/>
-
-    <ControlBizTalkApp ApplicationName="$(BizTalkAppName)" StartOption="StartAll" />
-  </Target>
-
-  <Target Name="DeployBam" DependsOnTargets="InitBAMPathFormatString;ExportBAMXMLFromXLS;UndeployBam" Condition="'$(IncludeBAM)' == 'true'">
-    <!-- Deploy BAM definitions. -->
-
-    <!-- First, deploy the BAM definitions -->
-    <ItemGroupFromSeparatedList SeparatedList="$(BamDefinitions)" FormatString="$(BAMPathFormatString)" ReverseList="false">
-      <Output TaskParameter="ItemGroup" ItemName="DeployBAMGroup" />
-    </ItemGroupFromSeparatedList>
-
-    <Exec
-       Command="&quot;$(BtsDir)Tracking\bm.exe&quot; update-all -DefinitionFile:&quot;@(DeployBAMGroup->'%(RootDir)%(Directory)%(Filename).xml')&quot;" />
-
-    <!-- Next, apply permissions to the BAM views -->
-    <!-- View names and associated accounts must be defined in a property called BAMViewsAndAccounts -->
-    <!-- The format of the value of the BAMViewsAndAccounts property must be: -->
-    <!-- ViewName1:DOMAIN\GroupName1,DOMAIN\UserName1;ViewName2:BUILTIN\Administrators,COMPUTERNAME\UserName2;<etc. etc.> -->
-    <!-- This is easily pulled from the settings spreadsheet by including BAMViewsAndAccounts in the propsFromEnvSettings property. -->
-    <ItemGroupFromSeparatedList SeparatedList="$(BAMViewsAndAccounts)" FormatString="{0}" Separator=";" ReverseList="false" ListItemRegex="(?'viewName'\w+)\s*:\s*(?'groupNames'[\w\s\\,]+)$"
-                                Condition="'$(BAMViewsAndAccounts)' != ''">
-      <Output TaskParameter="ItemGroup" ItemName="BAMViewsAndAccountsGroup" />
-    </ItemGroupFromSeparatedList>
-
-    <Exec
-     Command="&quot;$(BtsDir)Tracking\bm.exe&quot; add-account -View:&quot;%(BAMViewsAndAccountsGroup.viewName)&quot; -AccountName:&quot;%(BAMViewsAndAccountsGroup.groupNames)&quot;"
-     ContinueOnError="true"
-     Condition="'$(BAMViewsAndAccounts)' != ''"/>
-  </Target>
-
-  <Target Name="UndeployBam" DependsOnTargets="InitBAMPathFormatString;ExportBAMXMLFromXLS" Condition="'$(IncludeBAM)' == 'true' and ('$(SkipUndeploy)' == 'false' and '$(SkipBamUndeploy)' == 'false')">
-    <!-- Undeploy BAM definitions. -->
-
-    <ItemGroupFromSeparatedList SeparatedList="$(BamDefinitions)" FormatString="$(BAMPathFormatString)" ReverseList="false">
-      <Output TaskParameter="ItemGroup" ItemName="UndeployBAMGroup" />
-    </ItemGroupFromSeparatedList>
-
-    <Exec
-       Command="&quot;$(BtsDir)Tracking\bm.exe&quot; remove-all -DefinitionFile:&quot;@(UndeployBAMGroup->'%(RootDir)%(Directory)%(Filename).xml')&quot;" />
-  </Target>
-
-  <Target Name="ExportBAMXMLFromXLS" Condition="'$(IncludeBAM)' == 'true' and '$(Configuration)' != 'Server'">
-    <ItemGroupFromSeparatedList SeparatedList="$(BamDefinitions)" FormatString="$(BAMPathFormatString)" ReverseList="false">
-      <Output TaskParameter="ItemGroup" ItemName="ExportBAMGroup" />
-    </ItemGroupFromSeparatedList>
-
-    <Exec Command="&quot;$(DeployTools)\ExportBamDefinitionXml.exe&quot; &quot;%(ExportBAMGroup.FullPath)&quot; &quot;@(ExportBAMGroup->'%(RootDir)%(Directory)%(Filename).xml')&quot;" />
-  </Target>
-
-  <!-- This target sets the BAMPathFormatString property with a path to a BAM definition file based on whether we are doing
-       a debug deploy, release deploy, or server deploy as a result of a formal installation. -->
-  <Target Name="InitBAMPathFormatString" DependsOnTargets="Bootstrap">
-    <!-- Creates correct path formulation based on type of deployment. -->
-    <CreateProperty Value="$(MSBuildProjectDirectoryParent)\$(ProjectName).BAM\{0}" Condition="'$(Configuration)' == 'Debug' or '$(Configuration)' == 'Release'">
-      <Output TaskParameter="Value" PropertyName="BAMPathFormatString" />
-    </CreateProperty>
-
-    <CreateProperty Value="$(MSBuildProjectDirectoryParent)\{0}" Condition="'$(Configuration)' == 'Server'">
-      <Output TaskParameter="Value" PropertyName="BAMPathFormatString" />
-    </CreateProperty>
-
-    <CreateProperty Value="{0}" Condition="'$(UseCustomDirs)' == 'true'">
-      <Output TaskParameter="Value" PropertyName="BAMPathFormatString" />
-    </CreateProperty>
-  </Target>
-
-  <Target Name="TerminateServiceInstances" DependsOnTargets="InitializeAppName">
-    <TerminateServiceInstances Application="$(BizTalkAppName)" />
-  </Target>
-
-  <Import Project="BizTalkDeploymentFramework.WiXSetup.targets"/>
+	 -->
+		<EnableSideBySide Condition="'$(EnableSideBySide)' == ''">false</EnableSideBySide>
+		<ProjectVersion Condition="'$(ProjectVersion)' == ''">1.0</ProjectVersion>
+		<DisableAutomaticPortNameVersioning Condition="'$(DisableAutomaticPortNameVersioning)' == ''">false</DisableAutomaticPortNameVersioning>
+
+		<!-- 
+				 Configuration properties that can be overridden by
+				 build file that includes this file.
+	 -->
+
+		<!-- Set this to false if you don't wish to deploy PDBs to the GAC.  Deploying PDBs
+				to the GAC means more meaningful stack traces.  Consider turning on PDB creation
+				for your release builds, too. Note that turning this on means a service-stop
+				prior to deployment/undeployment, since loading PDBs causes the BTSNTSvc.exe process to
+				hold on to assemblies even after orchestration unenlistment.  This means it might
+				only be desirable on servers, to avoid delay for developers. -->
+		<DeployPDBsToGac Condition="'$(DeployPDBsToGac)' == ''">true</DeployPDBsToGac>
+
+		<!-- Set this to true to indicate you are using a "master" bindings file - such that xmlpreprocess
+				doesn't overwrite it. -->
+		<UsingMasterBindings Condition="'$(UsingMasterBindings)' == ''">false</UsingMasterBindings>
+
+		<!-- Set this to true to indicate you are using ElementTunnel to maintain unescaped
+				TransportTypeData.  See ElementTunnel.exe for more info. -->
+		<ApplyXmlEscape Condition="'$(ApplyXmlEscape)' == ''">false</ApplyXmlEscape>
+
+		<!-- Set this to true to include components and virtual directories as resources
+				within the created BizTalk 2006 application artifact.  Use true if you intend
+				to export MSIs from BT2006 MMC.  -->
+		<IncludeCompsAndVDirsAsResources Condition="'$(IncludeCompsAndVDirsAsResources)' == ''">false</IncludeCompsAndVDirsAsResources>
+
+		<!-- Setting this property to true means that when you supply your own values for the
+				components, schemas, pipelines, transforms, etc. properties below you are supplying
+				full paths - and taking responsibility for varying the "debug" vs "release" in the
+				dev workstation case.  Much less work to just adhere to the convention of the 
+				directory name corresponding to the project name. -->
+		<UseCustomDirs Condition="'$(UseCustomDirs)' == ''">false</UseCustomDirs>
+
+		<!-- You can set this to true if you are not using HTTP/SOAP, or you are but no custom
+				pipelines are involved. -->
+		<SkipIISReset Condition="'$(SkipIISReset)' == ''">false</SkipIISReset>
+
+		<!-- One or more assemblies containing .NET classes required by your other assemblies (comma separated) -->
+		<Components Condition="'$(Components)' == ''">$(ProjectName).Components</Components>
+
+		<!-- One or more schema assemblies (comma separated - least dependent first, if schema assemblies
+				reference each other.) -->
+		<Schemas Condition="'$(Schemas)' == ''">$(ProjectName).Schemas</Schemas>
+
+		<!-- One or more pipeline assemblies (comma separated) -->
+		<Pipelines Condition="'$(Pipelines)' == ''">$(ProjectName).Pipelines</Pipelines>
+
+		<!-- One or more transform assemblies (comma separated) -->
+		<Transforms Condition="'$(Transforms)' == ''">$(ProjectName).Transforms</Transforms>
+
+		<!-- One or more pipeline component assemblies (comma separated) -->
+		<PipelineComponents Condition="'$(PipelineComponents)' == ''">$(ProjectName).PipelineComponents</PipelineComponents>
+
+		<!-- One or more pipeline component assemblies (comma separated) -->
+		<CustomFunctoids Condition="'$(CustomFunctoids)' == ''">$(ProjectName).CustomFunctoids</CustomFunctoids>
+
+		<!-- One or more orchestration assemblies (comma separated) -->
+		<Orchestrations Condition="'$(Orchestrations)' == ''">$(ProjectName).Orchestrations</Orchestrations>
+
+		<!-- One or more BAM definition files (comma separated) -->
+		<BamDefinitions Condition="'$(BamDefinitions)' == ''">$(ProjectName).BAM.xls</BamDefinitions>
+
+		<!-- An NUnit assembly that can be used for unit testing. -->
+		<DeploymentTest Condition="'$(DeploymentTest)' == ''">$(ProjectName).DeploymentTest</DeploymentTest>
+
+		<!-- This is one or more (comma separated) binding files that contains definitions for ports and orchestrations, as emitted by the BizTalk Deployment Wizard. -->
+		<PortBindings Condition="'$(PortBindings)' == ''">PortBindings.xml</PortBindings>
+
+		<!-- Only used if applyXmlEscape=true -->
+		<PortBindingsMaster Condition="'$(PortBindingsMaster)' == ''">PortBindingsMaster.xml</PortBindingsMaster>
+
+		<!-- A comma separated file (no spaces) with virtual directory, physical directory name, application pool name (IIS6) 
+				 See deployVDirs target for exact definition of functionality.  Physical directory is interpreted relative
+				 to the directory where the NAnt script is located. -->
+		<VdirListFile Condition="'$(VdirListFile)' == ''">VDirList.txt</VdirListFile>
+		<VdirListFileColumns Condition="'$(VdirListFileColumns)' == ''">Vdir,Physdir,AppPool</VdirListFileColumns>
+
+		<!-- A list of applications to add BizTalk references for (comma separated). -->
+		<AppsToReference Condition="'$(AppsToReference)' == ''"/>
+
+		<!-- These properties control the groups that will be used when creating an SSO affiliate app, if
+				includeSSO property is true.  Override these in your project-specific nant file with the groups
+				your targeted host account is a member of, or use SettingsFileGenerator.xls with propsFromEnvSettings  -->
+		<SsoAppUserGroup Condition="'$(SsoAppUserGroup)' == ''">BizTalk Application Users</SsoAppUserGroup>
+		<SsoAppAdminGroup Condition="'$(SsoAppAdminGroup)' == ''">BizTalk Server Administrators</SsoAppAdminGroup>
+
+		<!-- Subdirectory that contains a btshttpreceive.dll and btshttpreceive64.dll that should be added to IIS6 web service extension list. -->
+		<!--   
+		<WseExtensionPath>BTSHTTP_VD" />
+		<WseExtensionName>BTSHTTP_VD" />
+		-->
+
+		<!-- override this property in your project's build file if deploying on win2003 as a developer -->
+		<AppPoolAccount Condition="'$(AppPoolAccount)' == ''">$(USERNAME)</AppPoolAccount>
+
+		<!-- Customize if needed (in seconds) -->
+		<IisResetTime Condition="'$(IisResetTime)' == ''">60</IisResetTime>
+		<!-- Customize if needed (in milliseconds) -->
+		<BiztalkHostResetTime Condition="'$(BiztalkHostResetTime)' == ''">60000</BiztalkHostResetTime>
+
+		<!-- Whether a BT 2006 application start should be performed after deployment. -->
+		<StartApplicationOnDeploy Condition="'$(StartApplicationOnDeploy)' == ''">true</StartApplicationOnDeploy>
+
+		<!-- Location of deployment-related scripts and tools, and target directory for deployment results. -->
+		<!-- Note corresponding directories in MSI project. -->
+		<DeployResults Condition="'$(DeployResults)' == ''">..\DeployResults</DeployResults>
+
+		<!-- Will determine if running on 64 bit OS -->
+		<Is64bitOS Condition="'$(Is64bitOS)' == '' and Exists('$(windir)\syswow64')">True</Is64bitOS>
+		<Is64bitOS Condition="'$(Is64bitOS)' == ''">false</Is64bitOS>
+
+		<!-- Use 64 bit btshttpreceive.dll if on 64 bit windows.  Note: Grab
+			 btshttpreceive.dll from HttpReceive64 subdirectory of your installation
+			 and rename to btshttpreceive64.dll to make this work - allows for deployment
+			 to function both for dev workstations and servers. -->
+		<Btshttpreceive Condition="'$(Is64bitOS)' == 'false' and '$(Btshttpreceive)' == ''">btshttpreceive.dll</Btshttpreceive>
+		<Btshttpreceive Condition="'$(Is64bitOS)' == 'true' and '$(Btshttpreceive)' == ''">btshttpreceive.dll</Btshttpreceive>
+
+		<!-- Flag typically used on NAnt command line to indicate that undeploy targets should be skipped.
+				This speeds up a first-time server-style deployment.  Referenced by the "unless" attribute on many targets below. -->
+		<SkipUndeploy Condition="'$(SkipUndeploy)' == ''">false</SkipUndeploy>
+
+		<!-- Indicates that BAM profile definitions should not be undeployed.  Undeploying a profile may cause existing BAM
+				data to be lost.  Referenced by the "unless" attribute on the undeployBam target below. -->
+		<SkipBamUndeploy Condition="'$(SkipBamUndeploy)' == ''">true</SkipBamUndeploy>
+
+		<!-- Flag typically used on MSBuild command line to indicate whether we are deploying to BizTalk management database. -->
+		<DeployBizTalkMgmtDB Condition="'$(DeployBizTalkMgmtDB)' == ''">true</DeployBizTalkMgmtDB>
+
+		<!-- The list of additional assemblies that will be deployed to the GAC from the
+				DeployTools folder.  Overrideable of course. -->
+		<AdditionalAssemblies Condition="'$(AdditionalAssemblies)' == '' and '$(Includelog4net)' == 'true'">log4net,log4net.Ext.Serializable,SSOSettingsFileReader</AdditionalAssemblies>
+		<AdditionalAssemblies Condition="'$(AdditionalAssemblies)' == '' and '$(Includelog4net)' == 'false'">SSOSettingsFileReader</AdditionalAssemblies>
+
+		<!-- A path to a project-level folder holding assemblies that must be deployed to the GAC along with the rest of the solution. -->
+		<ExternalAssembliesPath Condition="'$(ExternalAssembliesPath)' == ''">..\ExternalAssemblies</ExternalAssembliesPath>
+		
+		<!-- A list of assembly filenames in the ExternalAssembliesPath to be included with the solution and GAC'd during deployment. -->
+		<ExternalAssemblies Condition="'$(ExternalAssemblies)' == ''"></ExternalAssemblies>
+		
+		<!-- Indicates whether to un-GAC external assemblies during undeployment or to leave them alone. -->
+		<UndeployExternalAssemblies Condition="'$(UndeployExternalAssemblies)' == ''">true</UndeployExternalAssemblies>
+
+		<!-- The registry key where log4net configuration file location information 
+				will be written to/read from if we are using log4net -->
+		<Log4netRegKey Condition="'$(Log4netRegKey)' == ''">HKLM\SOFTWARE\$(ProjectName)\log4netConfig</Log4netRegKey>
+
+		<!-- If you wish to limit which BizTalk hosts are restarted, provided a comma-separated list in this property. -->
+		<BizTalkHosts Condition="'$(BizTalkHosts)' == ''">ALL</BizTalkHosts>
+
+		<!-- Comma-separated list of files to preprocess with XmlPreprocess -->
+		<FilesToXmlPreprocess Condition="'$(FilesToXmlPreprocess)' == ''"></FilesToXmlPreprocess>
+	</PropertyGroup>
+
+	<Target Name="SetWinVer">
+		<GetOsVersion>
+			<Output TaskParameter="OSVersion" PropertyName="OSVersion" />
+		</GetOsVersion>
+		<Message Text="Running on Windows V$(OSVersion)"/>
+		<CallTarget Targets="SetWinVer$(OSVersion)"/>
+	</Target>
+
+	<!-- Windows 2000  -->
+	<Target Name="SetWinVer50">
+		<CreateProperty Value="true">
+			<Output TaskParameter="Value" PropertyName="Win2000" />
+		</CreateProperty>
+		<CreateProperty Value="true">
+			<Output TaskParameter="Value" PropertyName="WinXPOr2000" />
+		</CreateProperty>
+	</Target>
+
+	<!-- Windows XP -->
+	<Target Name="SetWinVer51">
+		<CreateProperty Value="true">
+			<Output TaskParameter="Value" PropertyName="WinXP" />
+		</CreateProperty>
+		<CreateProperty Value="true">
+			<Output TaskParameter="Value" PropertyName="WinXPOr2000" />
+		</CreateProperty>
+	</Target>
+
+	<!-- Windows 2003 -->
+	<Target Name="SetWinVer52">
+		<CreateProperty Value="true">
+			<Output TaskParameter="Value" PropertyName="Win2003" />
+		</CreateProperty>
+	</Target>
+
+	<!-- Windows 2008 -->
+	<Target Name="SetWinVer60">
+		<CreateProperty Value="true">
+			<Output TaskParameter="Value" PropertyName="Win2003" />
+		</CreateProperty>
+	</Target>
+
+	<!-- Windows 10 -->
+	<Target Name="SetWinVer62">
+		<CreateProperty Value="true">
+			<Output TaskParameter="Value" PropertyName="Win10" />
+		</CreateProperty>
+	</Target>
+	
+	<Target Name="ExportSettings" DependsOnTargets="InitSettingsFilePath;GetSoftwarePaths">
+		<Exec Command="&quot;$(DeployTools)\EnvironmentSettingsExporter.exe&quot; &quot;$(MSBuildProjectDirectory)\EnvironmentSettings\SettingsFileGenerator.xml&quot; &quot;$(MSBuildProjectDirectory)\EnvironmentSettings&quot;"
+					ContinueOnError="false" />
+	</Target>
+
+	<!-- DebugDeploy/DebugUndeploy are the work horses for most day-to-day development.  
+				Release variants exist as well. -->
+	<Target Name="DebugDeploy" DependsOnTargets="Deploy" />
+	<Target Name="DebugUndeploy" DependsOnTargets="Undeploy" />
+	<Target Name="ReleaseDeploy" DependsOnTargets="Deploy" />
+	<Target Name="ReleaseUndeploy" DependsOnTargets="Undeploy" />
+
+	<!-- ServerDeploy/ServerUndeploy are all about deploying binaries that arrive via MSI installation!
+				Note that this target expects a property to have been defined - most likely on the command line -
+				that defines whether we are supposed to deploy to the BizTalk management database or not, since
+				that only has to happen once in a multi-server group -->
+	<Target Name="ServerDeploy">
+		<!-- Deploy co-located binaries for a server installation. -->
+		<CallTarget Targets="DeployBizTalkMgmtDB_$(DeployBizTalkMgmtDB)"/>
+	</Target>
+
+	<!-- Note this target is consulting the deployBizTalkMgmtDB property, which is generally passed in on the command line,
+				to determine whether we will be deploying to the biztalk management database. -->
+	<Target Name="ServerUndeploy">
+		<!-- Un-Deploy co-located binaries. -->
+		<CallTarget Targets="UndeployBizTalkMgmtDB_$(DeployBizTalkMgmtDB)"/>
+	</Target>
+
+	<Target Name="DeployBizTalkMgmtDB_true">
+		<!-- Supports server deployments that include the BizTalk management database. -->
+		<!-- In this case, do a full deployment. -->
+		<CallTarget Targets="DevDeploy" />
+	</Target>
+
+	<PropertyGroup>
+		<DeployBizTalkMgmtDBfalseDependsOn>
+			FrameworkInitialize;
+			PreprocessBindings;
+			PreprocessFiles;
+			PreprocessLog4netFile;
+			CustomDeployTarget;
+			DeployComponents;
+			DeployPipelineComponents;
+			DeployCustomFunctoids;
+			DeployVDirs;
+			CustomPostDeployTarget
+		</DeployBizTalkMgmtDBfalseDependsOn>
+	</PropertyGroup>
+
+	<!-- Used for a deployment that will NOT deploy assemblies to the BizTalk management database. 
+				Only one server in a BizTalk group should actually deploy assemblies to the management database. -->
+	<Target Name="DeployBizTalkMgmtDB_false" DependsOnTargets="$(DeployBizTalkMgmtDBfalseDependsOn)">
+		<!-- Support server deployments that do not include Biztalk management database. -->
+		<!-- Need to handle these differently than standard targets - just putting in gac... -->
+		<ItemGroupFromSeparatedList SeparatedList="$(Schemas)" FormatString="$(FullPathFormatString)" ReverseList="false" Condition="'$(IncludeSchemas)' == 'true'">
+			<Output TaskParameter="ItemGroup" ItemName="DeploySchemasGroup" />
+		</ItemGroupFromSeparatedList>
+		<Exec Command="&quot;$(Gacutil)&quot; /i &quot;@(DeploySchemasGroup)&quot;" Condition="%(Identity) == %(Identity) and '$(IncludeSchemas)' == 'true'" />
+
+		<ItemGroupFromSeparatedList SeparatedList="$(Pipelines)" FormatString="$(FullPathFormatString)" ReverseList="false" Condition="'$(IncludePipelines)' == 'true'">
+			<Output TaskParameter="ItemGroup" ItemName="DeployPipelinesGroup" />
+		</ItemGroupFromSeparatedList>
+		<Exec Command="&quot;$(Gacutil)&quot; /i &quot;@(DeployPipelinesGroup)&quot;" Condition="%(Identity) == %(Identity) and '$(IncludePipelines)' == 'true'" />
+
+		<ItemGroupFromSeparatedList SeparatedList="$(Transforms)" FormatString="$(FullPathFormatString)" ReverseList="false" Condition="'$(IncludeTransforms)' == 'true'">
+			<Output TaskParameter="ItemGroup" ItemName="DeployTransformsGroup" />
+		</ItemGroupFromSeparatedList>
+		<Exec Command="&quot;$(Gacutil)&quot; /i &quot;@(DeployTransformsGroup)&quot;" Condition="%(Identity) == %(Identity) and '$(IncludeTransforms)' == 'true'" />
+
+		<ItemGroupFromSeparatedList SeparatedList="$(Orchestrations)" FormatString="$(FullPathFormatString)" ReverseList="false" Condition="'$(IncludeOrchestrations)' == 'true'">
+			<Output TaskParameter="ItemGroup" ItemName="DeployOrchestrationsGroup" />
+		</ItemGroupFromSeparatedList>
+		<Exec Command="&quot;$(Gacutil)&quot; /i &quot;@(DeployOrchestrationsGroup)&quot;" Condition="%(Identity) == %(Identity) and '$(IncludeOrchestrations)' == 'true'" />
+	</Target>
+
+	<Target Name="UndeployBizTalkMgmtDB_true">
+		<!-- Supports server undeployments that include undeploying from the BizTalk management database. -->
+		<!-- In this case, do a standard deployment. -->
+		<CallTarget Targets="DevUndeploy" />
+	</Target>
+
+	<PropertyGroup>
+		<UndeployBizTalkMgmtDBfalseDependsOn>
+			FrameworkInitialize;
+			CustomUndeployTarget;
+			UndeployComponents;
+			UndeployPipelineComponents;
+			UndeployCustomFunctoids;
+			UndeployVDirs;
+			CustomPostUndeployTarget;
+		</UndeployBizTalkMgmtDBfalseDependsOn>
+	</PropertyGroup>
+
+	<!-- Used for undeployment that will NOT undeploy assemblies from the BizTalk management database. 
+				Only one server in a BizTalk group should undeploy assemblies to the management database. -->
+	<Target Name="UndeployBizTalkMgmtDB_false" DependsOnTargets="$(UndeployBizTalkMgmtDBfalseDependsOn)">
+		<!-- Support server undeployments that do not include Biztalk management database. -->
+		<!-- Need to handle these differently than standard targets - just removing from gac... -->
+		<ItemGroupFromSeparatedList SeparatedList="$(Schemas)" FormatString="$(FullPathFormatString)" ReverseList="true" Condition="'$(IncludeSchemas)' == 'true'">
+			<Output TaskParameter="ItemGroup" ItemName="UndeploySchemasGroup" />
+		</ItemGroupFromSeparatedList>
+		<!--
+			Use the assembly's display name to remove the specific assembly from the GAC.
+			If the version is not specified, gacutil removes all assemblies from the GAC that match on
+			the filename, even if they have different strong names.
+		-->
+		<GenerateAssemblyNamesItemGroup SourceAssemblies="@(UndeploySchemasGroup)" Condition="'$(IncludeSchemas)' == 'true'">
+			<Output TaskParameter="AssemblyNamesItemGroup" ItemName="SchemaAssemblyNamesGroup" />
+		</GenerateAssemblyNamesItemGroup>
+
+		<!-- When GACUTIL removes the assembly from the GAC, it will also remove the PDB file (copied when DeployPDBsToGac is enabled). -->
+		<Exec Command="&quot;$(Gacutil)&quot; /u &quot;@(SchemaAssemblyNamesGroup)&quot;" Condition="%(Identity) == %(Identity) and '$(IncludeSchemas)' == 'true'" />
+
+
+		<ItemGroupFromSeparatedList SeparatedList="$(Pipelines)" FormatString="$(FullPathFormatString)" ReverseList="true" Condition="'$(IncludePipelines)' == 'true'">
+			<Output TaskParameter="ItemGroup" ItemName="UndeployPipelinesGroup" />
+		</ItemGroupFromSeparatedList>
+
+		<GenerateAssemblyNamesItemGroup SourceAssemblies="@(UndeployPipelinesGroup)" Condition="'$(IncludePipelines)' == 'true'">
+			<Output TaskParameter="AssemblyNamesItemGroup" ItemName="PipelineAssemblyNamesGroup" />
+		</GenerateAssemblyNamesItemGroup>
+
+		<!-- When GACUTIL removes the assembly from the GAC, it will also remove the PDB file (copied when DeployPDBsToGac is enabled). -->
+		<Exec Command="&quot;$(Gacutil)&quot; /u &quot;@(PipelineAssemblyNamesGroup)&quot;" Condition="%(Identity) == %(Identity) and '$(IncludePipelines)' == 'true'" />
+
+
+		<ItemGroupFromSeparatedList SeparatedList="$(Transforms)" FormatString="$(FullPathFormatString)" ReverseList="true" Condition="'$(IncludeTransforms)' == 'true'">
+			<Output TaskParameter="ItemGroup" ItemName="UndeployTransformsGroup" />
+		</ItemGroupFromSeparatedList>
+
+		<GenerateAssemblyNamesItemGroup SourceAssemblies="@(UndeployTransformsGroup)" Condition="'$(IncludeTransforms)' == 'true'">
+			<Output TaskParameter="AssemblyNamesItemGroup" ItemName="TransformAssemblyNamesGroup" />
+		</GenerateAssemblyNamesItemGroup>
+
+		<!-- When GACUTIL removes the assembly from the GAC, it will also remove the PDB file (copied when DeployPDBsToGac is enabled). -->
+		<Exec Command="&quot;$(Gacutil)&quot; /u &quot;@(TransformAssemblyNamesGroup)&quot;" Condition="%(Identity) == %(Identity) and '$(IncludeTransforms)' == 'true'" />
+
+
+		<ItemGroupFromSeparatedList SeparatedList="$(Orchestrations)" FormatString="$(FullPathFormatString)" ReverseList="true" Condition="'$(IncludeOrchestrations)' == 'true'">
+			<Output TaskParameter="ItemGroup" ItemName="UndeployOrchestrationsGroup" />
+		</ItemGroupFromSeparatedList>
+
+		<GenerateAssemblyNamesItemGroup SourceAssemblies="@(UndeployOrchestrationsGroup)" Condition="'$(IncludeOrchestrations)' == 'true'">
+			<Output TaskParameter="AssemblyNamesItemGroup" ItemName="OrchestrationAssemblyNamesGroup" />
+		</GenerateAssemblyNamesItemGroup>
+
+		<!-- When GACUTIL removes the assembly from the GAC, it will also remove the PDB file (copied when DeployPDBsToGac is enabled). -->
+		<Exec Command="&quot;$(Gacutil)&quot; /u &quot;@(OrchestrationAssemblyNamesGroup)&quot;" Condition="%(Identity) == %(Identity) and '$(IncludeOrchestrations)' == 'true'" />
+	</Target>
+
+	<PropertyGroup>
+		<UpdateOrchestrationsDependsOn>
+			InitUpdateOrchestration;
+			FrameworkInitialize;
+			DeploySchemas;
+			DeployComponents;
+			DeployPipelines;
+			DeployPipelineComponents;
+			DeployTransforms;
+			DeployOrchestrations;
+			DeployCustomFunctoids;
+			DeploySSO;
+			BounceBizTalk
+		</UpdateOrchestrationsDependsOn>
+	</PropertyGroup>
+
+	<!-- This is a target you may want to create an external tool for in VS.NET - if you haven't changed any of the
+			 ports in your orchestration, you can simply replace the orchestration assembly in the GAC and bounce the service.
+			 This is much faster than a full redeploy, and speeds the edit/run/debug cycle quite a bit. 
+			 A similar thing can be done for the components assembly, SSO configuration and other items. -->
+	<Target Name="UpdateOrchestration" DependsOnTargets="$(UpdateOrchestrationsDependsOn)" />
+
+	<Target Name="InitUpdateOrchestration">
+		<CreateProperty Value="false">
+			<Output TaskParameter="Value" PropertyName="DeployBizTalkMgmtDB" />
+		</CreateProperty>
+	</Target>
+
+	<PropertyGroup>
+		<DeployDependsOn>
+			FrameworkInitialize;
+			PreprocessBindings;
+			PreprocessFiles;
+			PreprocessLog4netFile;
+			CustomDeployTarget;
+			DeployAppDefinition;
+			DeploySchemas;
+			DeployComponents;
+			DeployPipelineComponents;
+			DeployPipelines;
+			DeployTransforms;
+			DeployOrchestrations;
+			DeployAndStartPorts;
+			DeployVDirs;
+			DeployVocabAndRules;
+			DeployCustomFunctoids;
+			DeploySSO;
+			DeployBtsNtSvcExeConfig;
+			DeployBam;
+			StartApplication;
+			CustomPostDeployTarget;
+			BounceBizTalk
+		</DeployDependsOn>
+
+		<UndeployDependsOn>
+			FrameworkInitialize;
+			CustomUndeployTarget;
+			UndeployBam;
+			UndeployBtsNtSvcExeConfig;
+			UndeploySchemas;
+			UndeployOrchestrations;
+			UndeployTransforms;
+			UndeployPipelines;
+			UndeployPipelineComponents;
+			UndeployComponents;
+			UndeployVDirs;
+			UndeployVocabAndRules;
+			UndeployCustomFunctoids;
+			UndeploySSO;
+			UndeployAppDefinition;
+			CustomPostUndeployTarget;
+			BounceBizTalk
+		</UndeployDependsOn>
+	</PropertyGroup>
+
+	<!-- Master dependency list for deploying, including BizTalk management database. -->
+	<Target Name="DevDeploy" DependsOnTargets="$(DeployDependsOn)" />
+
+	<!-- Master dependency list for undeploying, including BizTalk management database. -->
+	<Target Name="DevUndeploy" DependsOnTargets="$(UndeployDependsOn)" />
+
+	<Target Name="Deploy">
+		<CallTarget Targets="DevDeploy" Condition="'$(Configuration)' != 'Server'" />
+		<CallTarget Targets="ServerDeploy" Condition="'$(Configuration)' == 'Server'" />
+	</Target>
+
+	<Target Name="Undeploy">
+		<CallTarget Targets="DevUndeploy" Condition="'$(Configuration)' != 'Server'" />
+		<CallTarget Targets="ServerUndeploy" Condition="'$(Configuration)' == 'Server'" />
+	</Target>
+
+	<PropertyGroup>
+		<FrameworkInitializeDependsOn>
+			Bootstrap;
+			SetWinVer;
+			GetSoftwarePaths;
+			ExportSettings;
+			SetPropertiesFromEnvironmentSettings;
+			ConditionalHostStop;
+			InitializeAppName;
+			InitLog4netFile;
+			InitFullPathFormatString
+		</FrameworkInitializeDependsOn>
+	</PropertyGroup>
+
+	<Target Name="FrameworkInitialize" DependsOnTargets="$(FrameworkInitializeDependsOn)" />
+
+	<Target Name="Bootstrap">
+		<GetParentPath Path="$(MSBuildProjectDirectory)">
+			<Output TaskParameter="ParentPath" PropertyName="MSBuildProjectDirectoryParent" />
+		</GetParentPath>
+
+	</Target>
+
+	<Target Name="GetSoftwarePaths">
+		<GetFrameworkPath>
+			<Output TaskParameter="Path" PropertyName="FrameworkDir" />
+		</GetFrameworkPath>
+		<Message Text="Using .NET Framework Install Path '$(FrameworkDir)'." />
+
+		<!-- Used for copying pipeline components to the correct directory, among other things.
+				This registry key is unchanged between BizTalk 2004 and BizTalk 2006. -->
+		<Registry.GetKey RegistryHive="LocalMachine" Key="SOFTWARE\Microsoft\BizTalk Server\3.0" Value="InstallPath">
+			<Output TaskParameter="Data" PropertyName="BtsDir"/>
+		</Registry.GetKey>
+		<Message Text="Using BizTalk Install Path '$(BtsDir)'." />
+
+		<Registry.GetKey RegistryHive="LocalMachine" Key="SOFTWARE\DeploymentFrameworkForBizTalk\5.0" Value="InstallPath" ContinueOnError="false"
+										 Condition="'$(Configuration)' != 'Server'">
+			<Output TaskParameter="Data" PropertyName="DeploymentFrameworkRootDir"/>
+		</Registry.GetKey>
+		<CreateProperty Value="$(MSBuildProjectDirectory)\" Condition="'$(Configuration)' == 'Server'">
+			<Output TaskParameter="Value" PropertyName="DeploymentFrameworkRootDir" />
+		</CreateProperty>
+		<Message Text="Using Deployment Framework Install Path '$(DeploymentFrameworkRootDir)'." />
+
+		<CreateProperty Value="$(DeploymentFrameworkRootDir)Framework">
+			<Output TaskParameter="Value" PropertyName="DeploymentFrameworkDir" />
+		</CreateProperty>
+
+		<CreateProperty Value="$(DeploymentFrameworkRootDir)Developer">
+			<Output TaskParameter="Value" PropertyName="DeploymentFrameworkDeveloperDir" />
+		</CreateProperty>
+
+		<CreateProperty Value="$(DeploymentFrameworkDir)\DeployTools" Condition="'$(DeployTools)' == ''">
+			<Output TaskParameter="Value" PropertyName="DeployTools" />
+		</CreateProperty>
+		<Message Text="Using Deployment Framework Tools Path '$(DeployTools)'." />
+
+		<CreateProperty Value="$(windir)\system32\iisext.vbs" Condition="Exists('$(windir)\system32\iisext.vbs')">
+			<Output TaskParameter="Value" PropertyName="IisExtVbs" />
+		</CreateProperty>
+		<CreateProperty Value="$(DeployTools)\iisext.vbs" Condition="!Exists('$(windir)\system32\iisext.vbs')">
+			<Output TaskParameter="Value" PropertyName="IisExtVbs" />
+		</CreateProperty>
+
+		<CreateProperty Value="$(DeployTools)\gacutil.exe" Condition="'$(Gacutil)' == ''">
+			<Output TaskParameter="Value" PropertyName="Gacutil" />
+		</CreateProperty>
+
+		<CreateProperty Value="cscript.exe" Condition="'$(Is64bitOS)' == 'false' and '$(Cscript)' == ''">
+			<Output TaskParameter="Value" PropertyName="Cscript" />
+		</CreateProperty>
+		<!-- Use 64 bit cscript.exe if on 64 bit windows -->
+		<CreateProperty Value="$(DeployTools)\cscript64.exe" Condition="'$(Is64bitOS)' == 'true' and '$(Cscript)' == ''">
+			<Output TaskParameter="Value" PropertyName="Cscript" />
+		</CreateProperty>
+	</Target>
+
+	<Target Name="InitSettingsFilePath" Condition="'$(SettingsFilePath)' == ''">
+		<!-- Use either the settings file that comes from SetEnvUI, or devl/local settings if doing workstation deployment. -->
+		<CreateProperty Value="$(ENV_SETTINGS)" Condition="'$(Configuration)' == 'Server' and '$(ENV_SETTINGS)' != ''">
+			<Output TaskParameter="Value" PropertyName="SettingsFilePath" />
+		</CreateProperty>
+
+		<CreateProperty Value="$(DeveloperPreProcessSettings)" Condition="('$(Configuration)' == 'Debug' or '$(Configuration)' == 'Release') and '$(DeveloperPreProcessSettings)' != ''">
+			<Output TaskParameter="Value" PropertyName="SettingsFilePath" />
+		</CreateProperty>
+
+		<CreateProperty Value="$(MSBuildProjectDirectory)\EnvironmentSettings\DEV.xml" Condition="('$(Configuration)' == 'Debug' or '$(Configuration)' == 'Release') and '$(DeveloperPreProcessSettings)' == ''">
+			<Output TaskParameter="Value" PropertyName="SettingsFilePath" />
+		</CreateProperty>
+
+		<Message Text="Using settings file $(SettingsFilePath)" />
+	</Target>
+
+	<Target Name="InitializeAppName" Condition="'$(BizTalkAppName)' == ''">
+		<CreateProperty Value="$(ProjectName)_$(ProjectVersion)" Condition="'$(EnableSideBySide)' == 'true'">
+			<Output TaskParameter="Value" PropertyName="BizTalkAppName" />
+		</CreateProperty>
+		<CreateProperty Value="$(ProjectName)" Condition="'$(EnableSideBySide)' != 'true'">
+			<Output TaskParameter="Value" PropertyName="BizTalkAppName" />
+		</CreateProperty>
+		<Message Text="BizTalk Application Name is $(BizTalkAppName)" />
+	</Target>
+
+	<!-- This target sets the FullPathFormatString property with a full path to a binary based on whether we are doing
+			 a debug deploy, release deploy, or server deploy as a result of a formal installation. -->
+	<Target Name="InitFullPathFormatString" DependsOnTargets="Bootstrap">
+		<!-- Creates correct path formulation based on type of deployment. -->
+		<CreateProperty Value="$(MSBuildProjectDirectoryParent)\{0}\bin\debug\{0}.dll" Condition="'$(Configuration)' == 'Debug'">
+			<Output TaskParameter="Value" PropertyName="FullPathFormatString" />
+		</CreateProperty>
+
+		<CreateProperty Value="$(MSBuildProjectDirectoryParent)\{0}\bin\release\{0}.dll" Condition="'$(Configuration)' == 'Release'">
+			<Output TaskParameter="Value" PropertyName="FullPathFormatString" />
+		</CreateProperty>
+
+		<CreateProperty Value="$(MSBuildProjectDirectoryParent)\{0}.dll" Condition="'$(Configuration)' == 'Server'">
+			<Output TaskParameter="Value" PropertyName="FullPathFormatString" />
+		</CreateProperty>
+
+		<Message Text="Using custom directory..." Condition="'$(UseCustomDirs)' == 'true'" />
+		<CreateProperty Value="$(MSBuildProjectDirectoryParent)\{0}" Condition="'$(UseCustomDirs)' == 'true'">
+			<Output TaskParameter="Value" PropertyName="FullPathFormatString" />
+		</CreateProperty>
+	</Target>
+
+	<Target Name="InitLog4netFile" DependsOnTargets="Bootstrap">
+		<CreateItem Include="$(MSBuildProjectDirectoryParent)\$(ProjectName).log4net">
+			<Output TaskParameter="Include" ItemName="Log4netFile"/>
+		</CreateItem>
+	</Target>
+
+	<ItemGroup>
+		<AllPatternAssignmentRule Include="*">
+			<AssemblyNamePattern>$(ProjectName).*</AssemblyNamePattern>
+		</AllPatternAssignmentRule>
+	</ItemGroup>
+
+	<Target Name="DeployBtsNtSvcExeConfig" Condition="'$(UseIsolatedAppDomain)' == 'true'">
+		<UpdateBizTalkAppDomainConfig AppDomainName="$(BizTalkAppName)" PatternAssignmentRules="@(AllPatternAssignmentRule)" />
+	</Target>
+
+	<Target Name="UndeployBtsNtSvcExeConfig" Condition="'$(UseIsolatedAppDomain)' == 'true'">
+		<UpdateBizTalkAppDomainConfig AppDomainName="$(BizTalkAppName)" Remove="true" />
+	</Target>
+
+	<Target Name="SetPropertiesFromEnvironmentSettings" Condition="'$(PropsFromEnvSettings)' != ''" DependsOnTargets="InitSettingsFilePath">
+		<!--
+		Takes a comma separated list of properties and obtains their value from the settings file
+		specified through $ENV_SETTINGS, typically passed by SetEnvUI.
+		-->
+
+		<Message Text="Setting properties from environment settings file ($(SettingsFilePath))" Condition="'$(SettingsFilePath)' != ''" />
+
+		<ItemGroupFromSeparatedList SeparatedList="$(PropsFromEnvSettings)" FormatString="{0}" ReverseList="false">
+			<Output TaskParameter="ItemGroup" ItemName="PropsFromEnvSettingsGroup" />
+		</ItemGroupFromSeparatedList>
+
+		<SetPropFromEnvSetting
+			SettingsFilePath="$(SettingsFilePath)"
+			XPath="/settings/property[@name='@(PropsFromEnvSettingsGroup)']"
+			Identity="%(Identity)"
+			Condition="'$(SettingsFilePath)' != ''">
+			<Output TaskParameter="Value" PropertyName="@(PropsFromEnvSettingsGroup)" />
+		</SetPropFromEnvSetting>
+	</Target>
+
+	<Target Name="ConditionalHostStop" Condition="'$(DeployPDBsToGac)' == 'true' and '$(SkipUndeploy)' == 'false'" DependsOnTargets="StopBizTalk">
+		<!-- Since host instance processes will be hanging on to DLLs... -->
+	</Target>
+
+	<Target Name="BounceBizTalk">
+		<!-- Reset BizTalk hosts and IIS -->
+		
+		<!-- An iisreset is needed when doing things with http & the isolated host, since your binaries will be loaded into 
+						dllhost.exe proceses. -->
+		<Exec Command="iisreset.exe /noforce /restart /timeout:$(IisResetTime)" Condition="'$(SkipIISReset)' == 'false'" />
+
+		<CallTarget Targets="BounceAllBizTalkHosts" Condition="'$(BizTalkHosts)' == 'ALL'" />
+		<CallTarget Targets="BounceSelectedBizTalkHosts" Condition="'$(BizTalkHosts)' != 'ALL'" />
+	</Target>
+
+	<Target Name="StopBizTalk">
+		<!-- An iisreset is needed when doing things with http & the isolated host, since your binaries will be loaded into 
+						dllhost.exe or inetinfo.exe proceses. -->
+		<Exec Command="iisreset.exe /noforce /stop /timeout:$(IisResetTime)" Condition="'$(SkipIISReset)' == 'false'" />
+
+		<CallTarget Targets="StopAllBizTalkHosts" Condition="'$(BizTalkHosts)' == 'ALL'" />
+		<CallTarget Targets="StopSelectedBizTalkHosts" Condition="'$(BizTalkHosts)' != 'ALL'" />
+	</Target>
+
+	<Target Name="StopAllBizTalkHosts" DependsOnTargets="GetSoftwarePaths">
+		<Message Text="Host list (BizTalkHosts property) not customized." />
+		<Exec Command="&quot;$(Cscript)&quot; /nologo &quot;$(DeployTools)\StopBizTalkHost.vbs&quot; ALL" />
+	</Target>
+
+	<Target Name="StopSelectedBizTalkHosts" DependsOnTargets="GetSoftwarePaths">
+		<ItemGroupFromSeparatedList SeparatedList="$(BizTalkHosts)" FormatString="{0}" ReverseList="false">
+			<Output TaskParameter="ItemGroup" ItemName="StopHostsGroup" />
+		</ItemGroupFromSeparatedList>
+		<Exec Command="&quot;$(Cscript)&quot; /nologo &quot;$(DeployTools)\StopBizTalkHost.vbs&quot; @(StopHostsGroup)" Condition="%(Identity) == %(Identity)" />
+	</Target>
+
+	<Target Name="BounceAllBizTalkHosts" DependsOnTargets="GetSoftwarePaths">
+		<Message Text="Host list (BizTalkHosts property) not customized." />
+		<Exec Command="&quot;$(Cscript)&quot; /nologo &quot;$(DeployTools)\BounceBizTalkHost.vbs&quot; ALL" />
+	</Target>
+
+	<Target Name="BounceSelectedBizTalkHosts" DependsOnTargets="GetSoftwarePaths">
+		<ItemGroupFromSeparatedList SeparatedList="$(BizTalkHosts)" FormatString="{0}" ReverseList="false">
+			<Output TaskParameter="ItemGroup" ItemName="BounceHostsGroup" />
+		</ItemGroupFromSeparatedList>
+		<Exec Command="&quot;$(Cscript)&quot; /nologo &quot;$(DeployTools)\BounceBizTalkHost.vbs&quot; @(BounceHostsGroup)" Condition="%(Identity) == %(Identity)" />
+	</Target>
+
+	<ItemGroup>
+		<PortBindingsFile Include="$(PortBindings)" />
+	</ItemGroup>
+
+	<PropertyGroup>
+		<PreprocessBindingsDependsOn>
+			Bootstrap;
+			GetSoftwarePaths;
+			ExportSettings;
+			SetPropertiesFromEnvironmentSettings;
+			InitializeAppName;
+		</PreprocessBindingsDependsOn>
+	</PropertyGroup>
+
+	<Target Name="PreprocessBindings" Condition="'$(IncludeMessagingBindings)' == 'true'" DependsOnTargets="$(PreprocessBindingsDependsOn)">
+		<CreateProperty Value="$(PortBindings)" Condition="'$(UsingMasterBindings)' == 'false'">
+			<Output TaskParameter="Value" PropertyName="SourceBindingFile" />
+		</CreateProperty>
+		<CreateProperty Value="$(PortBindingsMaster)" Condition="'$(UsingMasterBindings)' == 'true'">
+			<Output TaskParameter="Value" PropertyName="SourceBindingFile" />
+		</CreateProperty>
+
+		<!-- in case readonly from version control -->
+		<MakeFilesWriteable InputFiles="@(PortBindingsFile)" />
+		<Exec
+			Command="&quot;$(DeployTools)\xmlpreprocess.exe&quot; /c /i:&quot;$(MSBuildProjectDirectory)\$(SourceBindingFile)&quot; /o:&quot;$(MSBuildProjectDirectory)\$(PortBindings)&quot; /d:CurDir=&quot;$(MSBuildProjectDirectoryParent)&quot; /s:&quot;$(SettingsFilePath)&quot;"
+			ContinueOnError="false" />
+
+		<!-- Update the app name in the bindings file -->
+		<XmlFile.SetValue Path="$(PortBindings)" XPath="//ApplicationName" Value="$(BizTalkAppName)" IgnoreNoMatchFailure="true" Force="true" />
+
+		<PrependToBindingPortNames StringToPrepend="$(BizTalkAppName)" BindingFilePath="$(MSBuildProjectDirectory)\$(PortBindings)" Condition="'$(EnableSideBySide)' == 'true' and '$(DisableAutomaticPortNameVersioning)' == 'false'" />
+
+		<Exec
+			Command="&quot;$(DeployTools)\ElementTunnel.exe&quot; /i:&quot;$(MSBuildProjectDirectory)\$(PortBindings)&quot; /o:&quot;$(MSBuildProjectDirectory)\$(PortBindings)&quot; /x:&quot;$(DeployTools)\adapterXPaths.txt&quot; /encode+"
+			ContinueOnError="false"
+			Condition="'$(ApplyXmlEscape)' == 'true'" />
+	</Target>
+
+	<Target Name="PreprocessLog4netFile" DependsOnTargets="InitLog4netFile;GetSoftwarePaths" Condition="'$(Includelog4net)' == 'true'">
+		<!-- preprocess log4net file -->
+		<!-- in case readonly from version control -->
+		<MakeFilesWriteable InputFiles="@(Log4netFile)" />
+		<Exec
+			Command="&quot;$(DeployTools)\xmlpreprocess.exe&quot; /i:&quot;@(Log4netFile)&quot; /o:&quot;@(Log4netFile)&quot; /d:CurDir=&quot;$(MSBuildProjectDirectoryParent)&quot; /s:&quot;$(SettingsFilePath)&quot;"
+			ContinueOnError="false" />
+	</Target>
+
+	<Target Name="PreprocessFiles" DependsOnTargets="InitSettingsFilePath;GetSoftwarePaths" Condition="'$(FilesToXmlPreprocess)' != ''">
+		<ItemGroupFromSeparatedList SeparatedList="$(FilesToXmlPreprocess)" FormatString="$(MSBuildProjectDirectory)\{0}" ReverseList="false">
+			<Output TaskParameter="ItemGroup" ItemName="XmlPreprocessGroup" />
+		</ItemGroupFromSeparatedList>
+
+		<!-- in case readonly from version control -->
+		<MakeFilesWriteable InputFiles="@(XmlPreprocessGroup)" />
+		<Exec
+			Command="&quot;$(DeployTools)\xmlpreprocess.exe&quot; /i:&quot;@(XmlPreprocessGroup)&quot; /o:&quot;@(XmlPreprocessGroup)&quot; /d:CurDir=&quot;$(MSBuildProjectDirectoryParent)&quot; /s:&quot;$(SettingsFilePath)&quot;"
+			ContinueOnError="false"
+			Condition="%(Identity) == %(Identity)"/>
+	</Target>
+
+	<!-- If the script that includes this include file would like to supply custom functionality when deploying
+				and undeploying, they will supply CustomDeployTarget and CustomUndeployTarget (and/or CustomPostDeployTarget
+				and CustomPostUndeployTarget)
+	 -->
+	<!-- Redefine in project file if required -->
+	<Target Name="CustomDeployTarget" />
+	<Target Name="CustomUndeployTarget" />
+	<Target Name="CustomPostDeployTarget" />
+	<Target Name="CustomPostUndeployTarget" />
+	<Target Name="CustomSSO" />
+
+	<Target Name="DeployAppDefinition" DependsOnTargets="UndeployAppDefinition">
+		<!-- Create BizTalk 2006 application definition -->
+		<ItemGroupFromSeparatedList SeparatedList="$(AppsToReference)" FormatString="{0}" ReverseList="false" Condition="'$(AppsToReference)' != ''">
+			<Output TaskParameter="ItemGroup" ItemName="DeployAppRefsGroup" />
+		</ItemGroupFromSeparatedList>
+
+		<Exec Command="BTSTask.exe AddApp -ApplicationName:$(BizTalkAppName) -Description:&quot;$(ProjectName)&quot;" />
+		<AddAppReference ApplicationName="$(BizTalkAppName)" AppsToReference="@(DeployAppRefsGroup)" Condition="%(Identity) == %(Identity) and '$(AppsToReference)' != ''" />
+	</Target>
+
+	<Target Name="UndeployAppDefinition" Condition="'$(SkipUndeploy)' == 'false'">
+		<!-- Remove BizTalk 2006 application definition -->
+
+		<GetBizTalkAppExists ApplicationName="$(BizTalkAppName)">
+			<Output TaskParameter="AppExists" PropertyName="AppExists" />
+		</GetBizTalkAppExists>
+
+		<CheckForServiceInstances Application="$(BizTalkAppName)" Condition="'$(AppExists)' == 'true'" />
+
+		<ControlBizTalkApp ApplicationName="$(BizTalkAppName)" StopOption="DisableAllReceiveLocations,UndeployAllPolicies,UnenlistAllOrchestrations,UnenlistAllSendPortGroups,UnenlistAllSendPorts" Condition="'$(AppExists)' == 'true'" ContinueOnError="true" />
+		<Exec Command="BTSTask.exe RemoveApp -ApplicationName:$(BizTalkAppName)" Condition="'$(AppExists)' == 'true'" ContinueOnError="true"/>
+	</Target>
+
+	<Target Name="DeploySchemas" DependsOnTargets="UndeploySchemas" Condition="'$(IncludeSchemas)' == 'true'">
+		<!-- Deploy schema assemblies. -->
+
+		<ItemGroupFromSeparatedList SeparatedList="$(Schemas)" FormatString="$(FullPathFormatString)" ReverseList="false">
+			<Output TaskParameter="ItemGroup" ItemName="DeploySchemasGroup" />
+		</ItemGroupFromSeparatedList>
+
+		<Exec
+			Command="BTSTask.exe AddResource -Type:BizTalkAssembly -Source:&quot;@(DeploySchemasGroup)&quot; -ApplicationName:$(BizTalkAppName) -Options:GacOnAdd,GacOnImport,GacOnInstall"
+			Condition="%(Identity) == %(Identity) and '$(DeployBizTalkMgmtDB)' == 'true'" />
+		
+		<Exec Command="&quot;$(Gacutil)&quot; /i &quot;@(DeploySchemasGroup)&quot;"
+					Condition="%(Identity) == %(Identity) and '$(DeployBizTalkMgmtDB)' == 'false'" />
+	</Target>
+
+	<Target Name="UndeploySchemas" 
+		 DependsOnTargets="UndeployOrchestrations;UndeployTransforms" Condition="'$(IncludeSchemas)' == 'true' and '$(SkipUndeploy)' != 'true'">
+		<!-- Undeploy schema assemblies. -->
+
+		<ItemGroupFromSeparatedList SeparatedList="$(Schemas)" FormatString="$(FullPathFormatString)" ReverseList="true">
+			<Output TaskParameter="ItemGroup" ItemName="UndeploySchemasGroup" />
+		</ItemGroupFromSeparatedList>
+
+		<!--
+			Use the assembly's display name to remove the specific assembly from the GAC.
+			If the version is not specified, gacutil removes all assemblies from the GAC that match on
+			the filename, even if they have different strong names.
+		-->
+		<GenerateAssemblyNamesItemGroup SourceAssemblies="@(UndeploySchemasGroup)">
+			<Output TaskParameter="AssemblyNamesItemGroup" ItemName="SchemaAssemblyNamesGroup" />
+		</GenerateAssemblyNamesItemGroup>
+
+		<!-- When GACUTIL removes the assembly from the GAC, it will also remove the PDB file (copied when DeployPDBsToGac is enabled). -->
+		<Exec Command="&quot;$(Gacutil)&quot; /u &quot;@(SchemaAssemblyNamesGroup)&quot;" Condition="%(Identity) == %(Identity)" />
+	</Target>
+
+	<Target Name="DeployOrchestrations" Condition="'$(IncludeOrchestrations)' == 'true'">
+		<!-- Deploy orchestration assemblies. -->
+
+		<ItemGroupFromSeparatedList SeparatedList="$(Orchestrations)" FormatString="$(FullPathFormatString)" ReverseList="false">
+			<Output TaskParameter="ItemGroup" ItemName="DeployOrchestrationsGroup" />
+		</ItemGroupFromSeparatedList>
+
+		<Exec
+			Command="BTSTask.exe AddResource -Type:BizTalkAssembly -Source:&quot;@(DeployOrchestrationsGroup)&quot; -ApplicationName:$(BizTalkAppName) -Options:GacOnAdd,GacOnImport,GacOnInstall"
+			Condition="%(Identity) == %(Identity) and '$(DeployBizTalkMgmtDB)' == 'true'" />
+
+		<Exec Command="&quot;$(Gacutil)&quot; /i &quot;@(DeployOrchestrationsGroup)&quot;"
+					Condition="%(Identity) == %(Identity) and '$(DeployBizTalkMgmtDB)' == 'false'" />
+
+		<!-- Deploy PDBS to gac. This likely won't work with custom directories - a little more work required yet -->
+		<GeneratePdbCopyItemGroups SourceAssemblies="@(DeployOrchestrationsGroup)" Condition="'$(DeployPDBsToGac)' == 'true'">
+			<Output TaskParameter="SourceItemGroup" ItemName="PdbSourceFilesGroup" />
+			<Output TaskParameter="DestinationItemGroup" ItemName="PdbDestinationFilesGroup" />
+		</GeneratePdbCopyItemGroups>
+		<Copy SourceFiles="@(PdbSourceFilesGroup)" DestinationFiles="@(PdbDestinationFilesGroup)" Condition="'$(DeployPDBsToGac)' == 'true'" />
+	</Target>
+
+	<Target Name="UndeployOrchestrations" Condition="'$(IncludeOrchestrations)' == 'true' and '$(SkipUndeploy)' == 'false'">
+		<!-- Undeploy orchestration assemblies. -->
+
+		<ItemGroupFromSeparatedList SeparatedList="$(Orchestrations)" FormatString="$(FullPathFormatString)" ReverseList="true">
+			<Output TaskParameter="ItemGroup" ItemName="UndeployOrchestrationsGroup" />
+		</ItemGroupFromSeparatedList>
+
+		<!--
+			Use the assembly's display name to remove the specific assembly from the GAC.
+			If the version is not specified, gacutil removes all assemblies from the GAC that match on
+			the filename, even if they have different strong names.
+		-->
+		<GenerateAssemblyNamesItemGroup SourceAssemblies="@(UndeployOrchestrationsGroup)">
+			<Output TaskParameter="AssemblyNamesItemGroup" ItemName="OrchestrationAssemblyNamesGroup" />
+		</GenerateAssemblyNamesItemGroup>
+
+		<!-- When GACUTIL removes the assembly from the GAC, it will also remove the PDB file (copied when DeployPDBsToGac is enabled). -->
+		<Exec Command="&quot;$(Gacutil)&quot; /u &quot;@(OrchestrationAssemblyNamesGroup)&quot;" Condition="%(Identity) == %(Identity)" />
+	</Target>
+
+	<!-- This target uses a collection (comma separated list) of component assemblies in the components property.  Likewise for undeployComponents.  -->
+	<Target Name="DeployComponents" Condition="'$(IncludeComponents)' == 'true'" DependsOnTargets="InitLog4netFile;GetSoftwarePaths">
+		<!-- Deploy components to the gac. -->
+
+		<ItemGroupFromSeparatedList SeparatedList="$(Components)" FormatString="$(FullPathFormatString)" ReverseList="false">
+			<Output TaskParameter="ItemGroup" ItemName="DeployComponentsGroup" />
+		</ItemGroupFromSeparatedList>
+
+		<Exec Command="&quot;$(Gacutil)&quot; /i &quot;@(DeployComponentsGroup)&quot;" Condition="%(Identity) == %(Identity)" />
+
+		<!-- Deploy PDBS to gac. This likely won't work with custom directories - a little more work required yet -->
+		<GeneratePdbCopyItemGroups SourceAssemblies="@(DeployComponentsGroup)" Condition="'$(DeployPDBsToGac)' == 'true'">
+			<Output TaskParameter="SourceItemGroup" ItemName="PdbSourceFilesGroup" />
+			<Output TaskParameter="DestinationItemGroup" ItemName="PdbDestinationFilesGroup" />
+		</GeneratePdbCopyItemGroups>
+		<Copy SourceFiles="@(PdbSourceFilesGroup)" DestinationFiles="@(PdbDestinationFilesGroup)" Condition="'$(DeployPDBsToGac)' == 'true'" />
+
+		<Exec
+			Command="$(FrameworkDir)\installutil.exe /ShowCallStack &quot;@(DeployComponentsGroup)&quot;"
+			Condition="'$(IncludeInstallUtilForComponents)' == 'true' and %(Identity) == %(Identity)" />
+
+		<Exec
+			Command="BTSTask.exe AddResource -Type:Assembly -Source:&quot;@(DeployComponentsGroup)&quot; -ApplicationName:$(BizTalkAppName) -Options:GacOnImport,GacOnInstall"
+			Condition="'$(IncludeCompsAndVDirsAsResources)' == 'true' and %(Identity) == %(Identity) and '$(DeployBizTalkMgmtDB)' == 'true'" />
+
+		<!-- Write registry key with location of our log4net configuration file. -->
+		<!-- Note: If you're doing 32 bit hosts on win64, hard code this to cscript.exe rather than using macro. -->
+		<Exec
+			Command="&quot;$(Cscript)&quot; /nologo &quot;$(DeployTools)\WriteRegValue.vbs&quot; $(Log4netRegKey) &quot;@(Log4netFile)&quot;"
+			Condition="'$(Includelog4net)' == 'true'" />
+
+		<!--
+			Deploy additional assemblies.  We aren't undeploying them since they are shared components,
+			though this could be debated.
+		-->
+		<ItemGroupFromSeparatedList SeparatedList="$(AdditionalAssemblies)" FormatString="$(DeployTools)\{0}.dll" ReverseList="false">
+			<Output TaskParameter="ItemGroup" ItemName="DeployAdditionalAssembliesGroup" />
+		</ItemGroupFromSeparatedList>
+
+		<Exec Command="&quot;$(Gacutil)&quot; /i &quot;@(DeployAdditionalAssembliesGroup)&quot;" Condition="%(Identity) == %(Identity)" />
+
+		<Exec
+			Command="BTSTask.exe AddResource -Type:Assembly -Source:&quot;@(DeployAdditionalAssembliesGroup)&quot; -ApplicationName:$(BizTalkAppName) -Options:GacOnImport,GacOnInstall"
+			Condition="'$(IncludeCompsAndVDirsAsResources)' == 'true' and %(Identity) == %(Identity) and '$(DeployBizTalkMgmtDB)' == 'true'" />
+
+		<!--
+			Deploy external dependencies.
+		-->
+		<ItemGroupFromSeparatedList SeparatedList="$(ExternalAssemblies)" FormatString="$(ExternalAssembliesPath)\{0}" ReverseList="false" Condition="'$(ExternalAssemblies)' != ''">
+			<Output TaskParameter="ItemGroup" ItemName="DeployExternalAssembliesGroup" />
+		</ItemGroupFromSeparatedList>
+
+		<Exec Command="&quot;$(Gacutil)&quot; /i &quot;@(DeployExternalAssembliesGroup)&quot;" Condition="'$(ExternalAssemblies)' != '' and %(Identity) == %(Identity)" />
+
+		<Exec
+			Command="BTSTask.exe AddResource -Type:Assembly -Source:&quot;@(DeployExternalAssembliesGroup)&quot; -ApplicationName:$(BizTalkAppName) -Options:GacOnImport,GacOnInstall"
+			Condition="'$(ExternalAssemblies)' != '' and '$(IncludeCompsAndVDirsAsResources)' == 'true' and %(Identity) == %(Identity) and '$(DeployBizTalkMgmtDB)' == 'true'" />
+	</Target>
+
+	<Target Name="UndeployComponents" Condition="'$(IncludeComponents)' == 'true' and '$(SkipUndeploy)' == 'false'">
+		<!-- Undeploy Component assemblies. -->
+
+		<ItemGroupFromSeparatedList SeparatedList="$(Components)" FormatString="$(FullPathFormatString)" ReverseList="true">
+			<Output TaskParameter="ItemGroup" ItemName="UndeployComponentsGroup" />
+		</ItemGroupFromSeparatedList>
+
+		<!--
+			Use the assembly's display name to remove the specific assembly from the GAC.
+			If the version is not specified, gacutil removes all assemblies from the GAC that match on
+			the filename, even if they have different strong names.
+		-->
+		<GenerateAssemblyNamesItemGroup SourceAssemblies="@(UndeployComponentsGroup)">
+			<Output TaskParameter="AssemblyNamesItemGroup" ItemName="ComponentAssemblyNamesGroup" />
+		</GenerateAssemblyNamesItemGroup>
+
+		<!-- When GACUTIL removes the assembly from the GAC, it will also remove the PDB file (copied when DeployPDBsToGac is enabled). -->
+		<Exec Command="&quot;$(Gacutil)&quot; /u &quot;@(ComponentAssemblyNamesGroup)&quot;" Condition="%(Identity) == %(Identity)" />
+
+		<Exec
+			Command="$(FrameworkDir)\installutil.exe /u /ShowCallStack &quot;@(UndeployComponentsGroup)&quot;"
+			Condition="'$(IncludeInstallUtilForComponents)' == 'true' and %(Identity) == %(Identity)" />
+
+		<!--
+			Undeploy external dependencies.
+		-->
+		<ItemGroupFromSeparatedList SeparatedList="$(ExternalAssemblies)" FormatString="$(ExternalAssembliesPath)\{0}" ReverseList="false" Condition="'$(ExternalAssemblies)' != '' and '$(UndeployExternalAssemblies)' == 'true'">
+			<Output TaskParameter="ItemGroup" ItemName="UndeployExternalAssembliesGroup" />
+		</ItemGroupFromSeparatedList>
+
+		<!--
+			Use the assembly's display name to remove the specific assembly from the GAC.
+			If the version is not specified, gacutil removes all assemblies from the GAC that match on
+			the filename, even if they have different strong names.
+		-->
+		<GenerateAssemblyNamesItemGroup SourceAssemblies="@(UndeployExternalAssembliesGroup)" Condition="'$(UndeployExternalAssemblies)' == 'true' and '$(ExternalAssemblies)' != ''">
+			<Output TaskParameter="AssemblyNamesItemGroup" ItemName="ExternalAssembliesAssemblyNamesGroup" />
+		</GenerateAssemblyNamesItemGroup>
+
+		<Exec Command="&quot;$(Gacutil)&quot; /u &quot;@(ExternalAssembliesAssemblyNamesGroup)&quot;" Condition="'$(UndeployExternalAssemblies)' == 'true' and '$(ExternalAssemblies)' != '' and %(Identity) == %(Identity)" />
+	</Target>
+
+	<Target Name="DeployPipelines" Condition="'$(IncludePipelines)' == 'true'" DependsOnTargets="UndeployPipelines">
+		<!-- Deploy pipeline assemblies. -->
+
+		<ItemGroupFromSeparatedList SeparatedList="$(Pipelines)" FormatString="$(FullPathFormatString)" ReverseList="false">
+			<Output TaskParameter="ItemGroup" ItemName="DeployPipelinesGroup" />
+		</ItemGroupFromSeparatedList>
+
+		<Exec
+			Command="BTSTask.exe AddResource -Type:BizTalkAssembly -Source:&quot;@(DeployPipelinesGroup)&quot; -ApplicationName:$(BizTalkAppName) -Options:GacOnAdd,GacOnImport,GacOnInstall"
+			Condition="%(Identity) == %(Identity) and '$(DeployBizTalkMgmtDB)' == 'true'" />
+
+		<Exec Command="&quot;$(Gacutil)&quot; /i &quot;@(DeployPipelinesGroup)&quot;"
+					Condition="%(Identity) == %(Identity) and '$(DeployBizTalkMgmtDB)' == 'false'" />
+
+		<!-- Deploy PDBS to gac. This likely won't work with custom directories - a little more work required yet -->
+		<GeneratePdbCopyItemGroups SourceAssemblies="@(DeployPipelinesGroup)" Condition="'$(DeployPDBsToGac)' == 'true'">
+			<Output TaskParameter="SourceItemGroup" ItemName="PdbSourceFilesGroup" />
+			<Output TaskParameter="DestinationItemGroup" ItemName="PdbDestinationFilesGroup" />
+		</GeneratePdbCopyItemGroups>
+		<Copy SourceFiles="@(PdbSourceFilesGroup)" DestinationFiles="@(PdbDestinationFilesGroup)" Condition="'$(DeployPDBsToGac)' == 'true'" />
+	</Target>
+
+	<Target Name="UndeployPipelines" DependsOnTargets="UndeployOrchestrations" Condition="'$(IncludePipelines)' == 'true' and '$(SkipUndeploy)' == 'false'">
+		<!-- Undeploy Pipeline assemblies. -->
+
+		<ItemGroupFromSeparatedList SeparatedList="$(Pipelines)" FormatString="$(FullPathFormatString)" ReverseList="true">
+			<Output TaskParameter="ItemGroup" ItemName="UndeployPipelinesGroup" />
+		</ItemGroupFromSeparatedList>
+
+		<!--
+			Use the assembly's display name to remove the specific assembly from the GAC.
+			If the version is not specified, gacutil removes all assemblies from the GAC that match on
+			the filename, even if they have different strong names.
+		-->
+		<GenerateAssemblyNamesItemGroup SourceAssemblies="@(UndeployPipelinesGroup)">
+			<Output TaskParameter="AssemblyNamesItemGroup" ItemName="PipelineAssemblyNamesGroup" />
+		</GenerateAssemblyNamesItemGroup>
+
+		<!-- When GACUTIL removes the assembly from the GAC, it will also remove the PDB file (copied when DeployPDBsToGac is enabled). -->
+		<Exec Command="&quot;$(Gacutil)&quot; /u &quot;@(PipelineAssemblyNamesGroup)&quot;" Condition="%(Identity) == %(Identity)" />
+	</Target>
+
+	<Target Name="DeployPipelineComponents" Condition="'$(IncludePipelineComponents)' == 'true'">
+		<!-- Deploy pipeline components. -->
+
+		<ItemGroupFromSeparatedList SeparatedList="$(PipelineComponents)" FormatString="$(FullPathFormatString)" ReverseList="false">
+			<Output TaskParameter="ItemGroup" ItemName="DeployPipelineComponentsGroup" />
+		</ItemGroupFromSeparatedList>
+
+		<Copy SourceFiles="@(DeployPipelineComponentsGroup)" DestinationFolder="$(BtsDir)Pipeline Components" ContinueOnError="true" />
+
+		<Exec Command="&quot;$(Gacutil)&quot; /i &quot;@(DeployPipelineComponentsGroup)&quot;" Condition="%(Identity) == %(Identity)" />
+
+		<!-- Deploy PDBS to gac. This likely won't work with custom directories - a little more work required yet -->
+		<GeneratePdbCopyItemGroups SourceAssemblies="@(DeployPipelineComponentsGroup)" Condition="'$(DeployPDBsToGac)' == 'true'">
+			<Output TaskParameter="SourceItemGroup" ItemName="PdbSourceFilesGroup" />
+			<Output TaskParameter="DestinationItemGroup" ItemName="PdbDestinationFilesGroup" />
+		</GeneratePdbCopyItemGroups>
+		<Copy SourceFiles="@(PdbSourceFilesGroup)" DestinationFiles="@(PdbDestinationFilesGroup)" Condition="'$(DeployPDBsToGac)' == 'true'" />
+
+		<Exec
+			Command="BTSTask.exe AddResource -Type:Assembly -Source:&quot;@(DeployPipelineComponentsGroup)&quot; -ApplicationName:$(BizTalkAppName) -Options:GacOnImport,GacOnInstall"
+			Condition="'$(IncludeCompsAndVDirsAsResources)' == 'true' and %(Identity) == %(Identity) and '$(DeployBizTalkMgmtDB)' == 'true'" />
+	</Target>
+
+	<Target Name="UndeployPipelineComponents" Condition="'$(IncludePipelineComponents)' == 'true' and '$(SkipUndeploy)' == 'false'">
+		<!-- Undeploy Pipeline Component assemblies. -->
+
+		<!-- To deal with pipeline components loaded in isolated host. -->
+		<Exec Command="iisreset.exe /noforce /restart /timeout:$(IisResetTime)" Condition="'$(SkipIISReset)' == 'false'" />
+
+		<!-- Delete pipeline component assemblies from BizTalk's Pipeline Components folder. -->
+		<ItemGroupFromSeparatedList SeparatedList="$(PipelineComponents)" FormatString="$(BtsDir)Pipeline Components\{0}.dll" ReverseList="true">
+			<Output TaskParameter="ItemGroup" ItemName="DeletePipelineComponentsGroup" />
+		</ItemGroupFromSeparatedList>
+
+		<Delete Files="@(DeletePipelineComponentsGroup)" ContinueOnError="true" />
+
+		<!-- Remove pipeline component assemblies from the GAC. -->
+		<ItemGroupFromSeparatedList SeparatedList="$(PipelineComponents)" FormatString="$(FullPathFormatString)" ReverseList="true">
+			<Output TaskParameter="ItemGroup" ItemName="UndeployPipelineComponentsGroup" />
+		</ItemGroupFromSeparatedList>
+
+		<!--
+			Use the assembly's display name to remove the specific assembly from the GAC.
+			If the version is not specified, gacutil removes all assemblies from the GAC that match on
+			the filename, even if they have different strong names.
+		-->
+		<GenerateAssemblyNamesItemGroup SourceAssemblies="@(UndeployPipelineComponentsGroup)">
+			<Output TaskParameter="AssemblyNamesItemGroup" ItemName="PipelineComponentAssemblyNamesGroup" />
+		</GenerateAssemblyNamesItemGroup>
+
+		<!-- When GACUTIL removes the assembly from the GAC, it will also remove the PDB file (copied when DeployPDBsToGac is enabled). -->
+		<Exec Command="&quot;$(Gacutil)&quot; /u &quot;@(PipelineComponentAssemblyNamesGroup)&quot;" Condition="%(Identity) == %(Identity)" />
+	</Target>
+
+	<Target Name="DeployTransforms" DependsOnTargets="UndeployTransforms" Condition="'$(IncludeTransforms)' == 'true'">
+		<!-- Deploy transform assemblies. -->
+
+		<ItemGroupFromSeparatedList SeparatedList="$(Transforms)" FormatString="$(FullPathFormatString)" ReverseList="false">
+			<Output TaskParameter="ItemGroup" ItemName="DeployTransformsGroup" />
+		</ItemGroupFromSeparatedList>
+
+		<Exec
+			Command="BTSTask.exe AddResource -Type:BizTalkAssembly -Source:&quot;@(DeployTransformsGroup)&quot; -ApplicationName:$(BizTalkAppName) -Options:GacOnAdd,GacOnImport,GacOnInstall"
+			Condition="%(Identity) == %(Identity) and '$(DeployBizTalkMgmtDB)' == 'true'" />
+
+		<Exec Command="&quot;$(Gacutil)&quot; /i &quot;@(DeployTransformsGroup)&quot;"
+					Condition="%(Identity) == %(Identity) and '$(DeployBizTalkMgmtDB)' == 'false'" />
+
+		<!-- Deploy PDBS to gac. This likely won't work with custom directories - a little more work required yet -->
+		<GeneratePdbCopyItemGroups SourceAssemblies="@(DeployTransformsGroup)" Condition="'$(DeployPDBsToGac)' == 'true'">
+			<Output TaskParameter="SourceItemGroup" ItemName="PdbSourceFilesGroup" />
+			<Output TaskParameter="DestinationItemGroup" ItemName="PdbDestinationFilesGroup" />
+		</GeneratePdbCopyItemGroups>
+		<Copy SourceFiles="@(PdbSourceFilesGroup)" DestinationFiles="@(PdbDestinationFilesGroup)" Condition="'$(DeployPDBsToGac)' == 'true'" />
+	</Target>
+
+	<Target Name="UndeployTransforms" DependsOnTargets="UndeployOrchestrations" Condition="'$(IncludeTransforms)' == 'true' and '$(SkipUndeploy)' == 'false'">
+		<!-- Undeploy Transform assemblies. -->
+
+		<ItemGroupFromSeparatedList SeparatedList="$(Transforms)" FormatString="$(FullPathFormatString)" ReverseList="true">
+			<Output TaskParameter="ItemGroup" ItemName="UndeployTransformsGroup" />
+		</ItemGroupFromSeparatedList>
+
+		<!--
+			Use the assembly's display name to remove the specific assembly from the GAC.
+			If the version is not specified, gacutil removes all assemblies from the GAC that match on
+			the filename, even if they have different strong names.
+		-->
+		<GenerateAssemblyNamesItemGroup SourceAssemblies="@(UndeployTransformsGroup)">
+			<Output TaskParameter="AssemblyNamesItemGroup" ItemName="TransformAssemblyNamesGroup" />
+		</GenerateAssemblyNamesItemGroup>
+
+		<!-- When GACUTIL removes the assembly from the GAC, it will also remove the PDB file (copied when DeployPDBsToGac is enabled). -->
+		<Exec Command="&quot;$(Gacutil)&quot; /u &quot;@(TransformAssemblyNamesGroup)&quot;" Condition="%(Identity) == %(Identity)" />
+	</Target>
+
+	<Target Name="DeployCustomFunctoids" Condition="'$(IncludeCustomFunctoids)' == 'true'">
+		<!-- Deploy custom functoids. -->
+		
+		<ItemGroupFromSeparatedList SeparatedList="$(CustomFunctoids)" FormatString="$(FullPathFormatString)" ReverseList="false">
+			<Output TaskParameter="ItemGroup" ItemName="DeployCustomFunctoidsGroup" />
+		</ItemGroupFromSeparatedList>
+
+		<Copy SourceFiles="@(DeployCustomFunctoidsGroup)" DestinationFolder="$(BtsDir)Developer Tools\Mapper Extensions" ContinueOnError="true" />
+
+		<Exec Command="&quot;$(Gacutil)&quot; /i &quot;@(DeployCustomFunctoidsGroup)&quot;" Condition="%(Identity) == %(Identity)" />
+
+		<!-- Deploy PDBS to gac. This likely won't work with custom directories - a little more work required yet -->
+		<GeneratePdbCopyItemGroups SourceAssemblies="@(DeployCustomFunctoidsGroup)" Condition="'$(DeployPDBsToGac)' == 'true'">
+			<Output TaskParameter="SourceItemGroup" ItemName="PdbSourceFilesGroup" />
+			<Output TaskParameter="DestinationItemGroup" ItemName="PdbDestinationFilesGroup" />
+		</GeneratePdbCopyItemGroups>
+		<Copy SourceFiles="@(PdbSourceFilesGroup)" DestinationFiles="@(PdbDestinationFilesGroup)" Condition="'$(DeployPDBsToGac)' == 'true'" />
+
+		<Exec
+			Command="BTSTask.exe AddResource -Type:Assembly -Source:&quot;@(DeployCustomFunctoidsGroup)&quot; -ApplicationName:$(BizTalkAppName) -Options:GacOnImport,GacOnInstall"
+			Condition="'$(IncludeCompsAndVDirsAsResources)' == 'true' and %(Identity) == %(Identity) and '$(DeployBizTalkMgmtDB)' == 'true'" />
+	</Target>
+
+	<Target Name="UndeployCustomFunctoids" Condition="'$(IncludeCustomFunctoids)' == 'true' and '$(SkipUndeploy)' == 'false'">
+		<!-- Undeploy Pipeline Component assemblies. -->
+
+		<!-- Delete pipeline component assemblies from BizTalk's Pipeline Components folder. -->
+		<ItemGroupFromSeparatedList SeparatedList="$(CustomFunctoids)" FormatString="$(BtsDir)Developer Tools\Mapper Extensions\{0}.dll" ReverseList="true">
+			<Output TaskParameter="ItemGroup" ItemName="DeleteCustomFunctoidsGroup" />
+		</ItemGroupFromSeparatedList>
+
+		<Delete Files="@(DeleteCustomFunctoidsGroup)" />
+
+		<!-- Remove pipeline component assemblies from the GAC. -->
+		<ItemGroupFromSeparatedList SeparatedList="$(CustomFunctoids)" FormatString="$(FullPathFormatString)" ReverseList="true">
+			<Output TaskParameter="ItemGroup" ItemName="UndeployCustomFunctoidsGroup" />
+		</ItemGroupFromSeparatedList>
+
+		<!--
+			Use the assembly's display name to remove the specific assembly from the GAC.
+			If the version is not specified, gacutil removes all assemblies from the GAC that match on
+			the filename, even if they have different strong names.
+		-->
+		<GenerateAssemblyNamesItemGroup SourceAssemblies="@(UndeployCustomFunctoidsGroup)">
+			<Output TaskParameter="AssemblyNamesItemGroup" ItemName="CustomFunctoidAssemblyNamesGroup" />
+		</GenerateAssemblyNamesItemGroup>
+
+		<!-- When GACUTIL removes the assembly from the GAC, it will also remove the PDB file (copied when DeployPDBsToGac is enabled). -->
+		<Exec Command="&quot;$(Gacutil)&quot; /u &quot;@(CustomFunctoidAssemblyNamesGroup)&quot;" Condition="%(Identity) == %(Identity)" />
+	</Target>
+
+	<Target Name="DeployVocabAndRules" DependsOnTargets="GetSoftwarePaths" Condition="'$(IncludeVocabAndRules)' == 'true'" >
+		<!-- Deploy vocabularies and rules. -->
+
+		<Exec Condition="'$(RuleVocabulary)' != ''" Command="&quot;$(DeployTools)\DeployBTRules.exe&quot; /ruleSetFile $(RuleVocabulary)" ContinueOnError="true" />
+		<Exec Condition="'$(RulePolicy)' != ''" Command="&quot;$(DeployTools)\DeployBTRules.exe&quot; /ruleSetFile $(RulePolicy) /ruleSetName $(RulePolicyName)" ContinueOnError="true" />
+
+		<ItemGroupFromSeparatedList Condition="'$(Policies)' != ''" SeparatedList="$(Policies)" FormatString="{0}" ReverseList="false">
+			<Output TaskParameter="ItemGroup" ItemName="DeployPoliciesGroup" />
+		</ItemGroupFromSeparatedList>
+
+		<Exec Command="&quot;$(DeployTools)\DeployBTRules.exe&quot; /ruleSetFile @(DeployPoliciesGroup).xml /ruleSetName @(DeployPoliciesGroup)"  Condition="%(Identity) == %(Identity)" ContinueOnError="true" />
+	</Target>
+
+	<Target Name="UndeployVocabAndRules" DependsOnTargets="GetSoftwarePaths" Condition="'$(IncludeVocabAndRules)' == 'true' and '$(SkipUndeploy)' == 'false'">
+		<!-- Undeploy vocabularies and rules. -->
+
+		<Exec Command="&quot;$(DeployTools)\DeployBTRules.exe&quot; /ruleSetName $(RulePolicyName) /undeploy" ContinueOnError="true" />
+
+		<ItemGroupFromSeparatedList Condition="'$(Policies)' != ''" SeparatedList="$(Policies)" FormatString="{0}" ReverseList="false">
+			<Output TaskParameter="ItemGroup" ItemName="DeployPoliciesGroup" />
+		</ItemGroupFromSeparatedList>
+
+		<Exec Command="&quot;$(DeployTools)\DeployBTRules.exe&quot; /ruleSetName @(DeployPoliciesGroup) /undeploy" Condition="%(Identity) == %(Identity)" ContinueOnError="true" />
+	</Target>
+
+	<Target Name="DeploySSO" DependsOnTargets="Bootstrap;InitializeAppName;GetSoftwarePaths" Condition="'$(IncludeSSO)' == 'true'">
+		<!-- Create affiliate app and import settings file into SSO. -->
+		
+		<Exec
+			Command="&quot;$(DeployTools)\SSOSettingsFileImport.exe&quot; $(BizTalkAppName) /settingsFile &quot;$(ENV_SETTINGS)&quot; /userGroupName:&quot;$(SsoAppUserGroup)&quot; /adminGroupName:&quot;$(SsoAppAdminGroup)&quot;"
+			Condition="'$(Configuration)' == 'Server'"/>
+
+		<!-- If we aren't doing a server deployment, delegate to the DevlSSO target which will deploy either
+				 DeveloperPreProcessSettings if it exists or devl_settings.xml to the SSO. -->
+		<CallTarget Targets="DevlSSO" Condition="'$(Configuration)' == 'Debug' or '$(Configuration)' == 'Release'" />
+		<CallTarget Targets="CustomSSO" />
+
+		<!-- Make sure we can always access our project (and install path) at run time -->
+		<UpdateSSOConfigItem BizTalkAppName="$(BizTalkAppName)" SSOItemName="ProjectPath" SSOItemValue="$(MSBuildProjectDirectoryParent)" />
+	</Target>
+
+	<Target Name="DevlSSO" DependsOnTargets="GetSoftwarePaths">
+		<!-- This target will use DeveloperPreProcessSettings if it exists, otherwise it will use devl_settings.xml to deploy to the SSO. -->
+		<Exec
+			Command="&quot;$(DeployTools)\SSOSettingsFileImport.exe&quot; $(BizTalkAppName) /settingsFile:&quot;$(DeveloperPreProcessSettings)&quot; /userGroupName:&quot;$(SsoAppUserGroup)&quot; /adminGroupName:&quot;$(SsoAppAdminGroup)&quot;"
+			Condition="'$(DeveloperPreProcessSettings)' != ''" />
+		<Exec
+			Command="&quot;$(DeployTools)\SSOSettingsFileImport.exe&quot; $(BizTalkAppName) /settingsFile:&quot;$(MSBuildProjectDirectory)\EnvironmentSettings\Devl_settings.xml&quot; /userGroupName:&quot;$(SsoAppUserGroup)&quot; /adminGroupName:&quot;$(SsoAppAdminGroup)&quot;"
+			Condition="'$(DeveloperPreProcessSettings)' == ''"/>
+	</Target>
+
+	<Target Name="UndeploySSO" DependsOnTargets="GetSoftwarePaths" Condition="'$(IncludeSSO)' == 'true' and '$(SkipUndeploy)' == 'false'">
+		<!-- Delete affiliate app and associated settings. -->
+
+		<Exec Command="&quot;$(DeployTools)\SSOSettingsFileImport.exe&quot; $(BizTalkAppName) /deleteApp" />
+	</Target>
+
+	<!-- Create our virtual directories, and handle service account assignment. -->
+	<Target Name="DeployVDirs" DependsOnTargets="SetWinVer;GetSoftwarePaths" Condition="'$(IncludeVirtualDirectories)' == 'true'">
+		<!-- Deploy virtual directories and handle service account assignment. -->
+
+		<ItemGroupFromCSVFile ColumnNames="$(VdirListFileColumns)" Filename="$(VdirListFile)" Condition="'@(VDirList)' == ''">
+			<Output TaskParameter="ItemGroup" ItemName="VDirList" />
+		</ItemGroupFromCSVFile>
+
+		<CreateVirtualDirectory Name="%(VDirList.Vdir)" Path="$(MSBuildProjectDirectory)\%(VDirList.Physdir)" />
+
+		<!-- Make sure aspnet account can read physical directory & its contents.  
+				 For workstation deployments, you would need to supply the account value through an MSBuild property. -->
+		<Exec Command="cacls %(VDirList.Physdir) /E /G aspnet:R" Condition="'$(WinXPor2000)' == 'true'" />
+		<Exec Command="cacls %(VDirList.Physdir)\*.* /E /G aspnet:R" Condition="'$(WinXPor2000)' == 'true'" />
+			
+		<!-- Take the username value from install wizard if doing a formal install -->
+		<Exec Command="cacls %(VDirList.Physdir) /E /G $(VDIR_UserName):R" Condition="'$(Win2003)' == 'true' and '$(Configuration)' == 'Server'" />
+		<Exec Command="cacls %(VDirList.Physdir)\*.* /E /G $(VDIR_UserName):R" Condition="'$(Win2003)' == 'true' and '$(Configuration)' == 'Server'" />
+
+		<Exec Command="cacls %(VDirList.Physdir) /E /G $(AppPoolAccount):R" Condition="'$(Win2003)' == 'true' and '$(Configuration)' != 'Server'" />
+		<Exec Command="cacls %(VDirList.Physdir)\*.* /E /G $(AppPoolAccount):R" Condition="'$(Win2003)' == 'true' and '$(Configuration)' != 'Server'" />
+
+		<!-- Set package identity for winxp or win2000 -->
+		<Exec
+			 Command="&quot;$(Cscript)&quot; /nologo &quot;$(DeployTools)\SetPackageIdentity.vbs&quot; &quot;IIS-{Default Web Site//Root/%(VDirList.Vdir)}&quot;"
+			 Condition="'$(WinXPor2000)' == 'true' and '$(Configuration)' == 'Server'" />
+
+		<!-- Create app pool and place vdir in app pool for win2003 -->
+		<Exec
+			 Command="&quot;$(Cscript)&quot; /nologo &quot;$(DeployTools)\SetAppPoolInfo.vbs&quot; %(VDirList.AppPool)"
+			 Condition="'$(Win2003)' == 'true' and '$(Configuration)' == 'Server'" />
+		<Exec
+			 Command="&quot;$(Cscript)&quot; /nologo &quot;$(DeployTools)\PlaceVDirInAppPool.vbs&quot; &quot;%(VDirList.Vdir)&quot; %(VDirList.AppPool)"
+			 Condition="'$(Win2003)' == 'true' and '$(Configuration)' == 'Server'" />
+
+		<Exec
+			 Command="BTSTask.exe AddResource -Type:WebDirectory -Source:&quot;http://localhost/%(VDirList.Vdir)&quot; -ApplicationName:$(BizTalkAppName)"
+			 Condition="'$(IncludeCompsAndVDirsAsResources)' == 'true'"/>
+
+		<!-- We are setting up our biztalk isapi extension as web svc extension for 2003 -->
+
+		<!-- We remove in case it is already there.  We could have DeployVDirs depend on UndeployVDirs instead,
+					 but that seems excessive since the vdir portion itself doesn't require that. -->
+		<CreateItem Include="$(MSBuildProjectDirectory)\$(WseExtensionPath)\$(Btshttpreceive)">
+			<Output TaskParameter="Include" ItemName="BtsHttpReceivePath" />
+		</CreateItem>
+
+		<Exec
+			Command="&quot;$(Cscript)&quot; /nologo &quot;$(IisExtVbs)&quot; /RmFile &quot;@(BtsHttpReceivePath->'%(FullPath)')&quot;"
+			ContinueOnError="true" IgnoreExitCode="true"
+			Condition="'$(Win2003)' == 'true' and '$(WseExtensionPath)' != ''"/>
+
+		<Exec
+			Command="&quot;$(Cscript)&quot; /nologo &quot;$(IisExtVbs)&quot; /AddFile &quot;@(BtsHttpReceivePath->'%(FullPath)')&quot; 1 $(WseExtensionName) 1 $(WseExtensionName)"
+			Condition="'$(Win2003)' == 'true' and '$(WseExtensionPath)' != ''"/>
+	</Target>
+
+	<Target Name="UndeployVDirs" DependsOnTargets="SetWinVer;GetSoftwarePaths" Condition="'$(IncludeVirtualDirectories)' == 'true' and '$(SkipUndeploy)' == 'false' and '$(Configuration)' == 'Server'">
+		<!-- Delete virtual directories and relevant IIS configuration. -->
+		
+		<!-- We don't want to undeploy vdirs for developers - if we do, they might not be able to load web projects that are
+					 part of their solution the next time they load the solution file. -->
+
+		<ItemGroupFromCSVFile ColumnNames="$(VdirListFileColumns)" Filename="$(VdirListFile)" Condition="'@(VDirList)' == ''">
+			<Output TaskParameter="ItemGroup" ItemName="VDirList" />
+		</ItemGroupFromCSVFile>
+
+		<DeleteVirtualDirectory Name="%(VDirList.Vdir)" ContinueOnError="true" />
+
+		<!-- We are removing our biztalk isapi extension as web svc extension for 2003 -->
+		<CreateItem Include="$(MSBuildProjectDirectory)\$(WseExtensionPath)\$(Btshttpreceive)">
+			<Output TaskParameter="Include" ItemName="BtsHttpReceivePath" />
+		</CreateItem>
+
+		<Exec
+			 Command="&quot;$(Cscript)&quot; /nologo &quot;$(IisExtVbs)&quot; /RmFile &quot;@(BtsHttpReceivePath->'%(FullPath)')&quot;"
+			 Condition="'$(Win2003)' == 'true' and '$(WseExtensionPath)' != ''" />
+	</Target>
+
+	<!-- This target examines our portBindings file to deploy and start our ports... -->
+	<Target Name="DeployAndStartPorts" DependsOnTargets="InitializeAppName" Condition="'$(IncludeMessagingBindings)' == 'true'" >
+		<!-- Deploy and start messaging ports. -->
+
+		<ItemGroupFromSeparatedList SeparatedList="$(PortBindings)" FormatString="$(MSBuildProjectDirectory)\{0}" ReverseList="false">
+			<Output TaskParameter="ItemGroup" ItemName="DeployPortBindingsGroup" />
+		</ItemGroupFromSeparatedList>
+
+		<!-- Binding file name must be unique for the whole BizTalk group, so prepend the app name incl. version number -->
+		<ItemGroupFromSeparatedList SeparatedList="$(PortBindings)" FormatString="$(MSBuildProjectDirectory)\$(BizTalkAppName)_{0}" ReverseList="false"
+																		 Condition="'$(EnableSideBySide)' == 'true'">
+			<Output TaskParameter="ItemGroup" ItemName="DeployQualifiedPortBindingsGroup" />
+		</ItemGroupFromSeparatedList>
+
+		<Copy SourceFiles="@(DeployPortBindingsGroup)" DestinationFiles="@(DeployQualifiedPortBindingsGroup)" Condition="'$(EnableSideBySide)' == 'true'" />
+
+		<Exec
+			Command="BTSTask.exe AddResource -Type:BizTalkBinding -Overwrite -Source:&quot;@(DeployPortBindingsGroup)&quot; -ApplicationName:$(BizTalkAppName)"
+			Condition="%(Identity) == %(Identity) and '$(EnableSideBySide)' == 'false'" />
+		<Exec
+			Command="BTSTask.exe AddResource -Type:BizTalkBinding -Overwrite -Source:&quot;@(DeployQualifiedPortBindingsGroup)&quot; -ApplicationName:$(BizTalkAppName)"
+			Condition="%(Identity) == %(Identity) and '$(EnableSideBySide)' == 'true'" />
+
+		<Delete Files="@(DeployQualifiedPortBindingsGroup)" Condition="'$(EnableSideBySide)' == 'true'" />
+
+		<Exec
+				Command="BTSTask.exe ImportBindings -Source:&quot;@(DeployPortBindingsGroup)&quot; -ApplicationName:$(BizTalkAppName)"
+				Condition="%(Identity) == %(Identity)"/>
+	</Target>
+
+	<Target Name="StartApplication" Condition="'$(StartApplicationOnDeploy)' == 'true'">
+		<!-- Start orchestrations and ports. -->
+
+		<Time.GetTime Format="MM-dd-yy hh:mm:ss">
+			<Output TaskParameter="Time" PropertyName="StartApplicationTime" />
+		</Time.GetTime>
+		<Message Text="Starting $(BizTalkAppName) application at $(StartApplicationTime)."/>
+		<Message Text="Note: Starting the app may take 3-6 secs PER ORCHESTRATION. Please wait..."/>
+
+		<ControlBizTalkApp ApplicationName="$(BizTalkAppName)" StartOption="StartAll" />
+	</Target>
+
+	<Target Name="DeployBam" DependsOnTargets="InitBAMPathFormatString;ExportBAMXMLFromXLS;UndeployBam" Condition="'$(IncludeBAM)' == 'true'">
+		<!-- Deploy BAM definitions. -->
+
+		<!-- First, deploy the BAM definitions -->
+		<ItemGroupFromSeparatedList SeparatedList="$(BamDefinitions)" FormatString="$(BAMPathFormatString)" ReverseList="false">
+			<Output TaskParameter="ItemGroup" ItemName="DeployBAMGroup" />
+		</ItemGroupFromSeparatedList>
+
+		<Exec
+			 Command="&quot;$(BtsDir)Tracking\bm.exe&quot; update-all -DefinitionFile:&quot;@(DeployBAMGroup->'%(RootDir)%(Directory)%(Filename).xml')&quot;" />
+
+		<!-- Next, apply permissions to the BAM views -->
+		<!-- View names and associated accounts must be defined in a property called BAMViewsAndAccounts -->
+		<!-- The format of the value of the BAMViewsAndAccounts property must be: -->
+		<!-- ViewName1:DOMAIN\GroupName1,DOMAIN\UserName1;ViewName2:BUILTIN\Administrators,COMPUTERNAME\UserName2;<etc. etc.> -->
+		<!-- This is easily pulled from the settings spreadsheet by including BAMViewsAndAccounts in the propsFromEnvSettings property. -->
+		<ItemGroupFromSeparatedList SeparatedList="$(BAMViewsAndAccounts)" FormatString="{0}" Separator=";" ReverseList="false" ListItemRegex="(?'viewName'\w+)\s*:\s*(?'groupNames'[\w\s\\,]+)$"
+																Condition="'$(BAMViewsAndAccounts)' != ''">
+			<Output TaskParameter="ItemGroup" ItemName="BAMViewsAndAccountsGroup" />
+		</ItemGroupFromSeparatedList>
+
+		<Exec
+		 Command="&quot;$(BtsDir)Tracking\bm.exe&quot; add-account -View:&quot;%(BAMViewsAndAccountsGroup.viewName)&quot; -AccountName:&quot;%(BAMViewsAndAccountsGroup.groupNames)&quot;"
+		 ContinueOnError="true"
+		 Condition="'$(BAMViewsAndAccounts)' != ''"/>
+	</Target>
+
+	<Target Name="UndeployBam" DependsOnTargets="InitBAMPathFormatString;ExportBAMXMLFromXLS" Condition="'$(IncludeBAM)' == 'true' and ('$(SkipUndeploy)' == 'false' and '$(SkipBamUndeploy)' == 'false')">
+		<!-- Undeploy BAM definitions. -->
+
+		<ItemGroupFromSeparatedList SeparatedList="$(BamDefinitions)" FormatString="$(BAMPathFormatString)" ReverseList="false">
+			<Output TaskParameter="ItemGroup" ItemName="UndeployBAMGroup" />
+		</ItemGroupFromSeparatedList>
+
+		<Exec
+			 Command="&quot;$(BtsDir)Tracking\bm.exe&quot; remove-all -DefinitionFile:&quot;@(UndeployBAMGroup->'%(RootDir)%(Directory)%(Filename).xml')&quot;" />
+	</Target>
+
+	<Target Name="ExportBAMXMLFromXLS" Condition="'$(IncludeBAM)' == 'true' and '$(Configuration)' != 'Server'">
+		<ItemGroupFromSeparatedList SeparatedList="$(BamDefinitions)" FormatString="$(BAMPathFormatString)" ReverseList="false">
+			<Output TaskParameter="ItemGroup" ItemName="ExportBAMGroup" />
+		</ItemGroupFromSeparatedList>
+
+		<Exec Command="&quot;$(DeployTools)\ExportBamDefinitionXml.exe&quot; &quot;%(ExportBAMGroup.FullPath)&quot; &quot;@(ExportBAMGroup->'%(RootDir)%(Directory)%(Filename).xml')&quot;" />
+	</Target>
+
+	<!-- This target sets the BAMPathFormatString property with a path to a BAM definition file based on whether we are doing
+			 a debug deploy, release deploy, or server deploy as a result of a formal installation. -->
+	<Target Name="InitBAMPathFormatString" DependsOnTargets="Bootstrap">
+		<!-- Creates correct path formulation based on type of deployment. -->
+		<CreateProperty Value="$(MSBuildProjectDirectoryParent)\$(ProjectName).BAM\{0}" Condition="'$(Configuration)' == 'Debug' or '$(Configuration)' == 'Release'">
+			<Output TaskParameter="Value" PropertyName="BAMPathFormatString" />
+		</CreateProperty>
+
+		<CreateProperty Value="$(MSBuildProjectDirectoryParent)\{0}" Condition="'$(Configuration)' == 'Server'">
+			<Output TaskParameter="Value" PropertyName="BAMPathFormatString" />
+		</CreateProperty>
+
+		<CreateProperty Value="{0}" Condition="'$(UseCustomDirs)' == 'true'">
+			<Output TaskParameter="Value" PropertyName="BAMPathFormatString" />
+		</CreateProperty>
+	</Target>
+
+	<Target Name="TerminateServiceInstances" DependsOnTargets="InitializeAppName">
+		<TerminateServiceInstances Application="$(BizTalkAppName)" />
+	</Target>
+
+	<Import Project="BizTalkDeploymentFramework.WiXSetup.targets"/>
 </Project>

@@ -1,0 +1,5 @@
+C:\Users\bhavsard\Documents\GitHub\ESB.Extensions\ESB.Extensions\ESB.Extensions.Resolutions.Tests\bin\Debug\ESB.Extensions.Resolutions.Tests.dll
+C:\Users\bhavsard\Documents\GitHub\ESB.Extensions\ESB.Extensions\ESB.Extensions.Resolutions.Tests\bin\Debug\ESB.Extensions.Resolutions.Tests.pdb
+C:\Users\bhavsard\Documents\GitHub\ESB.Extensions\ESB.Extensions\ESB.Extensions.Resolutions.Tests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\bhavsard\Documents\GitHub\ESB.Extensions\ESB.Extensions\ESB.Extensions.Resolutions.Tests\obj\Debug\ESB.Extensions.Resolutions.Tests.dll
+C:\Users\bhavsard\Documents\GitHub\ESB.Extensions\ESB.Extensions\ESB.Extensions.Resolutions.Tests\obj\Debug\ESB.Extensions.Resolutions.Tests.pdb
