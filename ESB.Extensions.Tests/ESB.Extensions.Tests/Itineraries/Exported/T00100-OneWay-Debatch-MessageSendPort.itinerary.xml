@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Itinerary xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" uuid="" beginTime="" completeTime="" state="Pending" isRequestResponse="false" servicecount="2" name="OneWay-Debatch-MessageSendPort" version="1.0" xmlns="http://schemas.microsoft.biztalk.practices.esb.com/itinerary">
+  <BizTalkSegment interchangeId="" epmRRCorrelationToken="" receiveInstanceId="" messageId="" xmlns="" />
+  <ServiceInstance name="ReceivePipelineService" type="Orchestration" state="Pending" position="0" isRequestResponse="false" xmlns="" />
+  <Services xmlns="">
+    <Service uuid="1D2C071E-8EE4-499e-857E-6C1740E1D8B3" beginTime="" completeTime="" name="ReceivePipelineService" type="Orchestration" state="Pending" isRequestResponse="false" position="0" serviceInstanceId="" />
+  </Services>
+  <Services xmlns="">
+    <Service uuid="94621d988bbb4ecd888d9f6f56f3069a" beginTime="" completeTime="" name="DynamicOneWaySendPort" type="Messaging" state="Pending" isRequestResponse="false" position="1" serviceInstanceId="" />
+  </Services>
+  <ResolverGroups xmlns="">
+    <Resolvers serviceId="ReceivePipelineService0">&lt;![CDATA[BRE2:\\propertyTypes=ESB.Extensions.Schemas.BatchId, ESB.Extensions.Schemas, Version=1.0.0.0, Culture=neutral, PublicKeyToken=70a94313e9b0b3df|ESB.Extensions.Schemas.SequenceId, ESB.Extensions.Schemas, Version=1.0.0.0, Culture=neutral, PublicKeyToken=70a94313e9b0b3df;policy=ESB.Extensions.Tests.OrderBatchDebatcher.Policy;version=1.0;useMsg=false;messageFile=;recognizeMessageFormat=false;]]&gt;</Resolvers>
+    <Resolvers serviceId="DynamicOneWaySendPort1">&lt;![CDATA[STATIC:\\transportType=FILE;transportLocation=C:\Z\DEV\0\OUT\%MessageID%.xml;action=;endpointConfig=;jaxRpcResponse=false;messageExchangePattern=One-Way;targetNamespace=;transformType=;]]&gt;</Resolvers>
+  </ResolverGroups>
+</Itinerary>

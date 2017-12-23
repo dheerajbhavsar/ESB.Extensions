@@ -1,0 +1,119 @@
+﻿#if __DESIGNER_DATA
+#error Do not define __DESIGNER_DATA.
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<om:MetaModel MajorVersion="1" MinorVersion="3" Core="2b131234-7959-458d-834f-2dc0769ce683" ScheduleModel="66366196-361d-448d-976f-cab5e87496d2" xmlns:om="http://schemas.microsoft.com/BizTalk/2003/DesignerData">
+    <om:Element Type="Module" OID="009ec01a-22cc-435a-ae83-0e93afe1ab91" LowerBound="1.1" HigherBound="26.1">
+        <om:Property Name="ReportToAnalyst" Value="True" />
+        <om:Property Name="Name" Value="ESB.Extensions.Services" />
+        <om:Property Name="Signal" Value="False" />
+        <om:Element Type="ServiceDeclaration" OID="93f8f1a3-db84-464a-ae9d-a99df2270763" ParentLink="Module_ServiceDeclaration" LowerBound="4.1" HigherBound="25.1">
+            <om:Property Name="InitializedTransactionType" Value="False" />
+            <om:Property Name="IsInvokable" Value="True" />
+            <om:Property Name="TypeModifier" Value="Internal" />
+            <om:Property Name="ReportToAnalyst" Value="True" />
+            <om:Property Name="Name" Value="PublishGoMsg" />
+            <om:Property Name="Signal" Value="False" />
+            <om:Element Type="CorrelationDeclaration" OID="642f5fa3-e4d2-4a9d-a209-377952934379" ParentLink="ServiceDeclaration_CorrelationDeclaration" LowerBound="9.1" HigherBound="10.1">
+                <om:Property Name="Type" Value="ESB.Extensions.Services.SequenceCT" />
+                <om:Property Name="ParamDirection" Value="In" />
+                <om:Property Name="ReportToAnalyst" Value="True" />
+                <om:Property Name="Name" Value="SequenceCS" />
+                <om:Property Name="Signal" Value="True" />
+                <om:Element Type="StatementRef" OID="c0b7b234-e7df-47fd-9918-9205643b9a2d" ParentLink="CorrelationDeclaration_StatementRef" LowerBound="22.43" HigherBound="22.64">
+                    <om:Property Name="Initializes" Value="True" />
+                    <om:Property Name="Ref" Value="51a4d72f-5960-42eb-b940-d50c24240f01" />
+                    <om:Property Name="ReportToAnalyst" Value="True" />
+                    <om:Property Name="Name" Value="StatementRef_1" />
+                    <om:Property Name="Signal" Value="False" />
+                </om:Element>
+            </om:Element>
+            <om:Element Type="MessageDeclaration" OID="02839a3e-5558-4728-aade-5fb68a4db569" ParentLink="ServiceDeclaration_MessageDeclaration" LowerBound="10.1" HigherBound="11.1">
+                <om:Property Name="Type" Value="ESB.Extensions.Services.GoMsgType" />
+                <om:Property Name="ParamDirection" Value="In" />
+                <om:Property Name="ReportToAnalyst" Value="True" />
+                <om:Property Name="Name" Value="GoMsg" />
+                <om:Property Name="Signal" Value="True" />
+            </om:Element>
+            <om:Element Type="ServiceBody" OID="285d3d4c-3818-40bc-ac2c-01e8ecfd445f" ParentLink="ServiceDeclaration_ServiceBody">
+                <om:Property Name="Signal" Value="False" />
+                <om:Element Type="VariableDeclaration" OID="766da166-5934-4b7b-aeca-25712490426c" ParentLink="ServiceBody_Declaration" LowerBound="11.15" HigherBound="11.47">
+                    <om:Property Name="UseDefaultConstructor" Value="True" />
+                    <om:Property Name="Type" Value="ESB.Extensions.Resolutions.Go" />
+                    <om:Property Name="ParamDirection" Value="In" />
+                    <om:Property Name="ReportToAnalyst" Value="True" />
+                    <om:Property Name="Name" Value="go" />
+                    <om:Property Name="Signal" Value="True" />
+                </om:Element>
+                <om:Element Type="Construct" OID="22dd1d48-1abf-4d85-b9d2-711e78046389" ParentLink="ServiceBody_Statement" LowerBound="13.1" HigherBound="21.1">
+                    <om:Property Name="ReportToAnalyst" Value="True" />
+                    <om:Property Name="Name" Value="Construct Go Message" />
+                    <om:Property Name="Signal" Value="True" />
+                    <om:Element Type="MessageRef" OID="3c450a38-6504-4470-9c3e-5d58dff97bf8" ParentLink="Construct_MessageRef" LowerBound="14.23" HigherBound="14.28">
+                        <om:Property Name="Ref" Value="GoMsg" />
+                        <om:Property Name="ReportToAnalyst" Value="True" />
+                        <om:Property Name="Signal" Value="False" />
+                    </om:Element>
+                    <om:Element Type="MessageAssignment" OID="8e624c94-a6df-47ed-81f9-c0a7f61d87ed" ParentLink="ComplexStatement_Statement" LowerBound="16.1" HigherBound="20.1">
+                        <om:Property Name="Expression" Value="GoMsg.Body = go;&#xD;&#xA;GoMsg(ESB.Extensions.Schemas.BatchId) = go.BatchId;&#xD;&#xA;GoMsg(ESB.Extensions.Schemas.SequenceId) = go.SequenceId;" />
+                        <om:Property Name="ReportToAnalyst" Value="False" />
+                        <om:Property Name="Name" Value="Assign GoMsg" />
+                        <om:Property Name="Signal" Value="False" />
+                    </om:Element>
+                </om:Element>
+                <om:Element Type="Send" OID="51a4d72f-5960-42eb-b940-d50c24240f01" ParentLink="ServiceBody_Statement" LowerBound="21.1" HigherBound="23.1">
+                    <om:Property Name="PortName" Value="GoMsgPort" />
+                    <om:Property Name="MessageName" Value="GoMsg" />
+                    <om:Property Name="OperationName" Value="GoMsg" />
+                    <om:Property Name="OperationMessageName" Value="Request" />
+                    <om:Property Name="ReportToAnalyst" Value="True" />
+                    <om:Property Name="Name" Value="Send Go Msg" />
+                    <om:Property Name="Signal" Value="True" />
+                </om:Element>
+            </om:Element>
+            <om:Element Type="PortDeclaration" OID="296fdca4-e7a0-4a17-9c5a-f8f62317ccd1" ParentLink="ServiceDeclaration_PortDeclaration" LowerBound="7.1" HigherBound="9.1">
+                <om:Property Name="PortModifier" Value="Uses" />
+                <om:Property Name="Orientation" Value="Right" />
+                <om:Property Name="PortIndex" Value="-1" />
+                <om:Property Name="IsWebPort" Value="False" />
+                <om:Property Name="OrderedDelivery" Value="False" />
+                <om:Property Name="DeliveryNotification" Value="None" />
+                <om:Property Name="Type" Value="ESB.Extensions.Services.GoMsgPortType" />
+                <om:Property Name="ParamDirection" Value="In" />
+                <om:Property Name="ReportToAnalyst" Value="True" />
+                <om:Property Name="Name" Value="GoMsgPort" />
+                <om:Property Name="Signal" Value="False" />
+                <om:Element Type="DirectBindingAttribute" OID="36554f51-a6a7-4268-83c5-b44d365dc080" ParentLink="PortDeclaration_CLRAttribute" LowerBound="7.1" HigherBound="8.1">
+                    <om:Property Name="DirectBindingType" Value="MessageBox" />
+                    <om:Property Name="Signal" Value="False" />
+                </om:Element>
+            </om:Element>
+        </om:Element>
+    </om:Element>
+</om:MetaModel>
+#endif // __DESIGNER_DATA
+[Microsoft.XLANGs.BaseTypes.BPELExportable(false)]
+module ESB.Extensions.Services
+{
+    [Microsoft.XLANGs.BaseTypes.BPELExportable(false)]
+    internal service PublishGoMsg
+    {
+        [Microsoft.XLANGs.BaseTypes.DirectBinding()]
+        port uses GoMsgPortType GoMsgPort;
+        correlation SequenceCT SequenceCS;
+        message GoMsgType GoMsg;
+        body (ESB.Extensions.Resolutions.Go go)
+        {
+            [Microsoft.XLANGs.BaseTypes.DesignerPosition("22dd1d48-1abf-4d85-b9d2-711e78046389")]
+            construct GoMsg
+            {
+                [Microsoft.XLANGs.BaseTypes.DesignerPosition("8e624c94-a6df-47ed-81f9-c0a7f61d87ed")]
+                GoMsg.Body = go;
+                GoMsg(ESB.Extensions.Schemas.BatchId) = go.BatchId;
+                GoMsg(ESB.Extensions.Schemas.SequenceId) = go.SequenceId;
+            }
+            [Microsoft.XLANGs.BaseTypes.DesignerPosition("51a4d72f-5960-42eb-b940-d50c24240f01")]
+            send (GoMsgPort.GoMsg, GoMsg, initialize SequenceCS);
+        }
+    }
+}
+

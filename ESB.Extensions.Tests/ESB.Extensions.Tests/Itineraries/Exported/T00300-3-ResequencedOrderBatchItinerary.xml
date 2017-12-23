@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Itinerary xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" uuid="" beginTime="" completeTime="" state="Pending" isRequestResponse="false" servicecount="1" name="ResequencedOrderBatchItinerary" version="1.0" xmlns="http://schemas.microsoft.biztalk.practices.esb.com/itinerary">
+  <BizTalkSegment interchangeId="" epmRRCorrelationToken="" receiveInstanceId="" messageId="" xmlns="" />
+  <ServiceInstance name="DynamicOneWaySendPort" type="Orchestration" state="Pending" position="0" isRequestResponse="false" xmlns="" />
+  <Services xmlns="">
+    <Service uuid="81268e5f5b774064a3064cdf0dfb91fa" beginTime="" completeTime="" name="DynamicOneWaySendPort" type="Messaging" state="Pending" isRequestResponse="false" position="0" serviceInstanceId="" />
+  </Services>
+  <ResolverGroups xmlns="">
+    <Resolvers serviceId="DynamicOneWaySendPort0">&lt;![CDATA[STATIC:\\transportType=FILE;transportLocation=C:\Z\DEV\0\OUT\%MessageID%.xml;action=;endpointConfig=;jaxRpcResponse=false;messageExchangePattern=One-Way;targetNamespace=;transformType=;]]&gt;</Resolvers>
+  </ResolverGroups>
+</Itinerary>
+
+<Itinerary xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" uuid="" beginTime="" completeTime="" state="Pending" isRequestResponse="false" servicecount="1" name="ResequencedOrderBatchItinerary" version="1.0" xmlns="http://schemas.microsoft.biztalk.practices.esb.com/itinerary"><BizTalkSegment interchangeId="" epmRRCorrelationToken="" receiveInstanceId="" messageId="" xmlns="" /><ServiceInstance name="DynamicOneWaySendPort" type="Orchestration" state="Pending" position="0" isRequestResponse="false" xmlns="" /><Services xmlns=""><Service uuid="81268e5f5b774064a3064cdf0dfb91fa" beginTime="" completeTime="" name="DynamicOneWaySendPort" type="Messaging" state="Pending" isRequestResponse="false" position="0" serviceInstanceId="" /></Services><ResolverGroups xmlns=""><Resolvers serviceId="DynamicOneWaySendPort0">&lt;![CDATA[STATIC:\\transportType=FILE;transportLocation=C:\Z\DEV\0\OUT\%MessageID%.xml;action=;endpointConfig=;jaxRpcResponse=false;messageExchangePattern=One-Way;targetNamespace=;transformType=;]]&gt;</Resolvers></ResolverGroups></Itinerary>

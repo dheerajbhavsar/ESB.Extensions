@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Itinerary xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" uuid="" beginTime="" completeTime="" state="Pending" isRequestResponse="false" servicecount="5" name="OneWay-Debatch-MessageSendPort" version="1.0" xmlns="http://schemas.microsoft.biztalk.practices.esb.com/itinerary">
+  <BizTalkSegment interchangeId="" epmRRCorrelationToken="" receiveInstanceId="" messageId="" xmlns="" />
+  <ServiceInstance name="ReceivePipelineService" type="Orchestration" state="Pending" position="0" isRequestResponse="false" xmlns="" />
+  <Services xmlns="">
+    <Service uuid="1D2C071E-8EE4-499e-857E-6C1740E1D8B3" beginTime="" completeTime="" name="ReceivePipelineService" type="Orchestration" state="Pending" isRequestResponse="false" position="0" serviceInstanceId="" />
+  </Services>
+  <Services xmlns="">
+    <Service uuid="6A5F461B-93B8-4cf1-B845-C96EA85AFE26" beginTime="" completeTime="" name="ResequencerService" type="Orchestration" state="Pending" isRequestResponse="false" position="1" serviceInstanceId="" />
+  </Services>
+  <Services xmlns="">
+    <Service uuid="FB725E59-F167-4fd6-8E5F-94371BC449CB" beginTime="" completeTime="" name="SendPipelineService" type="Orchestration" state="Pending" isRequestResponse="false" position="2" serviceInstanceId="" />
+  </Services>
+  <Services xmlns="">
+    <Service uuid="C82703BB-324E-4aa6-A795-DA4186D5A4B5" beginTime="" completeTime="" name="ResequencerGoService" type="Orchestration" state="Pending" isRequestResponse="false" position="3" serviceInstanceId="" />
+  </Services>
+  <Services xmlns="">
+    <Service uuid="81268e5f5b774064a3064cdf0dfb91fa" beginTime="" completeTime="" name="DynamicOneWaySendPort" type="Messaging" state="Pending" isRequestResponse="false" position="4" serviceInstanceId="" />
+  </Services>
+  <ResolverGroups xmlns="">
+    <Resolvers serviceId="ReceivePipelineService0">&lt;![CDATA[BRE2:\\propertyTypes=ESB.Extensions.Schemas.BatchId, ESB.Extensions.Schemas, Version=1.0.0.0, Culture=neutral, PublicKeyToken=70a94313e9b0b3df|ESB.Extensions.Schemas.SequenceId, ESB.Extensions.Schemas, Version=1.0.0.0, Culture=neutral, PublicKeyToken=70a94313e9b0b3df;policy=ESB.Extensions.Tests.OrderBatchDebatcher.Policy;version=1.0;useMsg=false;messageFile=;recognizeMessageFormat=false;]]&gt;</Resolvers>
+    <Resolvers serviceId="ResequencerService1" />
+    <Resolvers serviceId="SendPipelineService2">&lt;![CDATA[BRE2:\\propertyTypes=ESB.Extensions.Schemas.BatchId, ESB.Extensions.Schemas, Version=1.0.0.0, Culture=neutral, PublicKeyToken=70a94313e9b0b3df|ESB.Extensions.Schemas.SequenceId, ESB.Extensions.Schemas, Version=1.0.0.0, Culture=neutral, PublicKeyToken=70a94313e9b0b3df;policy=ESB.Extensions.Tests.OrderAggregator.PreserveOrder.Policy;version=1.0;useMsg=false;messageFile=;recognizeMessageFormat=false;]]&gt;</Resolvers>
+    <Resolvers serviceId="ResequencerGoService3">&lt;![CDATA[BRE2:\\propertyTypes=ESB.Extensions.Schemas.BatchId, ESB.Extensions.Schemas, Version=1.0.0.0, Culture=neutral, PublicKeyToken=70a94313e9b0b3df|ESB.Extensions.Schemas.SequenceId, ESB.Extensions.Schemas, Version=1.0.0.0, Culture=neutral, PublicKeyToken=70a94313e9b0b3df;policy=ESB.Extensions.Tests.Resequencer.Policy;version=1.0;useMsg=false;messageFile=;recognizeMessageFormat=false;]]&gt;</Resolvers>
+    <Resolvers serviceId="DynamicOneWaySendPort4">&lt;![CDATA[STATIC:\\transportType=FILE;transportLocation=C:\Z\DEV\0\OUT\%MessageID%.xml;action=;endpointConfig=;jaxRpcResponse=false;messageExchangePattern=One-Way;targetNamespace=;transformType=;]]&gt;</Resolvers>
+  </ResolverGroups>
+</Itinerary>

@@ -1,0 +1,50 @@
+﻿<TestCase testName="T00350-OneWay-Debatch-EsbBatchDb-Resequence-Aggregate-MessageSendPort">
+  <TestExecution>
+    <TestStep assemblyPath="" typeName="BizUnit.FileDeleteMultipleStep">
+      <Directory>C:\Z\DEV\0\OUT\</Directory>
+      <SearchPattern>{*}.xml</SearchPattern>
+    </TestStep>
+    <TestStep assemblyPath="" typeName="BizUnit.DatabaseDeleteStep">
+      <ConnectionString>Persist Security Info=False;Integrated Security=SSPI;database=EsbBatchDb;server=(local);Connect Timeout=30</ConnectionString>
+      <Table>dbo.SEQUENCE</Table>
+      <Condition>1=1</Condition>
+    </TestStep>
+    <TestStep assemblyPath="" typeName="BizUnit.DatabaseDeleteStep">
+      <ConnectionString>Persist Security Info=False;Integrated Security=SSPI;database=EsbBatchDb;server=(local);Connect Timeout=30</ConnectionString>
+      <Table>dbo.BATCH</Table>
+      <Condition>1=1</Condition>
+    </TestStep>
+    <TestStep assemblyPath="" typeName="BizUnit.FileCreateStep">
+      <SourcePath>..\..\..\..\ESB.Extensions.Tests\ESB.Extensions.Tests.BizTalkArtifacts\Instances\OrderBatch5.xml</SourcePath>
+      <CreationPath>C:\Z\DEV\0\IN\ODERAM\OrderBatch5.xml</CreationPath>
+    </TestStep>
+    <TestStep assemblyPath="" typeName="BizUnit.FileCreateStep">
+      <SourcePath>..\..\..\..\ESB.Extensions.Tests\ESB.Extensions.Tests.BizTalkArtifacts\Instances\OrderBatch5-2.xml</SourcePath>
+      <CreationPath>C:\Z\DEV\0\IN\ODERAM\OrderBatch5-2.xml</CreationPath>
+    </TestStep>
+    <TestStep assemblyPath="" typeName="BizUnit.FileValidateStep">
+      <Timeout>180000</Timeout>
+      <Directory>C:\Z\DEV\0\OUT\</Directory>
+      <SearchPattern>{*}.xml</SearchPattern>
+      <DeleteFile>true</DeleteFile>
+      <ValidationStep assemblyPath="" typeName="BizUnit.XmlValidationStep">
+        <XmlSchemaPath>..\..\..\..\ESB.Extensions.Tests\ESB.Extensions.Tests.BizTalkArtifacts\OrderBatch.xsd</XmlSchemaPath>
+        <XmlSchemaNameSpace>http://ESB.Extensions.Tests.BizTalkArtifacts.OrderBatch</XmlSchemaNameSpace>
+        <XPathList>
+          <XPathValidation query="/*[local-name()='OrderBatch' and namespace-uri()='http://ESB.Extensions.Tests.BizTalkArtifacts.OrderBatch']/*[local-name()='BatchId' and namespace-uri()='']">000000</XPathValidation>
+          <XPathValidation query="/*[local-name()='OrderBatch' and namespace-uri()='http://ESB.Extensions.Tests.BizTalkArtifacts.OrderBatch']/*[local-name()='Orders' and namespace-uri()='']/*[local-name()='Order' and namespace-uri()='http://ESB.Extensions.Tests.BizTalkArtifacts.Order'][1]/*[local-name()='SequenceId' and namespace-uri()='']">000000</XPathValidation>
+          <XPathValidation query="/*[local-name()='OrderBatch' and namespace-uri()='http://ESB.Extensions.Tests.BizTalkArtifacts.OrderBatch']/*[local-name()='Orders' and namespace-uri()='']/*[local-name()='Order' and namespace-uri()='http://ESB.Extensions.Tests.BizTalkArtifacts.Order'][2]/*[local-name()='SequenceId' and namespace-uri()='']">000001</XPathValidation>
+          <XPathValidation query="/*[local-name()='OrderBatch' and namespace-uri()='http://ESB.Extensions.Tests.BizTalkArtifacts.OrderBatch']/*[local-name()='Orders' and namespace-uri()='']/*[local-name()='Order' and namespace-uri()='http://ESB.Extensions.Tests.BizTalkArtifacts.Order'][3]/*[local-name()='SequenceId' and namespace-uri()='']">000002</XPathValidation>
+          <XPathValidation query="/*[local-name()='OrderBatch' and namespace-uri()='http://ESB.Extensions.Tests.BizTalkArtifacts.OrderBatch']/*[local-name()='Orders' and namespace-uri()='']/*[local-name()='Order' and namespace-uri()='http://ESB.Extensions.Tests.BizTalkArtifacts.Order'][4]/*[local-name()='SequenceId' and namespace-uri()='']">000003</XPathValidation>
+          <XPathValidation query="/*[local-name()='OrderBatch' and namespace-uri()='http://ESB.Extensions.Tests.BizTalkArtifacts.OrderBatch']/*[local-name()='Orders' and namespace-uri()='']/*[local-name()='Order' and namespace-uri()='http://ESB.Extensions.Tests.BizTalkArtifacts.Order'][5]/*[local-name()='SequenceId' and namespace-uri()='']">000004</XPathValidation>
+          <XPathValidation query="/*[local-name()='OrderBatch' and namespace-uri()='http://ESB.Extensions.Tests.BizTalkArtifacts.OrderBatch']/*[local-name()='Orders' and namespace-uri()='']/*[local-name()='Order' and namespace-uri()='http://ESB.Extensions.Tests.BizTalkArtifacts.Order'][6]/*[local-name()='SequenceId' and namespace-uri()='']">000005</XPathValidation>
+          <XPathValidation query="/*[local-name()='OrderBatch' and namespace-uri()='http://ESB.Extensions.Tests.BizTalkArtifacts.OrderBatch']/*[local-name()='Orders' and namespace-uri()='']/*[local-name()='Order' and namespace-uri()='http://ESB.Extensions.Tests.BizTalkArtifacts.Order'][7]/*[local-name()='SequenceId' and namespace-uri()='']">000006</XPathValidation>
+          <XPathValidation query="/*[local-name()='OrderBatch' and namespace-uri()='http://ESB.Extensions.Tests.BizTalkArtifacts.OrderBatch']/*[local-name()='Orders' and namespace-uri()='']/*[local-name()='Order' and namespace-uri()='http://ESB.Extensions.Tests.BizTalkArtifacts.Order'][8]/*[local-name()='SequenceId' and namespace-uri()='']">000007</XPathValidation>
+          <XPathValidation query="/*[local-name()='OrderBatch' and namespace-uri()='http://ESB.Extensions.Tests.BizTalkArtifacts.OrderBatch']/*[local-name()='Orders' and namespace-uri()='']/*[local-name()='Order' and namespace-uri()='http://ESB.Extensions.Tests.BizTalkArtifacts.Order'][9]/*[local-name()='SequenceId' and namespace-uri()='']">000008</XPathValidation>
+          <XPathValidation query="/*[local-name()='OrderBatch' and namespace-uri()='http://ESB.Extensions.Tests.BizTalkArtifacts.OrderBatch']/*[local-name()='Orders' and namespace-uri()='']/*[local-name()='Order' and namespace-uri()='http://ESB.Extensions.Tests.BizTalkArtifacts.Order'][10]/*[local-name()='SequenceId' and namespace-uri()='']">000009</XPathValidation>
+        </XPathList>
+      </ValidationStep>
+    </TestStep>
+  </TestExecution>
+</TestCase>
+

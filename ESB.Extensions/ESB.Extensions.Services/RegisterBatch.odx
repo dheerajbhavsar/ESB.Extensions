@@ -1,0 +1,187 @@
+﻿#if __DESIGNER_DATA
+#error Do not define __DESIGNER_DATA.
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<om:MetaModel MajorVersion="1" MinorVersion="3" Core="2b131234-7959-458d-834f-2dc0769ce683" ScheduleModel="66366196-361d-448d-976f-cab5e87496d2" xmlns:om="http://schemas.microsoft.com/BizTalk/2003/DesignerData">
+    <om:Element Type="Module" OID="1020acb2-3465-4940-b59b-815283b3733b" LowerBound="1.1" HigherBound="41.1">
+        <om:Property Name="ReportToAnalyst" Value="True" />
+        <om:Property Name="Name" Value="ESB.Extensions.Services" />
+        <om:Property Name="Signal" Value="False" />
+        <om:Element Type="ServiceDeclaration" OID="b2e7a639-7b95-44d8-887e-4bae96cbb710" ParentLink="Module_ServiceDeclaration" LowerBound="19.1" HigherBound="40.1">
+            <om:Property Name="InitializedTransactionType" Value="False" />
+            <om:Property Name="IsInvokable" Value="True" />
+            <om:Property Name="TypeModifier" Value="Internal" />
+            <om:Property Name="ReportToAnalyst" Value="True" />
+            <om:Property Name="Name" Value="RegisterBatch" />
+            <om:Property Name="Signal" Value="False" />
+            <om:Element Type="MessageDeclaration" OID="8c2144b0-fa94-425a-bc6f-9ff544a3f32a" ParentLink="ServiceDeclaration_MessageDeclaration" LowerBound="24.1" HigherBound="25.1">
+                <om:Property Name="Type" Value="ESB.Extensions.Services.MergeBatchSequenceRequestMT" />
+                <om:Property Name="ParamDirection" Value="In" />
+                <om:Property Name="ReportToAnalyst" Value="True" />
+                <om:Property Name="Name" Value="MergeBatchSequenceRequestMsg" />
+                <om:Property Name="Signal" Value="True" />
+            </om:Element>
+            <om:Element Type="MessageDeclaration" OID="71e89eb1-bc30-44e2-af6e-60b713bca9d5" ParentLink="ServiceDeclaration_MessageDeclaration" LowerBound="25.1" HigherBound="26.1">
+                <om:Property Name="Type" Value="ESB.Extensions.Services.MergeBatchSequenceResponseMT" />
+                <om:Property Name="ParamDirection" Value="In" />
+                <om:Property Name="ReportToAnalyst" Value="True" />
+                <om:Property Name="Name" Value="MergeBatchSequenceResponseMsg" />
+                <om:Property Name="Signal" Value="True" />
+            </om:Element>
+            <om:Element Type="ServiceBody" OID="ad1b2b7f-03b8-4fa0-bf99-48ae3149e8c0" ParentLink="ServiceDeclaration_ServiceBody">
+                <om:Property Name="Signal" Value="False" />
+                <om:Element Type="Construct" OID="4c1dbe0e-9c0c-4095-91cd-2fcc1041f91c" ParentLink="ServiceBody_Statement" LowerBound="28.1" HigherBound="34.1">
+                    <om:Property Name="ReportToAnalyst" Value="True" />
+                    <om:Property Name="Name" Value="Construct CompositeBatchInsertRequestMsg" />
+                    <om:Property Name="Signal" Value="True" />
+                    <om:Element Type="MessageAssignment" OID="7de14754-025a-4a56-9400-f0e1525befc3" ParentLink="ComplexStatement_Statement" LowerBound="31.1" HigherBound="33.1">
+                        <om:Property Name="Expression" Value="MergeBatchSequenceRequestMsg.Body = MergeBatchSequenceRequest;" />
+                        <om:Property Name="ReportToAnalyst" Value="False" />
+                        <om:Property Name="Name" Value="Assign CompositeBatchInsertRequestMsg" />
+                        <om:Property Name="Signal" Value="False" />
+                    </om:Element>
+                    <om:Element Type="MessageRef" OID="86a88b62-490e-4888-9bfc-52edabee7357" ParentLink="Construct_MessageRef" LowerBound="29.23" HigherBound="29.51">
+                        <om:Property Name="Ref" Value="MergeBatchSequenceRequestMsg" />
+                        <om:Property Name="ReportToAnalyst" Value="True" />
+                        <om:Property Name="Signal" Value="False" />
+                    </om:Element>
+                </om:Element>
+                <om:Element Type="Send" OID="ade6915b-e94e-4793-bd8a-98ccab833e1f" ParentLink="ServiceBody_Statement" LowerBound="34.1" HigherBound="36.1">
+                    <om:Property Name="PortName" Value="MergeBatchSequencePort" />
+                    <om:Property Name="MessageName" Value="MergeBatchSequenceRequestMsg" />
+                    <om:Property Name="OperationName" Value="MergeBatchSequence" />
+                    <om:Property Name="OperationMessageName" Value="Request" />
+                    <om:Property Name="ReportToAnalyst" Value="True" />
+                    <om:Property Name="Name" Value="Send CompositeBatchInsertRequestMsg" />
+                    <om:Property Name="Signal" Value="True" />
+                </om:Element>
+                <om:Element Type="Receive" OID="2c492164-da77-4c25-88a4-70f724f5d307" ParentLink="ServiceBody_Statement" LowerBound="36.1" HigherBound="38.1">
+                    <om:Property Name="Activate" Value="False" />
+                    <om:Property Name="PortName" Value="MergeBatchSequencePort" />
+                    <om:Property Name="MessageName" Value="MergeBatchSequenceResponseMsg" />
+                    <om:Property Name="OperationName" Value="MergeBatchSequence" />
+                    <om:Property Name="OperationMessageName" Value="Response" />
+                    <om:Property Name="ReportToAnalyst" Value="True" />
+                    <om:Property Name="Name" Value="Receive CompositeBatchInsertResponse" />
+                    <om:Property Name="Signal" Value="True" />
+                </om:Element>
+                <om:Element Type="VariableDeclaration" OID="612d98ad-20c2-48a6-a3c5-492d4e72af7e" ParentLink="ServiceBody_Declaration" LowerBound="26.15" HigherBound="26.89">
+                    <om:Property Name="UseDefaultConstructor" Value="True" />
+                    <om:Property Name="Type" Value="ESB.Extensions.Resolutions.sp_MergeBatchSequence" />
+                    <om:Property Name="ParamDirection" Value="In" />
+                    <om:Property Name="ReportToAnalyst" Value="True" />
+                    <om:Property Name="Name" Value="MergeBatchSequenceRequest" />
+                    <om:Property Name="Signal" Value="True" />
+                </om:Element>
+            </om:Element>
+            <om:Element Type="PortDeclaration" OID="10d8ef56-9f57-4c7a-9ec7-c0950018f23a" ParentLink="ServiceDeclaration_PortDeclaration" LowerBound="22.1" HigherBound="24.1">
+                <om:Property Name="PortModifier" Value="Uses" />
+                <om:Property Name="Orientation" Value="Right" />
+                <om:Property Name="PortIndex" Value="-1" />
+                <om:Property Name="IsWebPort" Value="False" />
+                <om:Property Name="OrderedDelivery" Value="False" />
+                <om:Property Name="DeliveryNotification" Value="None" />
+                <om:Property Name="Type" Value="ESB.Extensions.Services.MergeBatchSequencePortType" />
+                <om:Property Name="ParamDirection" Value="In" />
+                <om:Property Name="ReportToAnalyst" Value="True" />
+                <om:Property Name="Name" Value="MergeBatchSequencePort" />
+                <om:Property Name="Signal" Value="True" />
+                <om:Element Type="LogicalBindingAttribute" OID="41f9aa94-7972-4caa-9c1f-c9e6aa34d957" ParentLink="PortDeclaration_CLRAttribute" LowerBound="22.1" HigherBound="23.1">
+                    <om:Property Name="Signal" Value="False" />
+                </om:Element>
+            </om:Element>
+        </om:Element>
+        <om:Element Type="MultipartMessageType" OID="1c7e7bec-2dbc-43f1-87cd-4d3a1b7ef183" ParentLink="Module_MessageType" LowerBound="4.1" HigherBound="8.1">
+            <om:Property Name="TypeModifier" Value="Internal" />
+            <om:Property Name="ReportToAnalyst" Value="True" />
+            <om:Property Name="Name" Value="MergeBatchSequenceRequestMT" />
+            <om:Property Name="Signal" Value="True" />
+            <om:Element Type="PartDeclaration" OID="3bd579a8-78f8-4487-843f-de2e6bb24509" ParentLink="MultipartMessageType_PartDeclaration" LowerBound="6.1" HigherBound="7.1">
+                <om:Property Name="ClassName" Value="ESB.Extensions.Schemas.EsbBatchDb.TypedProcedure_dbo1.sp_MergeBatchSequence" />
+                <om:Property Name="IsBodyPart" Value="True" />
+                <om:Property Name="ReportToAnalyst" Value="True" />
+                <om:Property Name="Name" Value="Body" />
+                <om:Property Name="Signal" Value="True" />
+            </om:Element>
+        </om:Element>
+        <om:Element Type="MultipartMessageType" OID="d590fb2b-2a1a-4640-932e-192ab9bb6aa5" ParentLink="Module_MessageType" LowerBound="8.1" HigherBound="12.1">
+            <om:Property Name="TypeModifier" Value="Internal" />
+            <om:Property Name="ReportToAnalyst" Value="True" />
+            <om:Property Name="Name" Value="MergeBatchSequenceResponseMT" />
+            <om:Property Name="Signal" Value="True" />
+            <om:Element Type="PartDeclaration" OID="ec037348-f277-4d67-8fac-a946679e4341" ParentLink="MultipartMessageType_PartDeclaration" LowerBound="10.1" HigherBound="11.1">
+                <om:Property Name="ClassName" Value="ESB.Extensions.Schemas.EsbBatchDb.TypedProcedure_dbo1.sp_MergeBatchSequenceResponse" />
+                <om:Property Name="IsBodyPart" Value="True" />
+                <om:Property Name="ReportToAnalyst" Value="True" />
+                <om:Property Name="Name" Value="Body" />
+                <om:Property Name="Signal" Value="True" />
+            </om:Element>
+        </om:Element>
+        <om:Element Type="PortType" OID="6d978f3b-ab8c-43ef-90fd-a0c9444b4750" ParentLink="Module_PortType" LowerBound="12.1" HigherBound="19.1">
+            <om:Property Name="Synchronous" Value="True" />
+            <om:Property Name="TypeModifier" Value="Internal" />
+            <om:Property Name="ReportToAnalyst" Value="True" />
+            <om:Property Name="Name" Value="MergeBatchSequencePortType" />
+            <om:Property Name="Signal" Value="True" />
+            <om:Element Type="OperationDeclaration" OID="6d9b2fb0-e2b3-4237-915d-800ee709a364" ParentLink="PortType_OperationDeclaration" LowerBound="14.1" HigherBound="18.1">
+                <om:Property Name="OperationType" Value="RequestResponse" />
+                <om:Property Name="ReportToAnalyst" Value="True" />
+                <om:Property Name="Name" Value="MergeBatchSequence" />
+                <om:Property Name="Signal" Value="True" />
+                <om:Element Type="MessageRef" OID="db0c31d8-8b74-4989-a276-049dc832eab1" ParentLink="OperationDeclaration_RequestMessageRef" LowerBound="16.13" HigherBound="16.40">
+                    <om:Property Name="Ref" Value="ESB.Extensions.Services.MergeBatchSequenceRequestMT" />
+                    <om:Property Name="ReportToAnalyst" Value="True" />
+                    <om:Property Name="Name" Value="Request" />
+                    <om:Property Name="Signal" Value="False" />
+                </om:Element>
+                <om:Element Type="MessageRef" OID="3df7b4da-be4e-4db7-b031-f40ced9cbaf6" ParentLink="OperationDeclaration_ResponseMessageRef" LowerBound="16.42" HigherBound="16.70">
+                    <om:Property Name="Ref" Value="ESB.Extensions.Services.MergeBatchSequenceResponseMT" />
+                    <om:Property Name="ReportToAnalyst" Value="True" />
+                    <om:Property Name="Name" Value="Response" />
+                    <om:Property Name="Signal" Value="True" />
+                </om:Element>
+            </om:Element>
+        </om:Element>
+    </om:Element>
+</om:MetaModel>
+#endif // __DESIGNER_DATA
+[Microsoft.XLANGs.BaseTypes.BPELExportable(false)]
+module ESB.Extensions.Services
+{
+    internal messagetype MergeBatchSequenceRequestMT
+    {
+        body ESB.Extensions.Schemas.EsbBatchDb.TypedProcedure_dbo1.sp_MergeBatchSequence Body;
+    };
+    internal messagetype MergeBatchSequenceResponseMT
+    {
+        body ESB.Extensions.Schemas.EsbBatchDb.TypedProcedure_dbo1.sp_MergeBatchSequenceResponse Body;
+    };
+    internal porttype MergeBatchSequencePortType
+    {
+        requestresponse MergeBatchSequence
+        {
+            MergeBatchSequenceRequestMT, MergeBatchSequenceResponseMT
+        };
+    };
+    [Microsoft.XLANGs.BaseTypes.BPELExportable(false)]
+    internal service RegisterBatch
+    {
+        [Microsoft.XLANGs.BaseTypes.LogicalBinding()]
+        port uses MergeBatchSequencePortType MergeBatchSequencePort;
+        message MergeBatchSequenceRequestMT MergeBatchSequenceRequestMsg;
+        message MergeBatchSequenceResponseMT MergeBatchSequenceResponseMsg;
+        body (ESB.Extensions.Resolutions.sp_MergeBatchSequence MergeBatchSequenceRequest)
+        {
+            [Microsoft.XLANGs.BaseTypes.DesignerPosition("4c1dbe0e-9c0c-4095-91cd-2fcc1041f91c")]
+            construct MergeBatchSequenceRequestMsg
+            {
+                [Microsoft.XLANGs.BaseTypes.DesignerPosition("7de14754-025a-4a56-9400-f0e1525befc3")]
+                MergeBatchSequenceRequestMsg.Body = MergeBatchSequenceRequest;
+            }
+            [Microsoft.XLANGs.BaseTypes.DesignerPosition("ade6915b-e94e-4793-bd8a-98ccab833e1f")]
+            send (MergeBatchSequencePort.MergeBatchSequence, MergeBatchSequenceRequestMsg);
+            [Microsoft.XLANGs.BaseTypes.DesignerPosition("2c492164-da77-4c25-88a4-70f724f5d307")]
+            receive (MergeBatchSequencePort.MergeBatchSequence, MergeBatchSequenceResponseMsg);
+        }
+    }
+}
+

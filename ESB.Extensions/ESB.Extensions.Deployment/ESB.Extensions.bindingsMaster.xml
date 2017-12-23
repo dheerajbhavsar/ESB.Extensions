@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<BindingInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Assembly="Microsoft.BizTalk.Deployment, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" Version="3.5.1.0" BindingStatus="NoBindings" BoundEndpoints="0" TotalEndpoints="0">
+  <Timestamp>2009-09-11T08:54:14.3723665+03:00</Timestamp>
+  <ModuleRefCollection>
+    <ModuleRef Name="[Application:ESB.Extensions]" Version="" Culture="" PublicKeyToken="" FullName="[Application:ESB.Extensions], Version=, Culture=, PublicKeyToken=">
+      <Services />
+      <TrackedSchemas />
+    </ModuleRef>
+    <ModuleRef Name="ESB.Extensions.Schemas.WcfSql" Version="1.0.0.0" Culture="neutral" PublicKeyToken="70a94313e9b0b3df" FullName="ESB.Extensions.Schemas.WcfSql, Version=1.0.0.0, Culture=neutral, PublicKeyToken=70a94313e9b0b3df">
+      <Services />
+      <TrackedSchemas />
+    </ModuleRef>
+    <ModuleRef Name="ESB.Extensions.Schemas.EsbBatchDb" Version="1.0.0.0" Culture="neutral" PublicKeyToken="70a94313e9b0b3df" FullName="ESB.Extensions.Schemas.EsbBatchDb, Version=1.0.0.0, Culture=neutral, PublicKeyToken=70a94313e9b0b3df">
+      <Services />
+      <TrackedSchemas />
+    </ModuleRef>
+    <ModuleRef Name="ESB.Extensions.Schemas" Version="1.0.0.0" Culture="neutral" PublicKeyToken="70a94313e9b0b3df" FullName="ESB.Extensions.Schemas, Version=1.0.0.0, Culture=neutral, PublicKeyToken=70a94313e9b0b3df">
+      <Services />
+      <TrackedSchemas />
+    </ModuleRef>
+    <ModuleRef Name="ESB.Extensions.Pipelines" Version="1.0.0.0" Culture="neutral" PublicKeyToken="70a94313e9b0b3df" FullName="ESB.Extensions.Pipelines, Version=1.0.0.0, Culture=neutral, PublicKeyToken=70a94313e9b0b3df">
+      <Services />
+      <TrackedSchemas />
+    </ModuleRef>
+    <ModuleRef Name="ESB.Extensions.Services" Version="1.0.0.0" Culture="neutral" PublicKeyToken="70a94313e9b0b3df" FullName="ESB.Extensions.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=70a94313e9b0b3df">
+      <Services>
+        <Service Name="ESB.Extensions.Services.ReceivePipelineService" State="Started" TrackingOption="ServiceStartEnd MessageSendReceive OrchestrationEvents" Description="">
+          <Ports />
+          <Roles />
+          <!-- ifdef ${_xml_preprocess} -->
+          <!-- <Host Name="${BizTalkHost}" NTGroupName="BizTalk Application Users" Type="1" Trusted="false" /> -->
+          <!-- else -->
+          <Host Name="BizTalkServerApplication" NTGroupName="BizTalk Application Users" Type="1" Trusted="false" />
+          <!-- endif -->
+        </Service>
+        <Service Name="ESB.Extensions.Services.SendPipelineService" State="Started" TrackingOption="ServiceStartEnd MessageSendReceive OrchestrationEvents" Description="">
+          <Ports />
+          <Roles />
+          <!-- ifdef ${_xml_preprocess} -->
+          <!-- <Host Name="${BizTalkHost}" NTGroupName="BizTalk Application Users" Type="1" Trusted="false" /> -->
+          <!-- else -->
+          <Host Name="BizTalkServerApplication" NTGroupName="BizTalk Application Users" Type="1" Trusted="false" />
+          <!-- endif -->
+        </Service>
+        <Service Name="ESB.Extensions.Services.ResequencerService" State="Started" TrackingOption="ServiceStartEnd MessageSendReceive OrchestrationEvents" Description="">
+          <Ports />
+          <Roles />
+          <!-- ifdef ${_xml_preprocess} -->
+          <!-- <Host Name="${BizTalkHost}" NTGroupName="BizTalk Application Users" Type="1" Trusted="false" /> -->
+          <!-- else -->
+          <Host Name="BizTalkServerApplication" NTGroupName="BizTalk Application Users" Type="1" Trusted="false" />
+          <!-- endif -->
+        </Service>
+        <Service Name="ESB.Extensions.Services.ResequencerGoService" State="Started" TrackingOption="ServiceStartEnd MessageSendReceive OrchestrationEvents" Description="">
+          <Ports />
+          <Roles />
+          <!-- ifdef ${_xml_preprocess} -->
+          <!-- <Host Name="${BizTalkHost}" NTGroupName="BizTalk Application Users" Type="1" Trusted="false" /> -->
+          <!-- else -->
+          <Host Name="BizTalkServerApplication" NTGroupName="BizTalk Application Users" Type="1" Trusted="false" />
+          <!-- endif -->
+        </Service>
+        <Service Name="ESB.Extensions.Services.AdvanceItinerary" State="Started" TrackingOption="ServiceStartEnd MessageSendReceive OrchestrationEvents">
+          <Ports />
+          <Roles />
+          <!-- ifdef ${_xml_preprocess} -->
+          <!-- <Host Name="${BizTalkHost}" NTGroupName="BizTalk Application Users" Type="1" Trusted="false" /> -->
+          <!-- else -->
+          <Host Name="BizTalkServerApplication" NTGroupName="BizTalk Application Users" Type="1" Trusted="false" />
+          <!-- endif -->
+        </Service>
+        <Service Name="ESB.Extensions.Services.DynamicItineraryService" State="Started" TrackingOption="ServiceStartEnd MessageSendReceive OrchestrationEvents">
+          <Ports />
+          <Roles />
+          <!-- ifdef ${_xml_preprocess} -->
+          <!-- <Host Name="${BizTalkHost}" NTGroupName="BizTalk Application Users" Type="1" Trusted="false" /> -->
+          <!-- else -->
+          <Host Name="BizTalkServerApplication" NTGroupName="BizTalk Application Users" Type="1" Trusted="false" />
+          <!-- endif -->
+        </Service>
+        <Service Name="ESB.Extensions.Services.InitializeItinerary" State="Started" TrackingOption="ServiceStartEnd MessageSendReceive OrchestrationEvents">
+          <Ports />
+          <Roles />
+          <!-- ifdef ${_xml_preprocess} -->
+          <!-- <Host Name="${BizTalkHost}" NTGroupName="BizTalk Application Users" Type="1" Trusted="false" /> -->
+          <!-- else -->
+          <Host Name="BizTalkServerApplication" NTGroupName="BizTalk Application Users" Type="1" Trusted="false" />
+          <!-- endif -->
+        </Service>
+        <Service Name="ESB.Extensions.Services.PublishGoMsg" State="Started" TrackingOption="ServiceStartEnd MessageSendReceive OrchestrationEvents">
+          <Ports />
+          <Roles />
+          <!-- ifdef ${_xml_preprocess} -->
+          <!-- <Host Name="${BizTalkHost}" NTGroupName="BizTalk Application Users" Type="1" Trusted="false" /> -->
+          <!-- else -->
+          <Host Name="BizTalkServerApplication" NTGroupName="BizTalk Application Users" Type="1" Trusted="false" />
+          <!-- endif -->
+        </Service>
+        <Service Name="ESB.Extensions.Services.RegisterBatch" State="Started" TrackingOption="ServiceStartEnd MessageSendReceive OrchestrationEvents">
+          <Ports>
+            <Port Name="MergeBatchSequencePort" Modifier="1" BindingOption="1">
+              <SendPortRef Name="MergeBatchSequenceSP" />
+              <DistributionListRef xsi:nil="true" />
+              <ReceivePortRef xsi:nil="true" />
+            </Port>
+          </Ports>
+          <Roles />
+          <Host Name="BizTalkServerApplication" NTGroupName="BizTalk Application Users" Type="1" Trusted="false" />
+        </Service>
+        <Service Name="ESB.Extensions.Services.RegisterBatchService" State="Started" TrackingOption="ServiceStartEnd MessageSendReceive OrchestrationEvents">
+          <Ports />
+          <Roles />
+          <!-- ifdef ${_xml_preprocess} -->
+          <!-- <Host Name="${BizTalkHost}" NTGroupName="BizTalk Application Users" Type="1" Trusted="false" /> -->
+          <!-- else -->
+          <Host Name="BizTalkServerApplication" NTGroupName="BizTalk Application Users" Type="1" Trusted="false" />
+          <!-- endif -->
+        </Service>
+        <Service Name="ESB.Extensions.Services.HandleBatchCompleteNotification" State="Started" TrackingOption="ServiceStartEnd MessageSendReceive OrchestrationEvents">
+          <Ports>
+            <Port Name="SqlNotificationPort" Modifier="2" BindingOption="1">
+              <SendPortRef xsi:nil="true" />
+              <DistributionListRef xsi:nil="true" />
+              <ReceivePortRef Name="BatchCompletedRP" />
+            </Port>
+            <Port Name="SelectBatchPort" Modifier="1" BindingOption="1">
+              <SendPortRef Name="GetAllCompletedBatches" />
+              <DistributionListRef xsi:nil="true" />
+              <ReceivePortRef xsi:nil="true" />
+            </Port>
+          </Ports>
+          <Roles />
+          <Host Name="BizTalkServerApplication" NTGroupName="BizTalk Application Users" Type="1" Trusted="false" />
+        </Service>
+      </Services>
+      <TrackedSchemas />
+    </ModuleRef>
+  </ModuleRefCollection>
+  <SendPortCollection>
+    <SendPort Name="MergeBatchSequenceSP" IsStatic="true" IsTwoWay="true" BindingOption="1">
+      <Description>SendPort for SqlAdapterBinding.</Description>
+      <TransmitPipeline Name="Microsoft.BizTalk.DefaultPipelines.XMLTransmit" FullyQualifiedName="Microsoft.BizTalk.DefaultPipelines.XMLTransmit, Microsoft.BizTalk.DefaultPipelines, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" Type="2" TrackingOption="ServiceStartEnd MessageSendReceive PipelineEvents" Description="" />
+      <PrimaryTransport>
+        <Address>mssql://localhost//esbbatchdb?</Address>
+        <TransportType Name="WCF-Custom" Capabilities="907" ConfigurationClsid="af081f69-38ca-4d5b-87df-f0344b12557a" />
+        <TransportTypeData>
+          &lt;CustomProps&gt;&lt;InboundBodyPathExpression vt="8" /&gt;&lt;InboundBodyLocation vt="8"&gt;UseBodyElement&lt;/InboundBodyLocation&gt;&lt;UseSSO vt="11"&gt;0&lt;/UseSSO&gt;&lt;BindingConfiguration vt="8"&gt;&amp;lt;binding name="SqlAdapterBinding" closeTimeout="00:01:00" openTimeout="00:01:00" receiveTimeout="Infinite" sendTimeout="00:01:00" maxConnectionPoolSize="100" encrypt="false" workstationId="" useAmbientTransaction="true" batchSize="20" polledDataAvailableStatement="" pollingStatement="" pollingIntervalInSeconds="30" pollWhileDataFound="false" notificationStatement="" notifyOnListenerStart="true" enableBizTalkCompatibilityMode="true" chunkSize="4194304" inboundOperationType="Polling" useDatabaseNameInXsdNamespace="false" allowIdentityInsert="false" enablePerformanceCounters="false" xmlStoredProcedureRootNodeName="" xmlStoredProcedureRootNodeNamespace="" /&amp;gt;&lt;/BindingConfiguration&gt;&lt;OutboundXmlTemplate vt="8"&gt;&amp;lt;bts-msg-body xmlns="http://www.microsoft.com/schemas/bts2007" encoding="xml"/&amp;gt;&lt;/OutboundXmlTemplate&gt;&lt;Identity vt="8" /&gt;&lt;EnableTransaction vt="11"&gt;-1&lt;/EnableTransaction&gt;&lt;ProxyUserName vt="8" /&gt;&lt;AffiliateApplicationName vt="8" /&gt;&lt;StaticAction vt="8"&gt;&amp;lt;BtsActionMapping xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&amp;gt;
+          &amp;lt;Operation Name="MergeBatchSequence" Action="TypedProcedure/dbo/sp_MergeBatchSequence" /&amp;gt;
+          &amp;lt;/BtsActionMapping&amp;gt;&lt;/StaticAction&gt;&lt;IsolationLevel vt="8"&gt;Serializable&lt;/IsolationLevel&gt;&lt;BindingType vt="8"&gt;sqlBinding&lt;/BindingType&gt;&lt;UserName vt="8" /&gt;&lt;InboundNodeEncoding vt="8"&gt;Xml&lt;/InboundNodeEncoding&gt;&lt;PropagateFaultMessage vt="11"&gt;-1&lt;/PropagateFaultMessage&gt;&lt;ProxyAddress vt="8" /&gt;&lt;OutboundBodyLocation vt="8"&gt;UseBodyElement&lt;/OutboundBodyLocation&gt;&lt;/CustomProps&gt;
+        </TransportTypeData>
+        <RetryCount>3</RetryCount>
+        <RetryInterval>5</RetryInterval>
+        <ServiceWindowEnabled>false</ServiceWindowEnabled>
+        <FromTime>2000-01-01T00:00:00</FromTime>
+        <ToTime>2000-01-01T23:59:59</ToTime>
+        <Primary>true</Primary>
+        <OrderedDelivery>false</OrderedDelivery>
+        <DeliveryNotification>1</DeliveryNotification>
+        <SendHandler Name="BizTalkServerApplication" HostTrusted="false">
+          <TransportType Name="WCF-Custom" Capabilities="907" ConfigurationClsid="af081f69-38ca-4d5b-87df-f0344b12557a" />
+        </SendHandler>
+      </PrimaryTransport>
+      <SecondaryTransport>
+        <Address />
+        <RetryCount>3</RetryCount>
+        <RetryInterval>5</RetryInterval>
+        <ServiceWindowEnabled>false</ServiceWindowEnabled>
+        <FromTime>2000-01-01T00:00:00</FromTime>
+        <ToTime>2000-01-01T23:59:59</ToTime>
+        <Primary>false</Primary>
+        <OrderedDelivery>false</OrderedDelivery>
+        <DeliveryNotification>1</DeliveryNotification>
+        <SendHandler xsi:nil="true" />
+      </SecondaryTransport>
+      <ReceivePipeline Name="Microsoft.BizTalk.DefaultPipelines.XMLReceive" FullyQualifiedName="Microsoft.BizTalk.DefaultPipelines.XMLReceive, Microsoft.BizTalk.DefaultPipelines, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" Type="1" TrackingOption="ServiceStartEnd MessageSendReceive PipelineEvents" Description="" />
+      <ReceivePipelineData xsi:nil="true" />
+      <Tracking>0</Tracking>
+      <Filter />
+      <Transforms />
+      <InboundTransforms />
+      <OrderedDelivery>false</OrderedDelivery>
+      <Priority>5</Priority>
+      <StopSendingOnFailure>false</StopSendingOnFailure>
+      <RouteFailedMessage>false</RouteFailedMessage>
+      <ApplicationName>ESB.Extensions</ApplicationName>
+    </SendPort>
+    <SendPort Name="GetAllCompletedBatches" IsStatic="true" IsTwoWay="true" BindingOption="1">
+      <Description>SendPort for SqlAdapterBinding.</Description>
+      <TransmitPipeline Name="Microsoft.BizTalk.DefaultPipelines.XMLTransmit" FullyQualifiedName="Microsoft.BizTalk.DefaultPipelines.XMLTransmit, Microsoft.BizTalk.DefaultPipelines, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" Type="2" TrackingOption="ServiceStartEnd MessageSendReceive PipelineEvents" Description="" />
+      <PrimaryTransport>
+        <Address>mssql://localhost//esbbatchdb?</Address>
+        <TransportType Name="WCF-Custom" Capabilities="907" ConfigurationClsid="af081f69-38ca-4d5b-87df-f0344b12557a" />
+        <TransportTypeData>
+          &lt;CustomProps&gt;&lt;InboundBodyPathExpression vt="8" /&gt;&lt;InboundBodyLocation vt="8"&gt;UseBodyElement&lt;/InboundBodyLocation&gt;&lt;UseSSO vt="11"&gt;0&lt;/UseSSO&gt;&lt;BindingConfiguration vt="8"&gt;&amp;lt;binding name="SqlAdapterBinding" closeTimeout="00:01:00" openTimeout="00:01:00" receiveTimeout="Infinite" sendTimeout="00:01:00" maxConnectionPoolSize="100" encrypt="false" workstationId="" useAmbientTransaction="true" batchSize="20" polledDataAvailableStatement="" pollingStatement="" pollingIntervalInSeconds="30" pollWhileDataFound="false" notificationStatement="" notifyOnListenerStart="true" enableBizTalkCompatibilityMode="true" chunkSize="4194304" inboundOperationType="Polling" useDatabaseNameInXsdNamespace="false" allowIdentityInsert="false" enablePerformanceCounters="false" xmlStoredProcedureRootNodeName="" xmlStoredProcedureRootNodeNamespace="" /&amp;gt;&lt;/BindingConfiguration&gt;&lt;OutboundXmlTemplate vt="8"&gt;&amp;lt;bts-msg-body xmlns="http://www.microsoft.com/schemas/bts2007" encoding="xml"/&amp;gt;&lt;/OutboundXmlTemplate&gt;&lt;Identity vt="8" /&gt;&lt;EnableTransaction vt="11"&gt;-1&lt;/EnableTransaction&gt;&lt;ProxyUserName vt="8" /&gt;&lt;AffiliateApplicationName vt="8" /&gt;&lt;StaticAction vt="8"&gt;&amp;lt;BtsActionMapping xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&amp;gt;
+          &amp;lt;Operation Name="GetAllCompletedBatches" Action="TypedProcedure/dbo/sp_GetAllCompletedBatches" /&amp;gt;
+          &amp;lt;/BtsActionMapping&amp;gt;&lt;/StaticAction&gt;&lt;IsolationLevel vt="8"&gt;Serializable&lt;/IsolationLevel&gt;&lt;BindingType vt="8"&gt;sqlBinding&lt;/BindingType&gt;&lt;UserName vt="8" /&gt;&lt;InboundNodeEncoding vt="8"&gt;Xml&lt;/InboundNodeEncoding&gt;&lt;PropagateFaultMessage vt="11"&gt;-1&lt;/PropagateFaultMessage&gt;&lt;ProxyAddress vt="8" /&gt;&lt;OutboundBodyLocation vt="8"&gt;UseBodyElement&lt;/OutboundBodyLocation&gt;&lt;/CustomProps&gt;
+        </TransportTypeData>
+        <RetryCount>3</RetryCount>
+        <RetryInterval>5</RetryInterval>
+        <ServiceWindowEnabled>false</ServiceWindowEnabled>
+        <FromTime>2000-01-01T00:00:00</FromTime>
+        <ToTime>2000-01-01T23:59:59</ToTime>
+        <Primary>true</Primary>
+        <OrderedDelivery>false</OrderedDelivery>
+        <DeliveryNotification>1</DeliveryNotification>
+        <SendHandler Name="BizTalkServerApplication" HostTrusted="false">
+          <TransportType Name="WCF-Custom" Capabilities="907" ConfigurationClsid="af081f69-38ca-4d5b-87df-f0344b12557a" />
+        </SendHandler>
+      </PrimaryTransport>
+      <SecondaryTransport>
+        <Address />
+        <RetryCount>3</RetryCount>
+        <RetryInterval>5</RetryInterval>
+        <ServiceWindowEnabled>false</ServiceWindowEnabled>
+        <FromTime>2000-01-01T00:00:00</FromTime>
+        <ToTime>2000-01-01T23:59:59</ToTime>
+        <Primary>false</Primary>
+        <OrderedDelivery>false</OrderedDelivery>
+        <DeliveryNotification>1</DeliveryNotification>
+        <SendHandler xsi:nil="true" />
+      </SecondaryTransport>
+      <ReceivePipeline Name="Microsoft.BizTalk.DefaultPipelines.XMLReceive" FullyQualifiedName="Microsoft.BizTalk.DefaultPipelines.XMLReceive, Microsoft.BizTalk.DefaultPipelines, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" Type="1" TrackingOption="ServiceStartEnd MessageSendReceive PipelineEvents" Description="" />
+      <ReceivePipelineData xsi:nil="true" />
+      <Tracking>0</Tracking>
+      <Filter />
+      <Transforms />
+      <InboundTransforms />
+      <OrderedDelivery>false</OrderedDelivery>
+      <Priority>5</Priority>
+      <StopSendingOnFailure>false</StopSendingOnFailure>
+      <RouteFailedMessage>false</RouteFailedMessage>
+      <ApplicationName>ESB.Extensions</ApplicationName>
+    </SendPort>
+  </SendPortCollection>
+  <DistributionListCollection />
+  <ReceivePortCollection>
+    <ReceivePort Name="BatchCompletedRP" IsTwoWay="false" BindingOption="1">
+      <Description>ReceivePort for SqlAdapterBinding.</Description>
+      <ReceiveLocations>
+        <ReceiveLocation Name="BatchCompleteNotificationRL">
+          <Description xsi:nil="true" />
+          <Address>mssql://localhost//esbbatchdb?</Address>
+          <PublicAddress />
+          <Primary>true</Primary>
+          <ReceiveLocationServiceWindowEnabled>false</ReceiveLocationServiceWindowEnabled>
+          <ReceiveLocationFromTime>2000-01-01T00:00:00</ReceiveLocationFromTime>
+          <ReceiveLocationToTime>2000-01-01T23:59:59</ReceiveLocationToTime>
+          <ReceiveLocationStartDateEnabled>false</ReceiveLocationStartDateEnabled>
+          <ReceiveLocationStartDate>2000-01-01T00:00:00</ReceiveLocationStartDate>
+          <ReceiveLocationEndDateEnabled>false</ReceiveLocationEndDateEnabled>
+          <ReceiveLocationEndDate>2000-01-01T23:59:59</ReceiveLocationEndDate>
+          <ReceiveLocationTransportType Name="WCF-Custom" Capabilities="907" ConfigurationClsid="af081f69-38ca-4d5b-87df-f0344b12557a" />
+          <ReceiveLocationTransportTypeData>&lt;CustomProps&gt;&lt;CredentialType vt="8"&gt;None&lt;/CredentialType&gt;&lt;DisableLocationOnFailure vt="11"&gt;0&lt;/DisableLocationOnFailure&gt;&lt;IncludeExceptionDetailInFaults vt="11"&gt;0&lt;/IncludeExceptionDetailInFaults&gt;&lt;OutboundBodyLocation vt="8"&gt;UseBodyElement&lt;/OutboundBodyLocation&gt;&lt;BindingConfiguration vt="8"&gt;&amp;lt;binding name="SqlAdapterBinding" receiveTimeout="Infinite" notificationStatement="SELECT ba.BatchId FROM dbo.BATCH ba WHERE ba.IsPending = 1 AND ba.IsComplete = 1" inboundOperationType="Notification" /&amp;gt;&lt;/BindingConfiguration&gt;&lt;InboundNodeEncoding vt="8"&gt;Xml&lt;/InboundNodeEncoding&gt;&lt;InboundBodyPathExpression vt="8" /&gt;&lt;Identity vt="8" /&gt;&lt;AffiliateApplicationName vt="8" /&gt;&lt;BindingType vt="8"&gt;sqlBinding&lt;/BindingType&gt;&lt;InboundBodyLocation vt="8"&gt;UseBodyElement&lt;/InboundBodyLocation&gt;&lt;OrderedProcessing vt="11"&gt;0&lt;/OrderedProcessing&gt;&lt;OutboundXmlTemplate vt="8"&gt;&amp;lt;bts-msg-body xmlns="http://www.microsoft.com/schemas/bts2007" encoding="xml"/&amp;gt;&lt;/OutboundXmlTemplate&gt;&lt;UserName vt="8" /&gt;&lt;SuspendMessageOnFailure vt="11"&gt;0&lt;/SuspendMessageOnFailure&gt;&lt;/CustomProps&gt;</ReceiveLocationTransportTypeData>
+          <ReceivePipeline Name="Microsoft.BizTalk.DefaultPipelines.XMLReceive" FullyQualifiedName="Microsoft.BizTalk.DefaultPipelines.XMLReceive, Microsoft.BizTalk.DefaultPipelines, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" Type="1" TrackingOption="ServiceStartEnd MessageSendReceive PipelineEvents" Description="" />
+          <ReceivePipelineData xsi:nil="true" />
+          <SendPipeline xsi:nil="true" />
+          <SendPipelineData xsi:nil="true" />
+          <Enable>true</Enable>
+          <ReceiveHandler Name="BizTalkServerApplication" HostTrusted="false">
+            <TransportType Name="WCF-Custom" Capabilities="907" ConfigurationClsid="af081f69-38ca-4d5b-87df-f0344b12557a" />
+          </ReceiveHandler>
+        </ReceiveLocation>
+      </ReceiveLocations>
+      <SendPipelineData xsi:nil="true" />
+      <Authentication>0</Authentication>
+      <Tracking>0</Tracking>
+      <Transforms />
+      <RouteFailedMessage>false</RouteFailedMessage>
+      <ApplicationName>ESB.Extensions</ApplicationName>
+    </ReceivePort>
+  </ReceivePortCollection>
+  <PartyCollection />
+</BindingInfo>

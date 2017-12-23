@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<brl xmlns="http://schemas.microsoft.com/businessruleslanguage/2002">
+  <ruleset name="ESB.Extensions.Tests.OrderAggregator.PreserveOrder.Policy">
+    <version major="1" minor="0" description="" modifiedby="BTSDEV\Administrator" date="2009-09-05T21:49:14.517849+03:00" />
+    <configuration />
+    <bindings>
+      <class ref="SendPipelineServiceResolution" class="SendPipelineServiceResolution" instance="0" instances="16" selectivity="1">
+        <assembly>ESB.Extensions.Resolutions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=70a94313e9b0b3df</assembly>
+        <!--C:\Windows\assembly\GAC_MSIL\ESB.Extensions.Resolutions\1.0.0.0__70a94313e9b0b3df\ESB.Extensions.Resolutions.dll-->
+        <namespace>ESB.Extensions.Resolutions</namespace>
+      </class>
+      <class ref="ResolutionDictionary" class="ResolutionDictionary" instance="0" instances="16" selectivity="1">
+        <assembly>ESB.Extensions.Resolution, Version=1.0.0.0, Culture=neutral, PublicKeyToken=70a94313e9b0b3df</assembly>
+        <!--C:\Windows\assembly\GAC_MSIL\ESB.Extensions.Resolution\1.0.0.0__70a94313e9b0b3df\ESB.Extensions.Resolution.dll-->
+        <namespace>ESB.Extensions.Resolution</namespace>
+      </class>
+    </bindings>
+    <rule name="Set ResolutionDictionary" priority="0" active="true">
+      <if>
+        <compare operator="equal">
+          <vocabularylink uri="3f0e9bcc-6212-4e6a-853c-e517f157a626" element="05703dd9-1111-40b8-890d-ad7bfc45a925" />
+          <lhs>
+            <constant>
+              <string>1</string>
+            </constant>
+          </lhs>
+          <rhs>
+            <constant>
+              <string>1</string>
+            </constant>
+          </rhs>
+        </compare>
+      </if>
+      <then>
+        <function>
+          <classmember member="SetValue" sideeffects="true">
+            <classref ref="ResolutionDictionary" />
+            <argument>
+              <constant>
+                <string>ESB.Extensions.Resolutions.SendPipelineServiceResolution</string>
+              </constant>
+            </argument>
+            <argument>
+              <reference>
+                <classref ref="SendPipelineServiceResolution" />
+              </reference>
+            </argument>
+          </classmember>
+        </function>
+        <function>
+          <classmember member="SetValue" sideeffects="true">
+            <classref ref="ResolutionDictionary" />
+            <argument>
+              <constant>
+                <string>Microsoft.Practices.ESB.Itinerary.AsXml</string>
+              </constant>
+            </argument>
+            <argument>
+              <constant>
+                <vocabularylink uri="3c90f8f9-3814-4ba3-b4d8-6701073a8a8e" element="1c2d6a43-c570-4096-be0e-d2b7891b204f" />
+                <string>&lt;Itinerary xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" uuid="" beginTime="" completeTime="" state="Pending" isRequestResponse="false" servicecount="1" name="ResequencedOrderBatchItinerary" version="1.0" xmlns="http://schemas.microsoft.biztalk.practices.esb.com/itinerary"&gt;&lt;BizTalkSegment interchangeId="" epmRRCorrelationToken="" receiveInstanceId="" messageId="" xmlns="" /&gt;&lt;ServiceInstance name="DynamicOneWaySendPort" type="Orchestration" state="Pending" position="0" isRequestResponse="false" xmlns="" /&gt;&lt;Services xmlns=""&gt;&lt;Service uuid="81268e5f5b774064a3064cdf0dfb91fa" beginTime="" completeTime="" name="DynamicOneWaySendPort" type="Messaging" state="Pending" isRequestResponse="false" position="0" serviceInstanceId="" /&gt;&lt;/Services&gt;&lt;ResolverGroups xmlns=""&gt;&lt;Resolvers serviceId="DynamicOneWaySendPort0"&gt;&amp;lt;![CDATA[STATIC:\\transportType=FILE;transportLocation=C:\Z\DEV\0\OUT\%MessageID%.xml;action=;endpointConfig=;jaxRpcResponse=false;messageExchangePattern=One-Way;targetNamespace=;transformType=;]]&amp;gt;&lt;/Resolvers&gt;&lt;/ResolverGroups&gt;&lt;/Itinerary&gt;</string>
+              </constant>
+            </argument>
+          </classmember>
+        </function>
+      </then>
+    </rule>
+    <rule name="Create SendPipelineServiceResolution" priority="10" active="true">
+      <if>
+        <compare operator="equal">
+          <vocabularylink uri="3f0e9bcc-6212-4e6a-853c-e517f157a626" element="05703dd9-1111-40b8-890d-ad7bfc45a925" />
+          <lhs>
+            <function>
+              <classmember member="GetValue" sideeffects="true">
+                <classref ref="ResolutionDictionary" />
+                <argument>
+                  <constant>
+                    <string>ESB.Extensions.Resolutions.SendPipelineServiceResolution</string>
+                  </constant>
+                </argument>
+              </classmember>
+            </function>
+          </lhs>
+          <rhs>
+            <constant>
+              <object>null</object>
+            </constant>
+          </rhs>
+        </compare>
+      </if>
+      <then>
+        <assert>
+          <vocabularylink uri="aee857f2-09d5-4615-a96c-87041791ec42" element="8a871580-7fd0-4910-9fbf-46f702a3f384" />
+          <object>
+            <createobject classref="SendPipelineServiceResolution">
+              <vocabularylink uri="aee857f2-09d5-4615-a96c-87041791ec42" element="71badb60-b7db-4e54-baf3-9cff27c316ee" />
+              <argument>
+                <constant>
+                  <vocabularylink uri="3c90f8f9-3814-4ba3-b4d8-6701073a8a8e" element="b4df1c23-accd-4df0-a21c-0fe9c8230806" />
+                  <string>ESB.Extensions.Tests.BizTalkArtifacts.OrderAggregator, ESB.Extensions.Tests.BizTalkArtifacts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c02536186063797e</string>
+                </constant>
+              </argument>
+              <argument>
+                <constant>
+                  <null type="string" />
+                </constant>
+              </argument>
+              <argument>
+                <constant>
+                  <int>5</int>
+                </constant>
+              </argument>
+              <argument>
+                <constant>
+                  <int>1</int>
+                </constant>
+              </argument>
+              <argument>
+                <constant>
+                  <int>1</int>
+                </constant>
+              </argument>
+            </createobject>
+          </object>
+        </assert>
+      </then>
+    </rule>
+  </ruleset>
+</brl>

@@ -1,0 +1,75 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESB.Extensions.Tests", "ESB.Extensions.Tests\ESB.Extensions.Tests.csproj", "{CCD07402-FA83-44B6-AF2A-881D21A6D956}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESB.Extensions.Tests.BizTalkArtifacts", "ESB.Extensions.Tests.BizTalkArtifacts\ESB.Extensions.Tests.BizTalkArtifacts.btproj", "{3073CD7B-0F36-44EF-9016-BC83DAD518FE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5E1DD04B-1F60-4574-933A-4884FCEB5FBD}"
+	ProjectSection(SolutionItems) = preProject
+		ESB.Extensions.Tests.snk = ESB.Extensions.Tests.snk
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ESB.Extensions.Tests.Deployment", "ESB.Extensions.Tests.Deployment", "{834086D9-5ECF-42D1-BD0F-F44DE0932A22}"
+	ProjectSection(SolutionItems) = preProject
+		ESB.Extensions.Tests.Deployment\BuildDebugMsi.bat = ESB.Extensions.Tests.Deployment\BuildDebugMsi.bat
+		ESB.Extensions.Tests.Deployment\BuildReleaseMsi.bat = ESB.Extensions.Tests.Deployment\BuildReleaseMsi.bat
+		ESB.Extensions.Tests.Deployment\ESB.Extensions.Tests.bindingsMaster.xml = ESB.Extensions.Tests.Deployment\ESB.Extensions.Tests.bindingsMaster.xml
+		ESB.Extensions.Tests.Deployment\ESB.Extensions.Tests.deployment.btdfproj = ESB.Extensions.Tests.Deployment\ESB.Extensions.Tests.deployment.btdfproj
+		ESB.Extensions.Tests.Deployment\ESB.Extensions.Tests.OrderAggregator.BatchTimeout.Policy.xml = ESB.Extensions.Tests.Deployment\ESB.Extensions.Tests.OrderAggregator.BatchTimeout.Policy.xml
+		ESB.Extensions.Tests.Deployment\ESB.Extensions.Tests.OrderAggregator.EsbBatchDb.Policy.xml = ESB.Extensions.Tests.Deployment\ESB.Extensions.Tests.OrderAggregator.EsbBatchDb.Policy.xml
+		ESB.Extensions.Tests.Deployment\ESB.Extensions.Tests.OrderAggregator.MessageTimeout.Policy.xml = ESB.Extensions.Tests.Deployment\ESB.Extensions.Tests.OrderAggregator.MessageTimeout.Policy.xml
+		ESB.Extensions.Tests.Deployment\ESB.Extensions.Tests.OrderAggregator.Policy.xml = ESB.Extensions.Tests.Deployment\ESB.Extensions.Tests.OrderAggregator.Policy.xml
+		ESB.Extensions.Tests.Deployment\ESB.Extensions.Tests.OrderAggregator.PreserveOrder.Policy.xml = ESB.Extensions.Tests.Deployment\ESB.Extensions.Tests.OrderAggregator.PreserveOrder.Policy.xml
+		ESB.Extensions.Tests.Deployment\ESB.Extensions.Tests.OrderBatchDebatcher.GoResolution.Policy.xml = ESB.Extensions.Tests.Deployment\ESB.Extensions.Tests.OrderBatchDebatcher.GoResolution.Policy.xml
+		ESB.Extensions.Tests.Deployment\ESB.Extensions.Tests.OrderBatchDebatcher.MergeBatchSequence.Policy.xml = ESB.Extensions.Tests.Deployment\ESB.Extensions.Tests.OrderBatchDebatcher.MergeBatchSequence.Policy.xml
+		ESB.Extensions.Tests.Deployment\ESB.Extensions.Tests.OrderBatchDebatcher.Policy.xml = ESB.Extensions.Tests.Deployment\ESB.Extensions.Tests.OrderBatchDebatcher.Policy.xml
+		ESB.Extensions.Tests.Deployment\ESB.Extensions.Tests.OrderBatchDebatcher.SameItinerary.Policy.xml = ESB.Extensions.Tests.Deployment\ESB.Extensions.Tests.OrderBatchDebatcher.SameItinerary.Policy.xml
+		ESB.Extensions.Tests.Deployment\ESB.Extensions.Tests.Resequencer.Policy.xml = ESB.Extensions.Tests.Deployment\ESB.Extensions.Tests.Resequencer.Policy.xml
+		ESB.Extensions.Tests.Deployment\ESB.Extensions.Tests.vocabulary.xml = ESB.Extensions.Tests.Deployment\ESB.Extensions.Tests.vocabulary.xml
+		ESB.Extensions.Tests.Deployment\InstallWizard.xml = ESB.Extensions.Tests.Deployment\InstallWizard.xml
+		ESB.Extensions.Tests.Deployment\License.rtf = ESB.Extensions.Tests.Deployment\License.rtf
+		ESB.Extensions.Tests.Deployment\UnInstallWizard.xml = ESB.Extensions.Tests.Deployment\UnInstallWizard.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EnvironmentSettings", "EnvironmentSettings", "{6638C835-9F23-4961-AF5D-822DB71B30DC}"
+	ProjectSection(SolutionItems) = preProject
+		ESB.Extensions.Tests.Deployment\EnvironmentSettings\SettingsFileGenerator.xml = ESB.Extensions.Tests.Deployment\EnvironmentSettings\SettingsFileGenerator.xml
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 3
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tfs04.codeplex.com/
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = ESB.Extensions.Tests.BizTalkArtifacts\\ESB.Extensions.Tests.BizTalkArtifacts.btproj
+		SccProjectName1 = ESB.Extensions.Tests.BizTalkArtifacts
+		SccLocalPath1 = ESB.Extensions.Tests.BizTalkArtifacts
+		SccProjectUniqueName2 = ESB.Extensions.Tests\\ESB.Extensions.Tests.csproj
+		SccProjectName2 = ESB.Extensions.Tests
+		SccLocalPath2 = ESB.Extensions.Tests
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CCD07402-FA83-44B6-AF2A-881D21A6D956}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCD07402-FA83-44B6-AF2A-881D21A6D956}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCD07402-FA83-44B6-AF2A-881D21A6D956}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCD07402-FA83-44B6-AF2A-881D21A6D956}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3073CD7B-0F36-44EF-9016-BC83DAD518FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3073CD7B-0F36-44EF-9016-BC83DAD518FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3073CD7B-0F36-44EF-9016-BC83DAD518FE}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{3073CD7B-0F36-44EF-9016-BC83DAD518FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3073CD7B-0F36-44EF-9016-BC83DAD518FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3073CD7B-0F36-44EF-9016-BC83DAD518FE}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6638C835-9F23-4961-AF5D-822DB71B30DC} = {834086D9-5ECF-42D1-BD0F-F44DE0932A22}
+	EndGlobalSection
+EndGlobal

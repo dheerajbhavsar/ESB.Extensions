@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<brl xmlns="http://schemas.microsoft.com/businessruleslanguage/2002">
+  <ruleset name="ESB.Extensions.Tests.OrderBatchDebatcher.Policy">
+    <version major="1" minor="0" description="" modifiedby="BTSDEV\Administrator" date="2009-08-31T18:28:05.601109+03:00" />
+    <configuration />
+    <bindings>
+      <class ref="ReceivePipelineServiceResolution" class="ReceivePipelineServiceResolution" instance="0" instances="16" selectivity="1">
+        <assembly>ESB.Extensions.Resolutions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=70a94313e9b0b3df</assembly>
+        <!--C:\Windows\assembly\GAC_MSIL\ESB.Extensions.Resolutions\1.0.0.0__70a94313e9b0b3df\ESB.Extensions.Resolutions.dll-->
+        <namespace>ESB.Extensions.Resolutions</namespace>
+      </class>
+      <class ref="ResolutionDictionary" class="ResolutionDictionary" instance="0" instances="16" selectivity="1">
+        <assembly>ESB.Extensions.Resolution, Version=1.0.0.0, Culture=neutral, PublicKeyToken=70a94313e9b0b3df</assembly>
+        <!--C:\Windows\assembly\GAC_MSIL\ESB.Extensions.Resolution\1.0.0.0__70a94313e9b0b3df\ESB.Extensions.Resolution.dll-->
+        <namespace>ESB.Extensions.Resolution</namespace>
+      </class>
+    </bindings>
+    <rule name="Set ResolutionDictionary" priority="0" active="true">
+      <if>
+        <compare operator="equal">
+          <vocabularylink uri="3f0e9bcc-6212-4e6a-853c-e517f157a626" element="05703dd9-1111-40b8-890d-ad7bfc45a925" />
+          <lhs>
+            <constant>
+              <string>1</string>
+            </constant>
+          </lhs>
+          <rhs>
+            <constant>
+              <string>1</string>
+            </constant>
+          </rhs>
+        </compare>
+      </if>
+      <then>
+        <function>
+          <classmember member="SetValue" sideeffects="true">
+            <classref ref="ResolutionDictionary" />
+            <argument>
+              <constant>
+                <string>ESB.Extensions.Resolutions.ReceivePipelineServiceResolution</string>
+              </constant>
+            </argument>
+            <argument>
+              <reference>
+                <classref ref="ReceivePipelineServiceResolution" />
+              </reference>
+            </argument>
+          </classmember>
+        </function>
+        <function>
+          <classmember member="SetValue" sideeffects="true">
+            <classref ref="ResolutionDictionary" />
+            <argument>
+              <constant>
+                <string>Microsoft.Practices.ESB.Itinerary.AsXml</string>
+              </constant>
+            </argument>
+            <argument>
+              <constant>
+                <vocabularylink uri="3c90f8f9-3814-4ba3-b4d8-6701073a8a8e" element="71e6c824-0ffa-4a3d-ad38-31332964beca" />
+                <string>&lt;Itinerary xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" uuid="" beginTime="" completeTime="" state="Pending" isRequestResponse="false" servicecount="3" name="OrderItinerary" version="1.0" xmlns="http://schemas.microsoft.biztalk.practices.esb.com/itinerary"&gt;&lt;BizTalkSegment interchangeId="" epmRRCorrelationToken="" receiveInstanceId="" messageId="" xmlns="" /&gt;&lt;ServiceInstance name="ResequencerService" type="Orchestration" state="Pending" position="0" isRequestResponse="false" xmlns="" /&gt;&lt;Services xmlns=""&gt;&lt;Service uuid="6A5F461B-93B8-4cf1-B845-C96EA85AFE26" beginTime="" completeTime="" name="ResequencerService" type="Orchestration" state="Pending" isRequestResponse="false" position="0" serviceInstanceId="" /&gt;&lt;/Services&gt;&lt;Services xmlns=""&gt;&lt;Service uuid="FB725E59-F167-4fd6-8E5F-94371BC449CB" beginTime="" completeTime="" name="SendPipelineService" type="Orchestration" state="Pending" isRequestResponse="false" position="1" serviceInstanceId="" /&gt;&lt;/Services&gt;&lt;Services xmlns=""&gt;&lt;Service uuid="C82703BB-324E-4aa6-A795-DA4186D5A4B5" beginTime="" completeTime="" name="ResequencerGoService" type="Orchestration" state="Pending" isRequestResponse="false" position="2" serviceInstanceId="" /&gt;&lt;/Services&gt;&lt;ResolverGroups xmlns=""&gt;&lt;Resolvers serviceId="ResequencerService0" /&gt;&lt;Resolvers serviceId="SendPipelineService1"&gt;&amp;lt;![CDATA[BRE2:\\propertyTypes=ESB.Extensions.Schemas.BatchId, ESB.Extensions.Schemas, Version=1.0.0.0, Culture=neutral, PublicKeyToken=70a94313e9b0b3df|ESB.Extensions.Schemas.SequenceId, ESB.Extensions.Schemas, Version=1.0.0.0, Culture=neutral, PublicKeyToken=70a94313e9b0b3df;policy=ESB.Extensions.Tests.OrderAggregator.PreserveOrder.Policy;version=1.0;useMsg=false;messageFile=;recognizeMessageFormat=false;]]&amp;gt;&lt;/Resolvers&gt;&lt;Resolvers serviceId="ResequencerGoService2"&gt;&amp;lt;![CDATA[BRE2:\\propertyTypes=ESB.Extensions.Schemas.BatchId, ESB.Extensions.Schemas, Version=1.0.0.0, Culture=neutral, PublicKeyToken=70a94313e9b0b3df|ESB.Extensions.Schemas.SequenceId, ESB.Extensions.Schemas, Version=1.0.0.0, Culture=neutral, PublicKeyToken=70a94313e9b0b3df;policy=ESB.Extensions.Tests.Resequencer.Policy;version=1.0;useMsg=false;messageFile=;recognizeMessageFormat=false;]]&amp;gt;&lt;/Resolvers&gt;&lt;/ResolverGroups&gt;&lt;/Itinerary&gt;</string>
+              </constant>
+            </argument>
+          </classmember>
+        </function>
+      </then>
+    </rule>
+    <rule name="Create ReceivePipelineServiceResolution" priority="10" active="true">
+      <if>
+        <compare operator="equal">
+          <vocabularylink uri="3f0e9bcc-6212-4e6a-853c-e517f157a626" element="05703dd9-1111-40b8-890d-ad7bfc45a925" />
+          <lhs>
+            <function>
+              <classmember member="GetValue" sideeffects="true">
+                <classref ref="ResolutionDictionary" />
+                <argument>
+                  <constant>
+                    <string>ESB.Extensions.Resolutions.ReceivePipelineServiceResolution</string>
+                  </constant>
+                </argument>
+              </classmember>
+            </function>
+          </lhs>
+          <rhs>
+            <constant>
+              <object>null</object>
+            </constant>
+          </rhs>
+        </compare>
+      </if>
+      <then>
+        <assert>
+          <vocabularylink uri="aee857f2-09d5-4615-a96c-87041791ec42" element="8a871580-7fd0-4910-9fbf-46f702a3f384" />
+          <object>
+            <createobject classref="ReceivePipelineServiceResolution">
+              <vocabularylink uri="aee857f2-09d5-4615-a96c-87041791ec42" element="71badb60-b7db-4e54-baf3-9cff27c316ee" />
+              <argument>
+                <constant>
+                  <vocabularylink uri="3c90f8f9-3814-4ba3-b4d8-6701073a8a8e" element="6dfaab02-9183-4db5-9150-cc0a74bf6dd6" />
+                  <string>ESB.Extensions.Tests.BizTalkArtifacts.OrderBatchDebatcher, ESB.Extensions.Tests.BizTalkArtifacts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c02536186063797e</string>
+                </constant>
+              </argument>
+            </createobject>
+          </object>
+        </assert>
+      </then>
+    </rule>
+  </ruleset>
+</brl>

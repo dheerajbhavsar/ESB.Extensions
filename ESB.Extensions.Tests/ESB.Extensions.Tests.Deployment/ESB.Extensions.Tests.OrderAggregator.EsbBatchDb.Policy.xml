@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<brl xmlns="http://schemas.microsoft.com/businessruleslanguage/2002">
+  <ruleset name="ESB.Extensions.Tests.OrderAggregator.EsbBatchDb.Policy">
+    <version major="1" minor="0" description="" modifiedby="BTSDEV\Administrator" date="2009-11-18T20:56:17.1278992+02:00" />
+    <configuration />
+    <bindings>
+      <class ref="SendPipelineServiceResolution" class="SendPipelineServiceResolution" instance="0" instances="16" selectivity="1">
+        <assembly>ESB.Extensions.Resolutions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=70a94313e9b0b3df</assembly>
+        <!--C:\Windows\assembly\GAC_MSIL\ESB.Extensions.Resolutions\1.0.0.0__70a94313e9b0b3df\ESB.Extensions.Resolutions.dll-->
+        <namespace>ESB.Extensions.Resolutions</namespace>
+      </class>
+      <class ref="ResolutionDictionary" class="ResolutionDictionary" instance="0" instances="16" selectivity="1">
+        <assembly>ESB.Extensions.Resolution, Version=1.0.0.0, Culture=neutral, PublicKeyToken=70a94313e9b0b3df</assembly>
+        <!--C:\Windows\assembly\GAC_MSIL\ESB.Extensions.Resolution\1.0.0.0__70a94313e9b0b3df\ESB.Extensions.Resolution.dll-->
+        <namespace>ESB.Extensions.Resolution</namespace>
+      </class>
+    </bindings>
+    <rule name="Set ResolutionDictionary" priority="0" active="true">
+      <if>
+        <compare operator="equal">
+          <vocabularylink uri="3f0e9bcc-6212-4e6a-853c-e517f157a626" element="05703dd9-1111-40b8-890d-ad7bfc45a925" />
+          <lhs>
+            <constant>
+              <string>1</string>
+            </constant>
+          </lhs>
+          <rhs>
+            <constant>
+              <string>1</string>
+            </constant>
+          </rhs>
+        </compare>
+      </if>
+      <then>
+        <function>
+          <classmember member="SetValue" sideeffects="true">
+            <classref ref="ResolutionDictionary" />
+            <argument>
+              <constant>
+                <string>ESB.Extensions.Resolutions.SendPipelineServiceResolution</string>
+              </constant>
+            </argument>
+            <argument>
+              <reference>
+                <classref ref="SendPipelineServiceResolution" />
+              </reference>
+            </argument>
+          </classmember>
+        </function>
+      </then>
+    </rule>
+    <rule name="Create SendPipelineServiceResolution" priority="10" active="true">
+      <if>
+        <compare operator="equal">
+          <vocabularylink uri="3f0e9bcc-6212-4e6a-853c-e517f157a626" element="05703dd9-1111-40b8-890d-ad7bfc45a925" />
+          <lhs>
+            <function>
+              <classmember member="GetValue" sideeffects="true">
+                <classref ref="ResolutionDictionary" />
+                <argument>
+                  <constant>
+                    <string>ESB.Extensions.Resolutions.SendPipelineServiceResolution</string>
+                  </constant>
+                </argument>
+              </classmember>
+            </function>
+          </lhs>
+          <rhs>
+            <constant>
+              <object>null</object>
+            </constant>
+          </rhs>
+        </compare>
+      </if>
+      <then>
+        <assert>
+          <vocabularylink uri="aee857f2-09d5-4615-a96c-87041791ec42" element="8a871580-7fd0-4910-9fbf-46f702a3f384" />
+          <object>
+            <createobject classref="SendPipelineServiceResolution">
+              <vocabularylink uri="aee857f2-09d5-4615-a96c-87041791ec42" element="71badb60-b7db-4e54-baf3-9cff27c316ee" />
+              <argument>
+                <constant>
+                  <vocabularylink uri="3c90f8f9-3814-4ba3-b4d8-6701073a8a8e" element="b4df1c23-accd-4df0-a21c-0fe9c8230806" />
+                  <string>ESB.Extensions.Tests.BizTalkArtifacts.OrderAggregator, ESB.Extensions.Tests.BizTalkArtifacts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c02536186063797e</string>
+                </constant>
+              </argument>
+              <argument>
+                <constant>
+                  <vocabularylink uri="d9eea0a0-cea3-4689-9648-4fff3dfe7e92" element="8e81eee9-7059-47ae-aba9-b112db991168" />
+                  <string>ESB.Extensions.Components.XLANGMessageSequenceIdComparer, ESB.Extensions.Components, Version=1.0.0.0, Culture=neutral, PublicKeyToken=70a94313e9b0b3df</string>
+                </constant>
+              </argument>
+              <argument>
+                <constant>
+                  <int>10</int>
+                </constant>
+              </argument>
+              <argument>
+                <constant>
+                  <int>1</int>
+                </constant>
+              </argument>
+              <argument>
+                <constant>
+                  <int>1</int>
+                </constant>
+              </argument>
+            </createobject>
+          </object>
+        </assert>
+      </then>
+    </rule>
+  </ruleset>
+</brl>

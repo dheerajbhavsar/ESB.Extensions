@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<brl xmlns="http://schemas.microsoft.com/businessruleslanguage/2002">
+  <vocabulary id="d9eea0a0-cea3-4689-9648-4fff3dfe7e92" name="ESB.Extensions" uri="" description="">
+    <version major="1" minor="0" description="" modifiedby="BTSDEV\Administrator" date="2009-07-30T22:15:54.918873+03:00" />
+    <vocabularydefinition id="41415dfb-a969-4af8-a382-cd06ff98fdd2" name="ResolutionDictionary" description="ResolutionDictionary">
+      <bindingdefinition>
+        <classbindingdefinition>
+          <classinfo class="ResolutionDictionary" instance="0">
+            <assembly>ESB.Extensions.Resolution, Version=1.0.0.0, Culture=neutral, PublicKeyToken=70a94313e9b0b3df</assembly>
+            <!--C:\Windows\assembly\GAC_MSIL\ESB.Extensions.Resolution\1.0.0.0__70a94313e9b0b3df\ESB.Extensions.Resolution.dll-->
+            <namespace>ESB.Extensions.Resolution</namespace>
+          </classinfo>
+        </classbindingdefinition>
+      </bindingdefinition>
+      <formatstring language="en-US" string="ResolutionDictionary" />
+    </vocabularydefinition>
+    <vocabularydefinition id="493fe5e9-a7a7-4a95-8473-b7cf6d906e91" name="SendPipelineServiceResolution" description="SendPipelineServiceResolution">
+      <bindingdefinition>
+        <classbindingdefinition>
+          <classinfo class="SendPipelineServiceResolution" instance="0">
+            <assembly>ESB.Extensions.Resolutions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=70a94313e9b0b3df</assembly>
+            <!--C:\Windows\assembly\GAC_MSIL\ESB.Extensions.Resolutions\1.0.0.0__70a94313e9b0b3df\ESB.Extensions.Resolutions.dll-->
+            <namespace>ESB.Extensions.Resolutions</namespace>
+          </classinfo>
+        </classbindingdefinition>
+      </bindingdefinition>
+      <formatstring language="en-US" string="SendPipelineServiceResolution" />
+    </vocabularydefinition>
+    <vocabularydefinition id="08a4d16c-8f03-4ee8-bc46-a1f2a3ebd349" name="ReceivePipelineServiceResolution" description="ReceivePipelineServiceResolution">
+      <bindingdefinition>
+        <classbindingdefinition>
+          <classinfo class="ReceivePipelineServiceResolution" instance="0">
+            <assembly>ESB.Extensions.Resolutions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=70a94313e9b0b3df</assembly>
+            <!--C:\Windows\assembly\GAC_MSIL\ESB.Extensions.Resolutions\1.0.0.0__70a94313e9b0b3df\ESB.Extensions.Resolutions.dll-->
+            <namespace>ESB.Extensions.Resolutions</namespace>
+          </classinfo>
+        </classbindingdefinition>
+      </bindingdefinition>
+      <formatstring language="en-US" string="ReceivePipelineServiceResolution" />
+    </vocabularydefinition>
+    <vocabularydefinition id="2babb050-32d4-476e-ba63-5f59deae79c9" name="GoResolution" description="GoResolution">
+      <bindingdefinition>
+        <classbindingdefinition>
+          <classinfo class="Go" instance="0">
+            <assembly>ESB.Extensions.Resolutions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=70a94313e9b0b3df</assembly>
+            <!--C:\Windows\assembly\GAC_MSIL\ESB.Extensions.Resolutions\1.0.0.0__70a94313e9b0b3df\ESB.Extensions.Resolutions.dll-->
+            <namespace>ESB.Extensions.Resolutions</namespace>
+          </classinfo>
+        </classbindingdefinition>
+      </bindingdefinition>
+      <formatstring language="en-US" string="GoResolution" />
+    </vocabularydefinition>
+    <vocabularydefinition id="8e81eee9-7059-47ae-aba9-b112db991168" name="XLANGMessageSequenceIdComparerTypeName" description="XLANGMessageSequenceIdComparerTypeName">
+      <literaldefinition type="string">
+        <string>ESB.Extensions.Components.XLANGMessageSequenceIdComparer, ESB.Extensions.Components, Version=1.0.0.0, Culture=neutral, PublicKeyToken=70a94313e9b0b3df</string>
+      </literaldefinition>
+      <formatstring language="en-US" string="XLANGMessageSequenceIdComparerTypeName" />
+    </vocabularydefinition>
+    <vocabularydefinition id="53034d09-8dd3-4087-86a4-60f9d17d091c" name="SequenceIncrementHelper" description="SequenceIncrementHelper">
+      <bindingdefinition>
+        <classbindingdefinition>
+          <classinfo class="SequenceIncrementHelper" instance="0">
+            <assembly>ESB.Extensions.Resolutions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=70a94313e9b0b3df</assembly>
+            <!--C:\Windows\assembly\GAC_MSIL\ESB.Extensions.Resolutions\1.0.0.0__70a94313e9b0b3df\ESB.Extensions.Resolutions.dll-->
+            <namespace>ESB.Extensions.Resolutions</namespace>
+          </classinfo>
+        </classbindingdefinition>
+      </bindingdefinition>
+      <formatstring language="en-US" string="SequenceIncrementHelper" />
+    </vocabularydefinition>
+  </vocabulary>
+</brl>

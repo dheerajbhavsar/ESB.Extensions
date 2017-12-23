@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<brl xmlns="http://schemas.microsoft.com/businessruleslanguage/2002">
+  <ruleset name="ESB.Extensions.Tests.Resequencer.Policy">
+    <version major="1" minor="0" description="" modifiedby="BTSDEV\Administrator" date="2009-09-05T15:40:53.5076155+03:00" />
+    <configuration />
+    <bindings>
+      <class ref="SequenceIncrementHelper" class="SequenceIncrementHelper" instance="0" instances="16" selectivity="1">
+        <assembly>ESB.Extensions.Resolutions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=70a94313e9b0b3df</assembly>
+        <!--C:\Windows\assembly\GAC_MSIL\ESB.Extensions.Resolutions\1.0.0.0__70a94313e9b0b3df\ESB.Extensions.Resolutions.dll-->
+        <namespace>ESB.Extensions.Resolutions</namespace>
+      </class>
+      <class ref="Go" class="Go" instance="0" instances="16" selectivity="1">
+        <assembly>ESB.Extensions.Resolutions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=70a94313e9b0b3df</assembly>
+        <!--C:\Windows\assembly\GAC_MSIL\ESB.Extensions.Resolutions\1.0.0.0__70a94313e9b0b3df\ESB.Extensions.Resolutions.dll-->
+        <namespace>ESB.Extensions.Resolutions</namespace>
+      </class>
+      <class ref="ResolutionDictionary" class="ResolutionDictionary" instance="0" instances="16" selectivity="1">
+        <assembly>ESB.Extensions.Resolution, Version=1.0.0.0, Culture=neutral, PublicKeyToken=70a94313e9b0b3df</assembly>
+        <!--C:\Windows\assembly\GAC_MSIL\ESB.Extensions.Resolution\1.0.0.0__70a94313e9b0b3df\ESB.Extensions.Resolution.dll-->
+        <namespace>ESB.Extensions.Resolution</namespace>
+      </class>
+    </bindings>
+    <rule name="Create GoResolution" priority="10" active="true">
+      <if>
+        <compare operator="equal">
+          <vocabularylink uri="3f0e9bcc-6212-4e6a-853c-e517f157a626" element="05703dd9-1111-40b8-890d-ad7bfc45a925" />
+          <lhs>
+            <constant>
+              <string>1</string>
+            </constant>
+          </lhs>
+          <rhs>
+            <constant>
+              <string>1</string>
+            </constant>
+          </rhs>
+        </compare>
+      </if>
+      <then>
+        <assert>
+          <vocabularylink uri="aee857f2-09d5-4615-a96c-87041791ec42" element="8a871580-7fd0-4910-9fbf-46f702a3f384" />
+          <object>
+            <createobject classref="Go">
+              <vocabularylink uri="aee857f2-09d5-4615-a96c-87041791ec42" element="71badb60-b7db-4e54-baf3-9cff27c316ee" />
+              <argument>
+                <function>
+                  <classmember member="GetString" sideeffects="true">
+                    <classref ref="ResolutionDictionary" />
+                    <argument>
+                      <constant>
+                        <string>ESB.Extensions.Schemas.BatchId</string>
+                      </constant>
+                    </argument>
+                  </classmember>
+                </function>
+              </argument>
+              <argument>
+                <function>
+                  <classmember member="GetString" sideeffects="true">
+                    <classref ref="ResolutionDictionary" />
+                    <argument>
+                      <constant>
+                        <string>ESB.Extensions.Schemas.SequenceId</string>
+                      </constant>
+                    </argument>
+                  </classmember>
+                </function>
+              </argument>
+            </createobject>
+          </object>
+        </assert>
+        <assert>
+          <vocabularylink uri="aee857f2-09d5-4615-a96c-87041791ec42" element="8a871580-7fd0-4910-9fbf-46f702a3f384" />
+          <object>
+            <createobject classref="SequenceIncrementHelper">
+              <vocabularylink uri="aee857f2-09d5-4615-a96c-87041791ec42" element="71badb60-b7db-4e54-baf3-9cff27c316ee" />
+            </createobject>
+          </object>
+        </assert>
+      </then>
+    </rule>
+    <rule name="Set ResolutionDictionary" priority="4" active="true">
+      <if>
+        <compare operator="equal">
+          <vocabularylink uri="3f0e9bcc-6212-4e6a-853c-e517f157a626" element="05703dd9-1111-40b8-890d-ad7bfc45a925" />
+          <lhs>
+            <function>
+              <classmember member="GetValue" sideeffects="true">
+                <classref ref="ResolutionDictionary" />
+                <argument>
+                  <constant>
+                    <string>ESB.Extensions.Resolutions.Go</string>
+                  </constant>
+                </argument>
+              </classmember>
+            </function>
+          </lhs>
+          <rhs>
+            <constant>
+              <object>null</object>
+            </constant>
+          </rhs>
+        </compare>
+      </if>
+      <then>
+        <function>
+          <classmember member="SetValue" sideeffects="true">
+            <classref ref="ResolutionDictionary" />
+            <argument>
+              <constant>
+                <string>ESB.Extensions.Resolutions.Go</string>
+              </constant>
+            </argument>
+            <argument>
+              <reference>
+                <classref ref="Go" />
+              </reference>
+            </argument>
+          </classmember>
+        </function>
+        <function>
+          <classmember member="SetValue" sideeffects="true">
+            <classref ref="ResolutionDictionary" />
+            <argument>
+              <constant>
+                <string>Microsoft.Practices.ESB.Itinerary.AsXml</string>
+              </constant>
+            </argument>
+            <argument>
+              <constant>
+                <object>null</object>
+              </constant>
+            </argument>
+          </classmember>
+        </function>
+        <retract>
+          <vocabularylink uri="aee857f2-09d5-4615-a96c-87041791ec42" element="d6515f3c-d7e6-4c24-80a9-d072fdeb2de5" />
+          <object>
+            <reference>
+              <classref ref="Go" />
+            </reference>
+          </object>
+        </retract>
+        <retract>
+          <vocabularylink uri="aee857f2-09d5-4615-a96c-87041791ec42" element="d6515f3c-d7e6-4c24-80a9-d072fdeb2de5" />
+          <object>
+            <reference>
+              <classref ref="SequenceIncrementHelper" />
+            </reference>
+          </object>
+        </retract>
+      </then>
+    </rule>
+    <rule name="Increment SequenceId" priority="8" active="true">
+      <if>
+        <compare operator="not equal">
+          <vocabularylink uri="3f0e9bcc-6212-4e6a-853c-e517f157a626" element="c22af575-9920-417c-a545-67fa0ece9832" />
+          <lhs>
+            <reference>
+              <classref ref="SequenceIncrementHelper" />
+            </reference>
+          </lhs>
+          <rhs>
+            <constant>
+              <object classref="SequenceIncrementHelper">null</object>
+            </constant>
+          </rhs>
+        </compare>
+      </if>
+      <then>
+        <function>
+          <classmember member="IncrementSequenceId" sideeffects="true">
+            <classref ref="SequenceIncrementHelper" />
+            <argument>
+              <reference>
+                <classref ref="Go" />
+              </reference>
+            </argument>
+          </classmember>
+        </function>
+        <update>
+          <vocabularylink uri="aee857f2-09d5-4615-a96c-87041791ec42" element="57517cc6-6bb7-46eb-99eb-a1fdddd5d2f6" />
+          <object>
+            <reference>
+              <classref ref="Go" />
+            </reference>
+          </object>
+        </update>
+      </then>
+    </rule>
+    <rule name="Check for Maximum" priority="6" active="true">
+      <if>
+        <compare operator="greater than or equal to">
+          <vocabularylink uri="3f0e9bcc-6212-4e6a-853c-e517f157a626" element="4ac045f2-f5ad-42cf-8e20-76d3f7f683f1" />
+          <lhs>
+            <function>
+              <classmember member="ConvertSequenceIdToInt32" sideeffects="true">
+                <classref ref="SequenceIncrementHelper" />
+                <argument>
+                  <reference>
+                    <classref ref="Go" />
+                  </reference>
+                </argument>
+              </classmember>
+            </function>
+          </lhs>
+          <rhs>
+            <constant>
+              <int>5</int>
+            </constant>
+          </rhs>
+        </compare>
+      </if>
+      <then>
+        <function>
+          <classmember member="set_ShouldGenerateGoMsg" sideeffects="true">
+            <classref ref="Go" />
+            <argument>
+              <constant>
+                <boolean>false</boolean>
+              </constant>
+            </argument>
+          </classmember>
+        </function>
+      </then>
+    </rule>
+  </ruleset>
+</brl>

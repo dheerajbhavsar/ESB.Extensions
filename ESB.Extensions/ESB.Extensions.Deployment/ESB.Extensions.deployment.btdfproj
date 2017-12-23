@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- 
+      Deployment Framework for BizTalk 5.0
+      Scott Colestock / www.traceofthought.net
+      Thomas F. Abraham
+
+      BizTalkSample.dfbtproj is a template build file designed to show how to
+      leverage the MSBuild-based deployment framework for BizTalk.
+      
+      The framework addresses BizTalk 2006 deployments, both for developer desktops
+      and for production use after an MSI installation.
+      
+      It relies on BizTalkDeploymentFramework.targets for the actual BizTalk deployment work; 
+      only project-specific variations and deployment work must be done in this file.
+      Think of this like a .csproj or .vbproj project file.
+-->
+
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Deploy">
+
+  <PropertyGroup>
+    <Configuration Condition="'$(Configuration)' == ''">Debug</Configuration>
+    <Platform Condition="'$(Platform)' == ''">x86</Platform>
+    <SchemaVersion>1.0</SchemaVersion>
+    <ProjectName>ESB.Extensions</ProjectName>
+    <ProjectVersion>1.2</ProjectVersion>
+
+    <EnableSideBySide>false</EnableSideBySide>
+
+    <!-- Set following properties to true or false to include various pieces of a BizTalk deployment. -->
+    <IncludeSchemas>true</IncludeSchemas>
+    <IncludeOrchestrations>true</IncludeOrchestrations>
+    <IncludeTransforms>false</IncludeTransforms>
+    <IncludePipelines>true</IncludePipelines>
+    <IncludeComponents>true</IncludeComponents>
+    <IncludePipelineComponents>true</IncludePipelineComponents>
+    <IncludeCustomFunctoids>false</IncludeCustomFunctoids>
+    <IncludeVocabAndRules>true</IncludeVocabAndRules>
+    <IncludeVirtualDirectories>false</IncludeVirtualDirectories>
+    <IncludeMessagingBindings>true</IncludeMessagingBindings>
+    <IncludeDeploymentTest>false</IncludeDeploymentTest>
+    <Includelog4net>false</Includelog4net>
+    <IncludeSSO>false</IncludeSSO>
+    <IncludeBAM>false</IncludeBAM>
+
+    <Schemas>ESB.Extensions.Schemas,ESB.Extensions.Schemas.WcfSql,ESB.Extensions.Schemas.EsbBatchDb</Schemas>
+    <Pipelines>ESB.Extensions.Pipelines</Pipelines>
+    <Orchestrations>ESB.Extensions.Services</Orchestrations>
+    <Components>ESB.Extensions.Components,ESB.Extensions.Resolution,ESB.Extensions.Resolution.BRE,ESB.Extensions.Resolution.UNITY,ESB.Extensions.Resolutions</Components>
+    <PipelineComponents>ESB.Extensions.PipelineComponents</PipelineComponents>
+
+    <UseIsolatedAppDomain>true</UseIsolatedAppDomain>
+
+    <!-- Set these true if we have a "master" port bindings file where the transporttypedata elements are stored in 
+        unescaped XML for convenience/readability sake. -->
+    <ApplyXmlEscape>false</ApplyXmlEscape>
+    <UsingMasterBindings>true</UsingMasterBindings>
+
+    <PortBindingsMaster>ESB.Extensions.bindingsMaster.xml</PortBindingsMaster>
+    <PortBindings>ESB.Extensions.bindings.xml</PortBindings>
+
+    <!-- Set to a value if developer needs local version of environment settings. -->
+    <!--<DeveloperPreProcessSettings>$(MSBuildProjectDirectory)\EnvironmentSettings\local_settings.xml"</DeveloperPreProcessSettings>-->
+
+    <!-- We are asking the deployment framework to create MSBuild properties from the values
+        in our environment settings file that are named here. ssoAppUserGroup and ssoAppAdminGroup
+        should be supplied if they need to be different for SSO app creation than the defaults
+        specified in BizTalkDeploymentFramework.targets -->
+    <!--PropsFromEnvSettings>ssoAppUserGroup,ssoAppAdminGroup,BAMViewsAndAccounts</PropsFromEnvSettings-->
+
+    <!--FilesToXmlPreprocess>..\AdditionalXmlToPreprocess.xml</FilesToXmlPreprocess-->
+
+    <!-- Relative path to a folder that holds assemblies to be GAC'd/unGAC'd along with the rest of the solution. -->
+    <!--ExternalAssembliesPath>..\ExternalReferences</ExternalAssembliesPath>
+    <ExternalAssemblies></ExternalAssemblies-->
+
+    <!-- For vdirs using the BizTalk isapi extension, we set these properties: -->
+    <!--WseExtensionPath>..\BizTalkSampleVDir</WseExtensionPath>
+    <WseExtensionName>..\BizTalkSampleVDir</WseExtensionName-->
+
+    <!-- Properties to assist in deploying BizTalk rule engine vocabularies and rules
+        This sample does NOT include rules at this point - these properties just illustrate
+        what you would do if you had them.  The DeployBTRules.exe utility is used by
+        the include file to support this functionality.  -->
+    <RuleVocabulary>$(ProjectName).vocabulary.xml</RuleVocabulary>
+    <RulePolicy></RulePolicy>
+    <RulePolicyName></RulePolicyName>
+
+    <!-- Make your MSI unique - your project should change these.  -->
+    <DefaultInstallDir Condition="'$(EnableSideBySide)' == 'true'">[ProgramFilesFolder]\ESB.Extensions\$(ProjectVersion)</DefaultInstallDir>
+    <DefaultInstallDir Condition="'$(EnableSideBySide)' == 'false'">[ProgramFilesFolder]\ESB.Extensions</DefaultInstallDir>
+    <ProductUpgradeCode>99D989AA-408E-4372-BC83-EF6D8C498FA6</ProductUpgradeCode>
+    <ProductName>ESB.Extensions</ProductName>
+    <ProductId>77361BB6-2A35-4fe7-AC31-018BAAB8103A</ProductId>
+    <ProductVersion>1.2.0</ProductVersion>
+    <Manufacturer>BVeldhoen</Manufacturer>
+    <PackageDescription>Extensions for ESB Toolkit 2.0</PackageDescription>
+    <PackageDescription8Chars>EsbExt</PackageDescription8Chars>
+    <PackageComments>Extensions for ESB Toolkit 2.0</PackageComments>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <DeploymentFrameworkTargetsPath>$(MSBuildExtensionsPath)\DeploymentFrameworkForBizTalk\5.0\</DeploymentFrameworkTargetsPath>
+    <OutputPath>bin\Debug\</OutputPath>
+    <!-- Get our PDBs into the GAC so we get file/line number information in stack traces. -->
+    <DeployPDBsToGac>false</DeployPDBsToGac>
+    <!-- We name our host(s) explicitly to avoid having the framework bounce them all. -->
+    <BizTalkHosts>BizTalkServerApplication</BizTalkHosts>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <DeploymentFrameworkTargetsPath>$(MSBuildExtensionsPath)\DeploymentFrameworkForBizTalk\5.0\</DeploymentFrameworkTargetsPath>
+    <OutputPath>bin\Release\</OutputPath>
+    <!-- Get our PDBs into the GAC so we get file/line number information in stack traces. -->
+    <DeployPDBsToGac>false</DeployPDBsToGac>
+    <!-- We name our host(s) explicitly to avoid having the framework bounce them all. -->
+    <BizTalkHosts>BizTalkServerApplication</BizTalkHosts>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Server'">
+    <DeploymentFrameworkTargetsPath>Framework\</DeploymentFrameworkTargetsPath>
+    <!-- Get our PDBs into the GAC so we get file/line number information in stack traces. -->
+    <DeployPDBsToGac>false</DeployPDBsToGac>
+    <!-- We name our host(s) explicitly to avoid having the framework bounce them all. -->
+    <BizTalkHosts>BizTalkServerApplication</BizTalkHosts>
+  </PropertyGroup>
+
+  <!-- Optionally define IIS virtual directories and associated AppPool names to be configured by the Framework -->
+  <!--ItemGroup>
+    <VDirList Include="*">
+      <Vdir>BizTalkSampleVDir</Vdir>
+      <Physdir>..\BizTalkSampleVDir</Physdir>
+      <AppPool>BizTalkSample</AppPool>
+    </VDirList>
+    <VDirList Include="*">
+      <Vdir>BizTalkSampleVDir2</Vdir>
+      <Physdir>..\BizTalkSampleVDir</Physdir>
+      <AppPool>BizTalkSample</AppPool>
+    </VDirList>
+  </ItemGroup-->
+
+  <!-- Note that BizTalkSample.VDirList.txt is populated with "virtual directory, physical directory, app pool name"
+        tuples - one per line in the text file.  Physical directory is interpreted relative to the directory where
+        the MSBuild project is located - not a full path! -->
+
+  <Import Project="$(DeploymentFrameworkTargetsPath)BizTalkDeploymentFramework.targets" />
+  
+  <!-- The core scripts allows us to supply CustomDeployTarget and CustomUndeployTarget.
+       As an example, we are using it to patch our binding file, and set permissions so
+       the BizTalk service account (fed in by setenvui.exe) can get to our file-transport ports. 
+       Use the CustomDeployTarget and CustomUndeployTarget to accomplish any custom work that isn't
+       handled by the the core (in BizTalkDeploymentInclude.msbuild) -->
+  <!--Target Name="CustomDeployTarget">
+    <CallTarget Targets="ApplyFilePerms"/>
+  </Target-->
+
+  <!-- Custom stuff (for the sample) we need to create our redistribution directory here.
+        Whatever is required for your project to correctly assemble a "redist" directory
+        should be done here. (Redist contents will be in MSI.) -->
+  <Target Name="CustomRedist">
+    <Copy SourceFiles="$(RuleVocabulary)" DestinationFolder="$(RedistDir)\Deployment" />
+    <!--
+      Here, we are taking the settings spreadsheet file into the MSI.  In the real world, you will
+      probably let your operations group manage it on a secure file share!
+    -->
+    <Copy SourceFiles="EnvironmentSettings\SettingsFileGenerator.xml" DestinationFolder="$(RedistDir)\Deployment\EnvironmentSettings" />
+    <Copy SourceFiles="..\EsbBatchDb\EsbBatchDb.sql" DestinationFolder="$(RedistDir)\EsbBatchDb" />
+  </Target>
+
+</Project>

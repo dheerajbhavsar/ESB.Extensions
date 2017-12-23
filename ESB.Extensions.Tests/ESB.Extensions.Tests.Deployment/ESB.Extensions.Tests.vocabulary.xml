@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<brl xmlns="http://schemas.microsoft.com/businessruleslanguage/2002">
+  <vocabulary id="3c90f8f9-3814-4ba3-b4d8-6701073a8a8e" name="ESB.Extensions.Tests" uri="" description="">
+    <version major="1" minor="0" description="" modifiedby="BTSDEV\Administrator" date="2009-07-30T22:22:39.924201+03:00" />
+    <vocabularydefinition id="6dfaab02-9183-4db5-9150-cc0a74bf6dd6" name="OrderBatchDebatcherPipelineTypeName" description="OrderBatchDebatcherPipelineTypeName">
+      <literaldefinition type="string">
+        <string>ESB.Extensions.Tests.BizTalkArtifacts.OrderBatchDebatcher, ESB.Extensions.Tests.BizTalkArtifacts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c02536186063797e</string>
+      </literaldefinition>
+      <formatstring language="en-US" string="OrderBatchDebatcherPipelineTypeName" />
+    </vocabularydefinition>
+    <vocabularydefinition id="b4df1c23-accd-4df0-a21c-0fe9c8230806" name="OrderAggregatorPipelineTypeName" description="OrderAggregatorPipelineTypeName">
+      <literaldefinition type="string">
+        <string>ESB.Extensions.Tests.BizTalkArtifacts.OrderAggregator, ESB.Extensions.Tests.BizTalkArtifacts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c02536186063797e</string>
+      </literaldefinition>
+      <formatstring language="en-US" string="OrderAggregatorPipelineTypeName" />
+    </vocabularydefinition>
+    <vocabularydefinition id="9f3c2251-1da7-4bf3-bfb1-618b87f46a3b" name="ResequencedOrderBatchItinerary" description="ResequencedOrderBatchItinerary">
+      <literaldefinition type="string">
+        <string>&lt;Itinerary xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" uuid="" beginTime="" completeTime="" state="Pending" isRequestResponse="false" servicecount="1" name="ResequencedOrderBatchItinerary" version="1.0" xmlns="http://schemas.microsoft.biztalk.practices.esb.com/itinerary"&gt;&lt;BizTalkSegment interchangeId="" epmRRCorrelationToken="" receiveInstanceId="" messageId="" xmlns="" /&gt;&lt;ServiceInstance name="DynamicOneWaySendPort" type="Orchestration" state="Pending" position="0" isRequestResponse="false" xmlns="" /&gt;&lt;Services xmlns=""&gt;&lt;Service uuid="81268e5f5b774064a3064cdf0dfb91fa" beginTime="" completeTime="" name="DynamicOneWaySendPort" type="Messaging" state="Pending" isRequestResponse="false" position="0" serviceInstanceId="" /&gt;&lt;/Services&gt;&lt;ResolverGroups xmlns=""&gt;&lt;Resolvers serviceId="DynamicOneWaySendPort0"&gt;&amp;lt;![CDATA[STATIC:\\transportType=FILE;transportLocation=C:\Z\DEV\0\OUT\%MessageID%.xml;action=;endpointConfig=;jaxRpcResponse=false;messageExchangePattern=One-Way;targetNamespace=;transformType=;]]&amp;gt;&lt;/Resolvers&gt;&lt;/ResolverGroups&gt;&lt;/Itinerary&gt;</string>
+      </literaldefinition>
+      <formatstring language="en-US" string="ResequencedOrderBatchItinerary" />
+    </vocabularydefinition>
+    <vocabularydefinition id="71e6c824-0ffa-4a3d-ad38-31332964beca" name="OrderItinerary" description="OrderItinerary">
+      <literaldefinition type="string">
+        <string>&lt;Itinerary xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" uuid="" beginTime="" completeTime="" state="Pending" isRequestResponse="false" servicecount="3" name="OrderItinerary" version="1.0" xmlns="http://schemas.microsoft.biztalk.practices.esb.com/itinerary"&gt;&lt;BizTalkSegment interchangeId="" epmRRCorrelationToken="" receiveInstanceId="" messageId="" xmlns="" /&gt;&lt;ServiceInstance name="ResequencerService" type="Orchestration" state="Pending" position="0" isRequestResponse="false" xmlns="" /&gt;&lt;Services xmlns=""&gt;&lt;Service uuid="6A5F461B-93B8-4cf1-B845-C96EA85AFE26" beginTime="" completeTime="" name="ResequencerService" type="Orchestration" state="Pending" isRequestResponse="false" position="0" serviceInstanceId="" /&gt;&lt;/Services&gt;&lt;Services xmlns=""&gt;&lt;Service uuid="FB725E59-F167-4fd6-8E5F-94371BC449CB" beginTime="" completeTime="" name="SendPipelineService" type="Orchestration" state="Pending" isRequestResponse="false" position="1" serviceInstanceId="" /&gt;&lt;/Services&gt;&lt;Services xmlns=""&gt;&lt;Service uuid="C82703BB-324E-4aa6-A795-DA4186D5A4B5" beginTime="" completeTime="" name="ResequencerGoService" type="Orchestration" state="Pending" isRequestResponse="false" position="2" serviceInstanceId="" /&gt;&lt;/Services&gt;&lt;ResolverGroups xmlns=""&gt;&lt;Resolvers serviceId="ResequencerService0" /&gt;&lt;Resolvers serviceId="SendPipelineService1"&gt;&amp;lt;![CDATA[BRE2:\\propertyTypes=ESB.Extensions.Schemas.BatchId, ESB.Extensions.Schemas, Version=1.0.0.0, Culture=neutral, PublicKeyToken=70a94313e9b0b3df|ESB.Extensions.Schemas.SequenceId, ESB.Extensions.Schemas, Version=1.0.0.0, Culture=neutral, PublicKeyToken=70a94313e9b0b3df;policy=ESB.Extensions.Tests.OrderAggregator.PreserveOrder.Policy;version=1.0;useMsg=false;messageFile=;recognizeMessageFormat=false;]]&amp;gt;&lt;/Resolvers&gt;&lt;Resolvers serviceId="ResequencerGoService2"&gt;&amp;lt;![CDATA[BRE2:\\propertyTypes=ESB.Extensions.Schemas.BatchId, ESB.Extensions.Schemas, Version=1.0.0.0, Culture=neutral, PublicKeyToken=70a94313e9b0b3df|ESB.Extensions.Schemas.SequenceId, ESB.Extensions.Schemas, Version=1.0.0.0, Culture=neutral, PublicKeyToken=70a94313e9b0b3df;policy=ESB.Extensions.Tests.Resequencer.Policy;version=1.0;useMsg=false;messageFile=;recognizeMessageFormat=false;]]&amp;gt;&lt;/Resolvers&gt;&lt;/ResolverGroups&gt;&lt;/Itinerary&gt;</string>
+      </literaldefinition>
+      <formatstring language="en-US" string="OrderItinerary" />
+    </vocabularydefinition>
+  </vocabulary>
+</brl>

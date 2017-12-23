@@ -1,0 +1,24 @@
+﻿<TestCase testName="T00100-OneWay-Debatch-MessageSendPort">
+  <TestExecution>
+    <TestStep assemblyPath="" typeName="BizUnit.FileDeleteMultipleStep">
+      <Directory>C:\Z\DEV\0\OUT\</Directory>
+      <SearchPattern>{*}.xml</SearchPattern>
+    </TestStep>
+    <TestStep assemblyPath="" typeName="BizUnit.FileCreateStep">
+      <SourcePath>..\..\..\..\ESB.Extensions.Tests\ESB.Extensions.Tests.BizTalkArtifacts\Instances\OrderBatch5.xml</SourcePath>
+      <CreationPath>C:\Z\DEV\0\IN\ODM\OrderBatch5.xml</CreationPath>
+    </TestStep>
+    <TestStep assemblyPath="ESB.Extensions.Tests.dll" typeName="BizUnit.FileMultiValidateStepEx">
+      <Timeout>60000</Timeout>
+      <Directory>C:\Z\DEV\0\OUT</Directory>
+      <SearchPattern>{*}.xml</SearchPattern>
+      <DeleteFiles>true</DeleteFiles>
+      <FileCount>5</FileCount>
+      <ValidationStep assemblyPath="" typeName="BizUnit.XmlValidationStep">
+        <XmlSchemaPath>..\..\..\..\ESB.Extensions.Tests\ESB.Extensions.Tests.BizTalkArtifacts\Order.xsd</XmlSchemaPath>
+        <XmlSchemaNameSpace>http://ESB.Extensions.Tests.BizTalkArtifacts.Order</XmlSchemaNameSpace>
+      </ValidationStep>
+    </TestStep>
+  </TestExecution>
+</TestCase>
+

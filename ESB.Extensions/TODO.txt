@@ -1,0 +1,52 @@
+V Add option to provide the sortedlist type via the BRE policy
+
+* FactRetriever for in-memory batch cache
+
+* EsbBatchDb
+
+* BatchRegistrar pipeline component. Should it publish the 1st Go message as well?
+    v Created GoPublishingDisassembler pipeline component that will publish a Go message, if so indicated by the configured resolver. However, there's still an issue with this pipeline component, see the issues on codeplex.
+    v Created ResolutionExecutor pipeline component, which will just execute a resolution. This could be used to create a pipeline that has this pipeline component only to make the resolver write the message into a database or something.
+    - Still have to create the EsbBatchDb database and some example BRE rules to write into this database.
+
+* Per-instance pipeline config in pipeline services. This would allow to remove the dependency of the ESB.Extensions.Tests on ESB.Extensions as well.
+
+* Support Request-Response
+
+V Add BDF support
+    v Deploy policies
+    v Fix ESB.Extensions.Tests
+    v Fix deployment of multiple rules per policy file
+        - Add feature to be able to specify versions.
+
+* Support DateTime as Batch and Message timeouts
+
+V Provide config messages as string in TransformType, implement helper framework to create (in BRE) and (de)serialize (in BRE & orch) the config messages
+
+V Provide the InboundMessage to the resolver
+
+* Support xpath properties on ReceivePipelineServiceConfiguration to support assigning of batch id and sequence id using xpaths
+
+* The itinerary designer doesn't work for me due to an error message concerning System.Xml.XmlNode not being serializable. Therefore, the exported itineraries are ok, as they were edited manually, but the itineraries in the designer differ from the exported ones.
+
+V Fix: Deploy the ESB.Extensions.Tests policies (they're published but not deployed; a side-effect of the BDF 5.0)
+
+V Use start orchestration to make ReceivePileineService orchestration more readable
+
+* FIGURE OUT: Use a wrapper class around XLANGMessage to be able to get to the message context from within BRE without having to copy seperate context parameters to the ResolutionDictionary?
+
+* Add some :) more unit tests:
+    v Multiple batches at the same time
+    v Timeouts in SendPipelineService
+
+* Add a resequencer singleton?
+
+
+Improvements to ESB Toolkit:
+* Custom resolution parmeters
+* Itinerary designer
+
+Post deployment actions:
+- Add ESB.Extensions.Itinerary.Extenders to the folder C:\Program Files\Microsoft BizTalk ESB Toolkit 2.0\Tools\Itinerary Designer\Lib
+- Fix the esb.config: Copy the esb.config to the folder C:\Program Files\Microsoft BizTalk ESB Toolkit 2.0 and run the ESBConfigurationTool to update the config in the SSO database. (unconfigure and configure the configuration)
+- Replace BizTalkDeploymentFramework.targets in the folder C:\Program Files\MSBuild\DeploymentFrameworkForBizTalk\5.0

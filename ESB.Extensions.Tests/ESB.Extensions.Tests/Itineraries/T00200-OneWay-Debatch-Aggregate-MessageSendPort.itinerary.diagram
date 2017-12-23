@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<itineraryDslDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="OneWay-Debatch-MessageSendPort">
+  <itineraryModelMoniker Id="6331d047-fae9-4252-8f14-00a5eebf3294" />
+  <nestedChildShapes>
+    <onRampShape Id="5b87edba-f7f6-442b-bc5d-6b65f0af5ca7" absoluteBounds="0.625, 1, 1.5, 0.9349169921875">
+      <onRampMoniker Id="9f291ba0-badc-4925-8ddc-c0599dc92893" />
+      <nestedChildShapes>
+        <elementListCompartment Id="34aba5cd-05ff-4c4e-9631-83d27b41de98" absoluteBounds="0.64000000000000012, 1.4100000000000001, 1.4700000000000002, 0.20745849609375" name="ReceiveCompartment" titleTextColor="Black" itemTextColor="Indigo" />
+        <elementListCompartment Id="76dc2599-6a0d-41af-bfe4-fd51e222849e" absoluteBounds="0.64000000000000012, 1.62745849609375, 1.4700000000000002, 0.20745849609375" name="SendCompartment" titleTextColor="Black" itemTextColor="DarkViolet" />
+      </nestedChildShapes>
+    </onRampShape>
+    <offRampShape Id="dde07ca4-efe0-4ab5-ae4c-77d4dd425484" absoluteBounds="9.125, 3, 1.5, 0.93491699218749957">
+      <offRampMoniker Id="c00bc3ee-c6ea-44d5-8ca7-1d24ea74bb31" />
+      <nestedChildShapes>
+        <elementListCompartment Id="99d6a507-6713-4cee-9146-b9e376fec2a3" absoluteBounds="9.14, 3.41, 1.4700000000000002, 0.20745849609375" name="SendCompartment" titleTextColor="Black" itemTextColor="DarkGoldenrod" />
+        <elementListCompartment Id="1908c848-f452-4b21-8aae-ec42473da72e" absoluteBounds="9.14, 3.62745849609375, 1.4700000000000002, 0.20745849609375" name="ReceiveCompartment" titleTextColor="Black" itemTextColor="Goldenrod" />
+      </nestedChildShapes>
+    </offRampShape>
+    <itineraryServiceShape Id="240e9bf8-54d2-4d0f-a0e1-8096b3892afd" absoluteBounds="6.25, 3, 1.625, 0.88180582682291675" fillColor="Khaki" outlineDashStyle="Solid" outlineThickness="0.0125">
+      <itineraryServiceMoniker Id="1d20cac8-79ac-4aa7-ba54-9178277d4718" />
+      <nestedChildShapes>
+        <elementListCompartment Id="ea0f1b17-947d-4900-b924-2b84776a09a4" absoluteBounds="6.265, 3.41, 1.5950000000000002, 0.37180582682291663" name="Resolver" titleTextColor="Black" itemTextColor="SteelBlue" />
+      </nestedChildShapes>
+    </itineraryServiceShape>
+    <connector edgePoints="[(7.875 : 3.44090291341146); (9.125 : 3.44090291341146)]" fixedFrom="NotFixed" fixedTo="NotFixed" TargetRelationshipDomainClassId="fc6cd317-188b-4002-b2c0-24aafcfd23a7">
+      <nodes>
+        <itineraryServiceShapeMoniker Id="240e9bf8-54d2-4d0f-a0e1-8096b3892afd" />
+        <offRampShapeMoniker Id="dde07ca4-efe0-4ab5-ae4c-77d4dd425484" />
+      </nodes>
+    </connector>
+    <itineraryServiceShape Id="05c8937e-b42a-4dbf-ae3a-c0b3a4c92681" absoluteBounds="3.5, 1.125, 1.625, 0.88180582682291675" fillColor="PaleGreen" outlineDashStyle="Solid" outlineThickness="0.0125">
+      <itineraryServiceMoniker Id="d16dc23f-6090-4438-95fb-b904f552e8bc" />
+      <nestedChildShapes>
+        <elementListCompartment Id="027d570c-0701-4d92-97b5-97d05a777738" absoluteBounds="3.515, 1.5350000000000001, 1.5950000000000002, 0.37180582682291663" name="Resolver" titleTextColor="Black" itemTextColor="SteelBlue" />
+      </nestedChildShapes>
+    </itineraryServiceShape>
+    <connector edgePoints="[(2.125 : 1.52995849609375); (3.5 : 1.52995849609375)]" fixedFrom="NotFixed" fixedTo="NotFixed" TargetRelationshipDomainClassId="c34da9c8-8c9c-4042-9a04-2b2f60ac990f">
+      <nodes>
+        <onRampShapeMoniker Id="5b87edba-f7f6-442b-bc5d-6b65f0af5ca7" />
+        <itineraryServiceShapeMoniker Id="05c8937e-b42a-4dbf-ae3a-c0b3a4c92681" />
+      </nodes>
+    </connector>
+    <itineraryServiceShape Id="0c1b82dd-6748-4732-8ad8-9da8a38bdead" absoluteBounds="3.5, 3, 1.625, 0.88180582682291675" fillColor="PaleGreen" outlineDashStyle="Solid" outlineThickness="0.0125">
+      <itineraryServiceMoniker Id="e532a427-498e-4f8c-9703-0a3b49cb51ec" />
+      <nestedChildShapes>
+        <elementListCompartment Id="fa4b9b5c-4eb8-4159-aa66-95d044ff8c87" absoluteBounds="3.5149999999999997, 3.41, 1.5950000000000002, 0.37180582682291663" name="Resolver" titleTextColor="Black" itemTextColor="SteelBlue" />
+      </nestedChildShapes>
+    </itineraryServiceShape>
+    <connector edgePoints="[(4.3125 : 2.00680582682292); (4.3125 : 3)]" fixedFrom="NotFixed" fixedTo="NotFixed" TargetRelationshipDomainClassId="e111e57e-b6cb-4b54-a7e0-31a5abdc5278">
+      <nodes>
+        <itineraryServiceShapeMoniker Id="05c8937e-b42a-4dbf-ae3a-c0b3a4c92681" />
+        <itineraryServiceShapeMoniker Id="0c1b82dd-6748-4732-8ad8-9da8a38bdead" />
+      </nodes>
+    </connector>
+    <connector edgePoints="[(5.125 : 3.44090291341146); (6.25 : 3.44090291341146)]" fixedFrom="NotFixed" fixedTo="NotFixed" TargetRelationshipDomainClassId="e111e57e-b6cb-4b54-a7e0-31a5abdc5278">
+      <nodes>
+        <itineraryServiceShapeMoniker Id="0c1b82dd-6748-4732-8ad8-9da8a38bdead" />
+        <itineraryServiceShapeMoniker Id="240e9bf8-54d2-4d0f-a0e1-8096b3892afd" />
+      </nodes>
+    </connector>
+  </nestedChildShapes>
+</itineraryDslDiagram>

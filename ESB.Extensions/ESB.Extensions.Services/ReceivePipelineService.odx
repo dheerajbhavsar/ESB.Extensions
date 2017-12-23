@@ -1,0 +1,920 @@
+﻿#if __DESIGNER_DATA
+#error Do not define __DESIGNER_DATA.
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<om:MetaModel MajorVersion="1" MinorVersion="3" Core="2b131234-7959-458d-834f-2dc0769ce683" ScheduleModel="66366196-361d-448d-976f-cab5e87496d2" xmlns:om="http://schemas.microsoft.com/BizTalk/2003/DesignerData">
+    <om:Element Type="Module" OID="a57788f2-e589-4791-86fe-0f14e28709e4" LowerBound="1.1" HigherBound="215.1">
+        <om:Property Name="ReportToAnalyst" Value="True" />
+        <om:Property Name="Name" Value="ESB.Extensions.Services" />
+        <om:Property Name="Signal" Value="False" />
+        <om:Element Type="PortType" OID="e15a134a-4614-47fe-8510-b3660a46980a" ParentLink="Module_PortType" LowerBound="8.1" HigherBound="15.1">
+            <om:Property Name="Synchronous" Value="False" />
+            <om:Property Name="TypeModifier" Value="Internal" />
+            <om:Property Name="ReportToAnalyst" Value="True" />
+            <om:Property Name="Name" Value="FaultProcessingType" />
+            <om:Property Name="Signal" Value="True" />
+            <om:Element Type="OperationDeclaration" OID="77089dc2-4f8a-47ec-9ed5-1c18df91204b" ParentLink="PortType_OperationDeclaration" LowerBound="10.1" HigherBound="14.1">
+                <om:Property Name="OperationType" Value="OneWay" />
+                <om:Property Name="ReportToAnalyst" Value="True" />
+                <om:Property Name="Name" Value="PostFault" />
+                <om:Property Name="Signal" Value="True" />
+                <om:Element Type="MessageRef" OID="2168a8eb-2291-4eda-af99-419aced6a75b" ParentLink="OperationDeclaration_RequestMessageRef" LowerBound="12.13" HigherBound="12.25">
+                    <om:Property Name="Ref" Value="ESB.Extensions.Services.FaultMsgType" />
+                    <om:Property Name="ReportToAnalyst" Value="True" />
+                    <om:Property Name="Name" Value="Request" />
+                    <om:Property Name="Signal" Value="True" />
+                </om:Element>
+            </om:Element>
+        </om:Element>
+        <om:Element Type="PortType" OID="4925f0c7-c6f1-4dd0-9ef6-cff40b731a87" ParentLink="Module_PortType" LowerBound="15.1" HigherBound="22.1">
+            <om:Property Name="Synchronous" Value="False" />
+            <om:Property Name="TypeModifier" Value="Internal" />
+            <om:Property Name="ReportToAnalyst" Value="True" />
+            <om:Property Name="Name" Value="XmlDocumentPortType" />
+            <om:Property Name="Signal" Value="False" />
+            <om:Element Type="OperationDeclaration" OID="9ad5c73f-65b7-4ec8-a1d8-c66b04204257" ParentLink="PortType_OperationDeclaration" LowerBound="17.1" HigherBound="21.1">
+                <om:Property Name="OperationType" Value="OneWay" />
+                <om:Property Name="ReportToAnalyst" Value="True" />
+                <om:Property Name="Name" Value="XmlDocument" />
+                <om:Property Name="Signal" Value="True" />
+                <om:Element Type="MessageRef" OID="e5ff85b6-26d5-4fc3-9069-841162109375" ParentLink="OperationDeclaration_RequestMessageRef" LowerBound="19.13" HigherBound="19.35">
+                    <om:Property Name="Ref" Value="System.Xml.XmlDocument" />
+                    <om:Property Name="ReportToAnalyst" Value="True" />
+                    <om:Property Name="Name" Value="Request" />
+                    <om:Property Name="Signal" Value="False" />
+                </om:Element>
+            </om:Element>
+        </om:Element>
+        <om:Element Type="ServiceDeclaration" OID="bd198dff-11be-487a-a66e-942607397863" ParentLink="Module_ServiceDeclaration" LowerBound="22.1" HigherBound="214.1">
+            <om:Property Name="InitializedTransactionType" Value="True" />
+            <om:Property Name="IsInvokable" Value="False" />
+            <om:Property Name="TypeModifier" Value="Internal" />
+            <om:Property Name="ReportToAnalyst" Value="True" />
+            <om:Property Name="Name" Value="ReceivePipelineService" />
+            <om:Property Name="Signal" Value="True" />
+            <om:Element Type="VariableDeclaration" OID="a24b0b13-05fc-4d49-a045-b0be13a1663e" ParentLink="ServiceDeclaration_VariableDeclaration" LowerBound="32.1" HigherBound="33.1">
+                <om:Property Name="InitialValue" Value="true" />
+                <om:Property Name="UseDefaultConstructor" Value="False" />
+                <om:Property Name="Type" Value="System.Boolean" />
+                <om:Property Name="ParamDirection" Value="In" />
+                <om:Property Name="ReportToAnalyst" Value="True" />
+                <om:Property Name="Name" Value="hasNextStep" />
+                <om:Property Name="Signal" Value="True" />
+            </om:Element>
+            <om:Element Type="VariableDeclaration" OID="8a135e3f-db2f-4304-8b47-10c816c8c677" ParentLink="ServiceDeclaration_VariableDeclaration" LowerBound="33.1" HigherBound="34.1">
+                <om:Property Name="UseDefaultConstructor" Value="True" />
+                <om:Property Name="Type" Value="Microsoft.Practices.ESB.Itinerary.SerializableItineraryWrapper" />
+                <om:Property Name="ParamDirection" Value="In" />
+                <om:Property Name="ReportToAnalyst" Value="True" />
+                <om:Property Name="Name" Value="itinerary" />
+                <om:Property Name="Signal" Value="True" />
+            </om:Element>
+            <om:Element Type="VariableDeclaration" OID="f5e68dd7-bcfc-4c6b-89e6-6451eca26b91" ParentLink="ServiceDeclaration_VariableDeclaration" LowerBound="34.1" HigherBound="35.1">
+                <om:Property Name="UseDefaultConstructor" Value="True" />
+                <om:Property Name="Type" Value="Microsoft.Practices.ESB.Itinerary.SerializableItineraryStepWrapper" />
+                <om:Property Name="ParamDirection" Value="In" />
+                <om:Property Name="ReportToAnalyst" Value="True" />
+                <om:Property Name="Name" Value="itineraryStep" />
+                <om:Property Name="Signal" Value="True" />
+            </om:Element>
+            <om:Element Type="VariableDeclaration" OID="f090881b-ecf2-4d5a-9c30-800402dc5aad" ParentLink="ServiceDeclaration_VariableDeclaration" LowerBound="35.1" HigherBound="36.1">
+                <om:Property Name="UseDefaultConstructor" Value="True" />
+                <om:Property Name="Type" Value="Microsoft.Practices.ESB.Itinerary.ResolverCollection" />
+                <om:Property Name="ParamDirection" Value="In" />
+                <om:Property Name="ReportToAnalyst" Value="True" />
+                <om:Property Name="Name" Value="resolvers" />
+                <om:Property Name="Signal" Value="True" />
+            </om:Element>
+            <om:Element Type="VariableDeclaration" OID="467732ac-ec4f-42bd-92aa-de8b5334022d" ParentLink="ServiceDeclaration_VariableDeclaration" LowerBound="36.1" HigherBound="37.1">
+                <om:Property Name="UseDefaultConstructor" Value="False" />
+                <om:Property Name="Type" Value="System.String" />
+                <om:Property Name="ParamDirection" Value="In" />
+                <om:Property Name="ReportToAnalyst" Value="True" />
+                <om:Property Name="Name" Value="resolver" />
+                <om:Property Name="Signal" Value="True" />
+            </om:Element>
+            <om:Element Type="VariableDeclaration" OID="4f341e12-9027-48ba-93b8-1170f5e63e73" ParentLink="ServiceDeclaration_VariableDeclaration" LowerBound="37.1" HigherBound="38.1">
+                <om:Property Name="UseDefaultConstructor" Value="True" />
+                <om:Property Name="Type" Value="ESB.Extensions.Resolution.ResolutionDictionary" />
+                <om:Property Name="ParamDirection" Value="In" />
+                <om:Property Name="ReportToAnalyst" Value="True" />
+                <om:Property Name="Name" Value="resolutionDictionary" />
+                <om:Property Name="Signal" Value="True" />
+            </om:Element>
+            <om:Element Type="VariableDeclaration" OID="b1573946-cd60-4732-a763-e35bba0605ad" ParentLink="ServiceDeclaration_VariableDeclaration" LowerBound="38.1" HigherBound="39.1">
+                <om:Property Name="UseDefaultConstructor" Value="True" />
+                <om:Property Name="Type" Value="ESB.Extensions.Resolutions.ReceivePipelineServiceResolution" />
+                <om:Property Name="ParamDirection" Value="In" />
+                <om:Property Name="ReportToAnalyst" Value="True" />
+                <om:Property Name="Name" Value="resolution" />
+                <om:Property Name="Signal" Value="True" />
+            </om:Element>
+            <om:Element Type="VariableDeclaration" OID="b8fde43d-1c68-402b-beb5-73761e4b7edd" ParentLink="ServiceDeclaration_VariableDeclaration" LowerBound="39.1" HigherBound="40.1">
+                <om:Property Name="InitialValue" Value="false" />
+                <om:Property Name="UseDefaultConstructor" Value="False" />
+                <om:Property Name="Type" Value="System.Boolean" />
+                <om:Property Name="ParamDirection" Value="In" />
+                <om:Property Name="ReportToAnalyst" Value="True" />
+                <om:Property Name="Name" Value="fromSecondResolver" />
+                <om:Property Name="Signal" Value="True" />
+            </om:Element>
+            <om:Element Type="LongRunningTransaction" OID="31c5eafc-9dc4-43c4-8fd3-e56bd5ac0263" ParentLink="ServiceDeclaration_Transaction" LowerBound="23.21" HigherBound="23.68">
+                <om:Property Name="ReportToAnalyst" Value="True" />
+                <om:Property Name="Name" Value="TxMain" />
+                <om:Property Name="Signal" Value="False" />
+            </om:Element>
+            <om:Element Type="MessageDeclaration" OID="efec73b4-ea8a-4ece-bb25-53820bd54ade" ParentLink="ServiceDeclaration_MessageDeclaration" LowerBound="29.1" HigherBound="30.1">
+                <om:Property Name="Type" Value="System.Xml.XmlDocument" />
+                <om:Property Name="ParamDirection" Value="In" />
+                <om:Property Name="ReportToAnalyst" Value="True" />
+                <om:Property Name="Name" Value="InboundMessage" />
+                <om:Property Name="Signal" Value="True" />
+            </om:Element>
+            <om:Element Type="MessageDeclaration" OID="74a7bd2e-228c-400a-a794-1b15f38c2fd8" ParentLink="ServiceDeclaration_MessageDeclaration" LowerBound="30.1" HigherBound="31.1">
+                <om:Property Name="Type" Value="System.Xml.XmlDocument" />
+                <om:Property Name="ParamDirection" Value="In" />
+                <om:Property Name="ReportToAnalyst" Value="True" />
+                <om:Property Name="Name" Value="OutputMessage" />
+                <om:Property Name="Signal" Value="True" />
+            </om:Element>
+            <om:Element Type="MessageDeclaration" OID="ece1de3a-c17b-4fc7-a129-4d179d720581" ParentLink="ServiceDeclaration_MessageDeclaration" LowerBound="31.1" HigherBound="32.1">
+                <om:Property Name="Type" Value="ESB.Extensions.Services.FaultMsgType" />
+                <om:Property Name="ParamDirection" Value="In" />
+                <om:Property Name="ReportToAnalyst" Value="True" />
+                <om:Property Name="Name" Value="FaultMessage" />
+                <om:Property Name="Signal" Value="True" />
+            </om:Element>
+            <om:Element Type="ServiceBody" OID="85c068f1-8b21-403c-9c1a-e7cfa9a1cc66" ParentLink="ServiceDeclaration_ServiceBody">
+                <om:Property Name="Signal" Value="False" />
+                <om:Element Type="Receive" OID="7f876254-e059-4783-8615-d577d596b512" ParentLink="ServiceBody_Statement" LowerBound="42.1" HigherBound="52.1">
+                    <om:Property Name="Activate" Value="True" />
+                    <om:Property Name="PortName" Value="DocumentProcessing" />
+                    <om:Property Name="MessageName" Value="InboundMessage" />
+                    <om:Property Name="OperationName" Value="XmlDocument" />
+                    <om:Property Name="OperationMessageName" Value="Request" />
+                    <om:Property Name="ReportToAnalyst" Value="True" />
+                    <om:Property Name="Name" Value="Receive Msg" />
+                    <om:Property Name="Signal" Value="True" />
+                    <om:Element Type="DNFPredicate" OID="7d8338fe-ba3a-41ae-adf2-b7c142785700" ParentLink="Receive_DNFPredicate">
+                        <om:Property Name="LHS" Value="Microsoft.Practices.ESB.Itinerary.Schemas.ServiceName" />
+                        <om:Property Name="RHS" Value="&quot;ReceivePipelineService&quot;" />
+                        <om:Property Name="Grouping" Value="AND" />
+                        <om:Property Name="Operator" Value="Equals" />
+                        <om:Property Name="Signal" Value="False" />
+                    </om:Element>
+                    <om:Element Type="DNFPredicate" OID="71800deb-62fa-4870-bbc2-7cb3b789eb17" ParentLink="Receive_DNFPredicate">
+                        <om:Property Name="LHS" Value="Microsoft.Practices.ESB.Itinerary.Schemas.ServiceState" />
+                        <om:Property Name="RHS" Value="&quot;Pending&quot;" />
+                        <om:Property Name="Grouping" Value="AND" />
+                        <om:Property Name="Operator" Value="Equals" />
+                        <om:Property Name="Signal" Value="False" />
+                    </om:Element>
+                    <om:Element Type="DNFPredicate" OID="150a8d0c-fd35-41b4-bb95-40180316fea2" ParentLink="Receive_DNFPredicate">
+                        <om:Property Name="LHS" Value="Microsoft.Practices.ESB.Itinerary.Schemas.ServiceType" />
+                        <om:Property Name="RHS" Value="&quot;Orchestration&quot;" />
+                        <om:Property Name="Grouping" Value="AND" />
+                        <om:Property Name="Operator" Value="Equals" />
+                        <om:Property Name="Signal" Value="False" />
+                    </om:Element>
+                </om:Element>
+                <om:Element Type="Scope" OID="5b7bf5e6-1b96-4a86-8ec7-ded99a09d7d5" ParentLink="ServiceBody_Statement" LowerBound="52.1" HigherBound="212.1">
+                    <om:Property Name="InitializedTransactionType" Value="True" />
+                    <om:Property Name="IsSynchronized" Value="False" />
+                    <om:Property Name="ReportToAnalyst" Value="True" />
+                    <om:Property Name="Name" Value="Itinerary and Resolution" />
+                    <om:Property Name="Signal" Value="True" />
+                    <om:Element Type="VariableDeclaration" OID="d0f6b60d-ed64-4981-a616-ee680a439723" ParentLink="Scope_VariableDeclaration" LowerBound="55.1" HigherBound="56.1">
+                        <om:Property Name="UseDefaultConstructor" Value="False" />
+                        <om:Property Name="Type" Value="System.String" />
+                        <om:Property Name="ParamDirection" Value="In" />
+                        <om:Property Name="ReportToAnalyst" Value="True" />
+                        <om:Property Name="Name" Value="newItineraryString1" />
+                        <om:Property Name="Signal" Value="True" />
+                    </om:Element>
+                    <om:Element Type="LongRunningTransaction" OID="f414edd6-b5e9-4172-836c-780dd7d516ab" ParentLink="Scope_Transaction" LowerBound="53.18" HigherBound="53.54">
+                        <om:Property Name="ReportToAnalyst" Value="True" />
+                        <om:Property Name="Name" Value="TxItinerary" />
+                        <om:Property Name="Signal" Value="False" />
+                    </om:Element>
+                    <om:Element Type="VariableAssignment" OID="d7a5552f-e6f2-4b4e-8936-cf79303149d8" ParentLink="ComplexStatement_Statement" LowerBound="59.1" HigherBound="68.1">
+                        <om:Property Name="Expression" Value="// Retrieve the current itinerary step&#xD;&#xA;itinerary.Itinerary = Microsoft.Practices.ESB.Itinerary.ItineraryOMFactory.Create(InboundMessage);&#xD;&#xA;itineraryStep.ItineraryStep = itinerary.Itinerary.GetItineraryStep(InboundMessage);&#xD;&#xA;hasNextStep = itinerary.Itinerary.HasNextService();&#xD;&#xA;&#xD;&#xA;System.Diagnostics.Trace.WriteLine(&quot;ServiceName: &quot; + itineraryStep.ItineraryStep.ServiceName);&#xD;&#xA;System.Diagnostics.Trace.WriteLine(&quot;ServiceType: &quot; + System.Convert.ToString(itineraryStep.ItineraryStep.ServiceType));&#xD;&#xA;System.Diagnostics.Trace.WriteLine(&quot;Itinerary: &quot; + itineraryStep.ItineraryStep.Itinerary.ToString());" />
+                        <om:Property Name="ReportToAnalyst" Value="True" />
+                        <om:Property Name="Name" Value="Get Current Itinerary" />
+                        <om:Property Name="Signal" Value="True" />
+                    </om:Element>
+                    <om:Element Type="VariableAssignment" OID="0fd2e58b-3497-44aa-b325-4f38e79bd15f" ParentLink="ComplexStatement_Statement" LowerBound="68.1" HigherBound="71.1">
+                        <om:Property Name="Expression" Value="resolvers = itineraryStep.ItineraryStep.ResolverCollection;&#xD;&#xA;System.Diagnostics.Trace.WriteLine(&quot;    Resolver Collection Count: &quot; + System.Convert.ToString(resolvers.Count));" />
+                        <om:Property Name="ReportToAnalyst" Value="True" />
+                        <om:Property Name="Name" Value="Retrieve Resolvers" />
+                        <om:Property Name="Signal" Value="False" />
+                    </om:Element>
+                    <om:Element Type="Decision" OID="4f3e3f65-16d0-404e-b795-86b2250ab443" ParentLink="ComplexStatement_Statement" LowerBound="71.1" HigherBound="183.1">
+                        <om:Property Name="ReportToAnalyst" Value="True" />
+                        <om:Property Name="Name" Value="Resolvers returned" />
+                        <om:Property Name="Signal" Value="True" />
+                        <om:Element Type="DecisionBranch" OID="175b2157-9347-4745-a877-2ddc43145622" ParentLink="ReallyComplexStatement_Branch" LowerBound="72.21" HigherBound="178.1">
+                            <om:Property Name="Expression" Value="resolvers.Count &gt; 0" />
+                            <om:Property Name="IsGhostBranch" Value="True" />
+                            <om:Property Name="ReportToAnalyst" Value="True" />
+                            <om:Property Name="Name" Value="YES" />
+                            <om:Property Name="Signal" Value="True" />
+                            <om:Element Type="VariableAssignment" OID="bf0a0f99-f0ef-4ee6-a5ae-6bbc2fb07e43" ParentLink="ComplexStatement_Statement" LowerBound="74.1" HigherBound="80.1">
+                                <om:Property Name="Expression" Value="resolvers.MoveNext();&#xD;&#xA;resolver = resolvers.Current;&#xD;&#xA;resolutionDictionary = ESB.Extensions.Resolution.ResolutionManager.Resolve(InboundMessage, resolver);&#xD;&#xA;resolution = (ESB.Extensions.Resolutions.ReceivePipelineServiceResolution) resolutionDictionary.GetValue(&quot;ESB.Extensions.Resolutions.ReceivePipelineServiceResolution&quot;);&#xD;&#xA;newItineraryString1 = resolutionDictionary.GetString(&quot;Microsoft.Practices.ESB.Itinerary.AsXml&quot;);&#xD;&#xA;" />
+                                <om:Property Name="ReportToAnalyst" Value="True" />
+                                <om:Property Name="Name" Value="Resolve" />
+                                <om:Property Name="Signal" Value="True" />
+                            </om:Element>
+                            <om:Element Type="Decision" OID="7c30575c-6b5d-42fe-9ad1-85eb6d9766cd" ParentLink="ComplexStatement_Statement" LowerBound="80.1" HigherBound="87.1">
+                                <om:Property Name="ReportToAnalyst" Value="True" />
+                                <om:Property Name="Name" Value="2nd Resolver for new itinerary?" />
+                                <om:Property Name="Signal" Value="True" />
+                                <om:Element Type="DecisionBranch" OID="a8ced1b1-51e0-45b3-9440-be85d6a72568" ParentLink="ReallyComplexStatement_Branch" LowerBound="81.25" HigherBound="87.1">
+                                    <om:Property Name="Expression" Value="resolvers.MoveNext()" />
+                                    <om:Property Name="IsGhostBranch" Value="True" />
+                                    <om:Property Name="ReportToAnalyst" Value="True" />
+                                    <om:Property Name="Name" Value="YES" />
+                                    <om:Property Name="Signal" Value="False" />
+                                    <om:Element Type="VariableAssignment" OID="be2b906a-2a39-4ec0-86ad-768574610e3a" ParentLink="ComplexStatement_Statement" LowerBound="83.1" HigherBound="86.1">
+                                        <om:Property Name="Expression" Value="resolver = resolvers.Current;&#xD;&#xA;fromSecondResolver = true;" />
+                                        <om:Property Name="ReportToAnalyst" Value="True" />
+                                        <om:Property Name="Name" Value="Set new resolver" />
+                                        <om:Property Name="Signal" Value="False" />
+                                    </om:Element>
+                                </om:Element>
+                                <om:Element Type="DecisionBranch" OID="68bb780d-bcd4-436a-837c-17ea72bd1a82" ParentLink="ReallyComplexStatement_Branch">
+                                    <om:Property Name="IsGhostBranch" Value="True" />
+                                    <om:Property Name="ReportToAnalyst" Value="True" />
+                                    <om:Property Name="Name" Value="Else" />
+                                    <om:Property Name="Signal" Value="False" />
+                                </om:Element>
+                            </om:Element>
+                            <om:Element Type="Scope" OID="dfbc7a4f-51f6-419e-a712-b8a3031fd134" ParentLink="ComplexStatement_Statement" LowerBound="87.1" HigherBound="177.1">
+                                <om:Property Name="InitializedTransactionType" Value="True" />
+                                <om:Property Name="IsSynchronized" Value="False" />
+                                <om:Property Name="ReportToAnalyst" Value="True" />
+                                <om:Property Name="Name" Value="ScpExecuteReceivePipeline" />
+                                <om:Property Name="Signal" Value="True" />
+                                <om:Element Type="VariableDeclaration" OID="5bb91d8a-d157-4c0e-83bd-df3b087ceea4" ParentLink="Scope_VariableDeclaration" LowerBound="91.1" HigherBound="92.1">
+                                    <om:Property Name="UseDefaultConstructor" Value="False" />
+                                    <om:Property Name="Type" Value="Microsoft.XLANGs.Pipeline.ReceivePipelineOutputMessages" />
+                                    <om:Property Name="ParamDirection" Value="In" />
+                                    <om:Property Name="ReportToAnalyst" Value="True" />
+                                    <om:Property Name="Name" Value="outputMessages" />
+                                    <om:Property Name="Signal" Value="True" />
+                                </om:Element>
+                                <om:Element Type="VariableDeclaration" OID="702390e7-1f46-4e1d-b911-fd8c6935cd8c" ParentLink="Scope_VariableDeclaration" LowerBound="92.1" HigherBound="93.1">
+                                    <om:Property Name="UseDefaultConstructor" Value="True" />
+                                    <om:Property Name="Type" Value="ESB.Extensions.Resolutions.Go" />
+                                    <om:Property Name="ParamDirection" Value="In" />
+                                    <om:Property Name="ReportToAnalyst" Value="True" />
+                                    <om:Property Name="Name" Value="go" />
+                                    <om:Property Name="Signal" Value="True" />
+                                </om:Element>
+                                <om:Element Type="VariableDeclaration" OID="e8597520-e084-4a74-bf0b-8e2b225e14bd" ParentLink="Scope_VariableDeclaration" LowerBound="93.1" HigherBound="94.1">
+                                    <om:Property Name="UseDefaultConstructor" Value="False" />
+                                    <om:Property Name="Type" Value="System.String" />
+                                    <om:Property Name="ParamDirection" Value="In" />
+                                    <om:Property Name="ReportToAnalyst" Value="True" />
+                                    <om:Property Name="Name" Value="newItineraryString2" />
+                                    <om:Property Name="Signal" Value="True" />
+                                </om:Element>
+                                <om:Element Type="VariableDeclaration" OID="8b536829-cdd7-4183-a5cd-c271ae410776" ParentLink="Scope_VariableDeclaration" LowerBound="94.1" HigherBound="95.1">
+                                    <om:Property Name="UseDefaultConstructor" Value="True" />
+                                    <om:Property Name="Type" Value="ESB.Extensions.Resolutions.sp_MergeBatchSequence" />
+                                    <om:Property Name="ParamDirection" Value="In" />
+                                    <om:Property Name="ReportToAnalyst" Value="True" />
+                                    <om:Property Name="Name" Value="mergeBatchSequenceRequest" />
+                                    <om:Property Name="Signal" Value="True" />
+                                </om:Element>
+                                <om:Element Type="AtomicTransaction" OID="5153403a-ecca-456e-8424-d70af1be4959" ParentLink="Scope_Transaction" LowerBound="89.30" HigherBound="89.74">
+                                    <om:Property Name="ReportToAnalyst" Value="True" />
+                                    <om:Property Name="Name" Value="TxExecuteReceivePipeline" />
+                                    <om:Property Name="Signal" Value="False" />
+                                </om:Element>
+                                <om:Element Type="Decision" OID="2660d656-8b1e-40ac-9f6a-dc482482587a" ParentLink="ComplexStatement_Statement" LowerBound="100.1" HigherBound="106.1">
+                                    <om:Property Name="ReportToAnalyst" Value="True" />
+                                    <om:Property Name="Name" Value="Continue Original Message?" />
+                                    <om:Property Name="Signal" Value="True" />
+                                    <om:Element Type="DecisionBranch" OID="a94aa72f-46b2-4772-a562-e256009c2c53" ParentLink="ReallyComplexStatement_Branch" LowerBound="101.33" HigherBound="106.1">
+                                        <om:Property Name="Expression" Value="!System.String.IsNullOrEmpty(newItineraryString1) &amp;&amp; hasNextStep" />
+                                        <om:Property Name="IsGhostBranch" Value="True" />
+                                        <om:Property Name="ReportToAnalyst" Value="True" />
+                                        <om:Property Name="Name" Value="YES" />
+                                        <om:Property Name="Signal" Value="True" />
+                                        <om:Element Type="Exec" OID="6c97eed1-c32a-4291-a60d-c0e5075bc4d3" ParentLink="ComplexStatement_Statement" LowerBound="103.1" HigherBound="105.1">
+                                            <om:Property Name="Invokee" Value="ESB.Extensions.Services.AdvanceItinerary" />
+                                            <om:Property Name="ReportToAnalyst" Value="True" />
+                                            <om:Property Name="Name" Value="StartAdvanceItinerary" />
+                                            <om:Property Name="Signal" Value="False" />
+                                            <om:Element Type="Parameter" OID="5993b9d5-25c9-44c3-87f4-7ec9d684f9c2" ParentLink="InvokeStatement_Parameter">
+                                                <om:Property Name="Direction" Value="In" />
+                                                <om:Property Name="Name" Value="InboundMessage" />
+                                                <om:Property Name="Type" Value="System.Xml.XmlDocument" />
+                                                <om:Property Name="Signal" Value="False" />
+                                            </om:Element>
+                                        </om:Element>
+                                    </om:Element>
+                                    <om:Element Type="DecisionBranch" OID="998510fe-c9a7-4feb-9b6f-8852b29eb37d" ParentLink="ReallyComplexStatement_Branch">
+                                        <om:Property Name="IsGhostBranch" Value="True" />
+                                        <om:Property Name="ReportToAnalyst" Value="True" />
+                                        <om:Property Name="Name" Value="Else" />
+                                        <om:Property Name="Signal" Value="False" />
+                                    </om:Element>
+                                </om:Element>
+                                <om:Element Type="Decision" OID="5cc8c8b2-6983-4cef-8114-b08c35f9368e" ParentLink="ComplexStatement_Statement" LowerBound="106.1" HigherBound="114.1">
+                                    <om:Property Name="ReportToAnalyst" Value="True" />
+                                    <om:Property Name="Name" Value="Publish GoMsg based on 1st resolver?" />
+                                    <om:Property Name="Signal" Value="True" />
+                                    <om:Element Type="DecisionBranch" OID="2a12c125-90f7-4e77-898a-47e1273d8e8e" ParentLink="ReallyComplexStatement_Branch" LowerBound="107.33" HigherBound="114.1">
+                                        <om:Property Name="Expression" Value="resolutionDictionary.GetValue(&quot;ESB.Extensions.Resolutions.Go&quot;) != null" />
+                                        <om:Property Name="IsGhostBranch" Value="True" />
+                                        <om:Property Name="ReportToAnalyst" Value="True" />
+                                        <om:Property Name="Name" Value="YES" />
+                                        <om:Property Name="Signal" Value="False" />
+                                        <om:Element Type="VariableAssignment" OID="89f1832e-2fef-434b-becc-4f21fdc43e2a" ParentLink="ComplexStatement_Statement" LowerBound="109.1" HigherBound="111.1">
+                                            <om:Property Name="Expression" Value="go = (ESB.Extensions.Resolutions.Go) resolutionDictionary.GetValue(&quot;ESB.Extensions.Resolutions.Go&quot;);" />
+                                            <om:Property Name="ReportToAnalyst" Value="True" />
+                                            <om:Property Name="Name" Value="Get go resolution" />
+                                            <om:Property Name="Signal" Value="True" />
+                                        </om:Element>
+                                        <om:Element Type="Exec" OID="bec874fb-198f-46dc-9f1f-f8cf0dcd1976" ParentLink="ComplexStatement_Statement" LowerBound="111.1" HigherBound="113.1">
+                                            <om:Property Name="Invokee" Value="ESB.Extensions.Services.PublishGoMsg" />
+                                            <om:Property Name="ReportToAnalyst" Value="True" />
+                                            <om:Property Name="Name" Value="Start Publish GoMsg" />
+                                            <om:Property Name="Signal" Value="True" />
+                                            <om:Element Type="Parameter" OID="fbdaed0c-ffa0-4fbf-8f0f-0892064ce5d3" ParentLink="InvokeStatement_Parameter">
+                                                <om:Property Name="Direction" Value="In" />
+                                                <om:Property Name="Name" Value="go" />
+                                                <om:Property Name="Type" Value="ESB.Extensions.Resolutions.Go" />
+                                                <om:Property Name="Signal" Value="False" />
+                                            </om:Element>
+                                        </om:Element>
+                                    </om:Element>
+                                    <om:Element Type="DecisionBranch" OID="e93f6dba-c5b5-4d93-ba0a-1b3d134805b3" ParentLink="ReallyComplexStatement_Branch">
+                                        <om:Property Name="IsGhostBranch" Value="True" />
+                                        <om:Property Name="ReportToAnalyst" Value="True" />
+                                        <om:Property Name="Name" Value="Else" />
+                                        <om:Property Name="Signal" Value="False" />
+                                    </om:Element>
+                                </om:Element>
+                                <om:Element Type="Decision" OID="c9309524-fe45-44f5-911d-ad25fab0af0e" ParentLink="ComplexStatement_Statement" LowerBound="114.1" HigherBound="122.1">
+                                    <om:Property Name="ReportToAnalyst" Value="True" />
+                                    <om:Property Name="Name" Value="Register Batch based on 1st resolver?" />
+                                    <om:Property Name="Signal" Value="True" />
+                                    <om:Element Type="DecisionBranch" OID="be8a8799-7b36-410f-ae8a-b72264d5875c" ParentLink="ReallyComplexStatement_Branch" LowerBound="115.33" HigherBound="122.1">
+                                        <om:Property Name="Expression" Value="resolutionDictionary.GetValue(&quot;ESB.Extensions.Resolutions.sp_MergeBatchSequence&quot;) != null" />
+                                        <om:Property Name="IsGhostBranch" Value="True" />
+                                        <om:Property Name="ReportToAnalyst" Value="True" />
+                                        <om:Property Name="Name" Value="YES" />
+                                        <om:Property Name="Signal" Value="False" />
+                                        <om:Element Type="VariableAssignment" OID="7947c477-46e0-4032-990f-71c666bf2eb4" ParentLink="ComplexStatement_Statement" LowerBound="117.1" HigherBound="119.1">
+                                            <om:Property Name="Expression" Value="mergeBatchSequenceRequest = (ESB.Extensions.Resolutions.sp_MergeBatchSequence) resolutionDictionary.GetValue(&quot;ESB.Extensions.Resolutions.sp_MergeBatchSequence&quot;);" />
+                                            <om:Property Name="ReportToAnalyst" Value="True" />
+                                            <om:Property Name="Name" Value="Get mergeBatchSequenceRequest resolution" />
+                                            <om:Property Name="Signal" Value="True" />
+                                        </om:Element>
+                                        <om:Element Type="Exec" OID="b5c6e179-0261-41ca-9d69-be0afd77182c" ParentLink="ComplexStatement_Statement" LowerBound="119.1" HigherBound="121.1">
+                                            <om:Property Name="Invokee" Value="ESB.Extensions.Services.RegisterBatch" />
+                                            <om:Property Name="ReportToAnalyst" Value="True" />
+                                            <om:Property Name="Name" Value="Start RegisterBatch" />
+                                            <om:Property Name="Signal" Value="False" />
+                                            <om:Element Type="Parameter" OID="f8ea0433-bb22-4b07-a8c1-fe869d561d1b" ParentLink="InvokeStatement_Parameter">
+                                                <om:Property Name="Direction" Value="In" />
+                                                <om:Property Name="Name" Value="mergeBatchSequenceRequest" />
+                                                <om:Property Name="Type" Value="ESB.Extensions.Resolutions.CompositeBatchInsert.Request" />
+                                                <om:Property Name="Signal" Value="False" />
+                                            </om:Element>
+                                        </om:Element>
+                                    </om:Element>
+                                    <om:Element Type="DecisionBranch" OID="bc543b69-523d-4900-998c-76052131b826" ParentLink="ReallyComplexStatement_Branch">
+                                        <om:Property Name="IsGhostBranch" Value="True" />
+                                        <om:Property Name="ReportToAnalyst" Value="True" />
+                                        <om:Property Name="Name" Value="Else" />
+                                        <om:Property Name="Signal" Value="False" />
+                                    </om:Element>
+                                </om:Element>
+                                <om:Element Type="VariableAssignment" OID="f0a9e314-f9d7-41ba-b916-d792ecf24683" ParentLink="ComplexStatement_Statement" LowerBound="122.1" HigherBound="124.1">
+                                    <om:Property Name="Expression" Value="outputMessages = Microsoft.XLANGs.Pipeline.XLANGPipelineManager.ExecuteReceivePipeline(resolution.ReceivePipelineType, InboundMessage);&#xD;&#xA;" />
+                                    <om:Property Name="ReportToAnalyst" Value="True" />
+                                    <om:Property Name="Name" Value="Execute Receive Pipeline" />
+                                    <om:Property Name="Signal" Value="False" />
+                                </om:Element>
+                                <om:Element Type="While" OID="049dd6be-e43c-4c2c-bc3f-b1997a19595b" ParentLink="ComplexStatement_Statement" LowerBound="124.1" HigherBound="175.1">
+                                    <om:Property Name="Expression" Value="outputMessages.MoveNext()" />
+                                    <om:Property Name="ReportToAnalyst" Value="True" />
+                                    <om:Property Name="Name" Value="Publish Messages" />
+                                    <om:Property Name="Signal" Value="True" />
+                                    <om:Element Type="Construct" OID="da1bcaaf-4703-4f53-8b19-ada7bfbd194b" ParentLink="ComplexStatement_Statement" LowerBound="127.1" HigherBound="134.1">
+                                        <om:Property Name="ReportToAnalyst" Value="True" />
+                                        <om:Property Name="Name" Value="Construct OutputMessage" />
+                                        <om:Property Name="Signal" Value="True" />
+                                        <om:Element Type="MessageRef" OID="6869046a-e005-4b5a-8875-43a6005982cb" ParentLink="Construct_MessageRef" LowerBound="128.47" HigherBound="128.60">
+                                            <om:Property Name="Ref" Value="OutputMessage" />
+                                            <om:Property Name="ReportToAnalyst" Value="True" />
+                                            <om:Property Name="Signal" Value="False" />
+                                        </om:Element>
+                                        <om:Element Type="MessageAssignment" OID="b85598fc-5c11-4974-be2c-179d02b4d5ae" ParentLink="ComplexStatement_Statement" LowerBound="130.1" HigherBound="133.1">
+                                            <om:Property Name="Expression" Value="OutputMessage = null;&#xD;&#xA;outputMessages.GetCurrent(OutputMessage);&#xD;&#xA;" />
+                                            <om:Property Name="ReportToAnalyst" Value="False" />
+                                            <om:Property Name="Name" Value="Assign OutputMessage" />
+                                            <om:Property Name="Signal" Value="True" />
+                                        </om:Element>
+                                    </om:Element>
+                                    <om:Element Type="Decision" OID="884757c0-ee75-43f9-99f9-8501c68fe85a" ParentLink="ComplexStatement_Statement" LowerBound="134.1" HigherBound="142.1">
+                                        <om:Property Name="ReportToAnalyst" Value="True" />
+                                        <om:Property Name="Name" Value="Resolve from 2nd resolver?" />
+                                        <om:Property Name="Signal" Value="True" />
+                                        <om:Element Type="DecisionBranch" OID="6183c238-f8e5-45ab-be05-da4fa6c4f1be" ParentLink="ReallyComplexStatement_Branch" LowerBound="135.37" HigherBound="142.1">
+                                            <om:Property Name="Expression" Value="fromSecondResolver" />
+                                            <om:Property Name="IsGhostBranch" Value="True" />
+                                            <om:Property Name="ReportToAnalyst" Value="True" />
+                                            <om:Property Name="Name" Value="YES" />
+                                            <om:Property Name="Signal" Value="False" />
+                                            <om:Element Type="VariableAssignment" OID="7b20e0a0-9791-4ef4-ae69-2af67fcf77d7" ParentLink="ComplexStatement_Statement" LowerBound="137.1" HigherBound="141.1">
+                                                <om:Property Name="Expression" Value="System.Diagnostics.Trace.WriteLine(&quot;Resolving new itinerary from 2nd resolver.&quot;);&#xD;&#xA;resolutionDictionary = ESB.Extensions.Resolution.ResolutionManager.Resolve(OutputMessage, resolver);&#xD;&#xA;newItineraryString2 = resolutionDictionary.GetString(&quot;Microsoft.Practices.ESB.Itinerary.AsXml&quot;);&#xD;&#xA;" />
+                                                <om:Property Name="ReportToAnalyst" Value="True" />
+                                                <om:Property Name="Name" Value="Resolve new itinerary" />
+                                                <om:Property Name="Signal" Value="False" />
+                                            </om:Element>
+                                        </om:Element>
+                                        <om:Element Type="DecisionBranch" OID="ed0d4dee-6928-47ed-8b46-d95a23856693" ParentLink="ReallyComplexStatement_Branch">
+                                            <om:Property Name="IsGhostBranch" Value="True" />
+                                            <om:Property Name="ReportToAnalyst" Value="True" />
+                                            <om:Property Name="Name" Value="Else" />
+                                            <om:Property Name="Signal" Value="False" />
+                                        </om:Element>
+                                    </om:Element>
+                                    <om:Element Type="Decision" OID="c1090042-649e-4f2b-bc33-936ffd824e80" ParentLink="ComplexStatement_Statement" LowerBound="142.1" HigherBound="158.1">
+                                        <om:Property Name="ReportToAnalyst" Value="True" />
+                                        <om:Property Name="Name" Value="Advance or Initialize itinerary?" />
+                                        <om:Property Name="Signal" Value="True" />
+                                        <om:Element Type="DecisionBranch" OID="518d11d2-88d3-4a5c-b837-e7aa824286bb" ParentLink="ReallyComplexStatement_Branch" LowerBound="143.37" HigherBound="148.1">
+                                            <om:Property Name="Expression" Value="fromSecondResolver &amp;&amp; !System.String.IsNullOrEmpty(newItineraryString2)" />
+                                            <om:Property Name="IsGhostBranch" Value="True" />
+                                            <om:Property Name="ReportToAnalyst" Value="True" />
+                                            <om:Property Name="Name" Value="Initialize 2nd Itinerary" />
+                                            <om:Property Name="Signal" Value="False" />
+                                            <om:Element Type="Exec" OID="90dd0245-7526-4a2c-b67f-e57714e92e2a" ParentLink="ComplexStatement_Statement" LowerBound="145.1" HigherBound="147.1">
+                                                <om:Property Name="Invokee" Value="ESB.Extensions.Services.InitializeItinerary" />
+                                                <om:Property Name="ReportToAnalyst" Value="True" />
+                                                <om:Property Name="Name" Value="StartInitializeItinerary" />
+                                                <om:Property Name="Signal" Value="True" />
+                                                <om:Element Type="Parameter" OID="e45dd206-741c-421f-a103-0ee6ee9d234c" ParentLink="InvokeStatement_Parameter">
+                                                    <om:Property Name="Direction" Value="In" />
+                                                    <om:Property Name="Name" Value="OutputMessage" />
+                                                    <om:Property Name="Type" Value="System.Xml.XmlDocument" />
+                                                    <om:Property Name="Signal" Value="False" />
+                                                </om:Element>
+                                                <om:Element Type="Parameter" OID="531fe1c6-ee16-4486-ab0e-4cf0171ae0b7" ParentLink="InvokeStatement_Parameter">
+                                                    <om:Property Name="Direction" Value="In" />
+                                                    <om:Property Name="Name" Value="newItineraryString2" />
+                                                    <om:Property Name="Type" Value="System.String" />
+                                                    <om:Property Name="Signal" Value="False" />
+                                                </om:Element>
+                                            </om:Element>
+                                        </om:Element>
+                                        <om:Element Type="DecisionBranch" OID="8afcd2f6-f4af-4eaa-88c1-a4671fb37894" ParentLink="ReallyComplexStatement_Branch" LowerBound="148.42" HigherBound="153.1">
+                                            <om:Property Name="Expression" Value="!System.String.IsNullOrEmpty(newItineraryString1)" />
+                                            <om:Property Name="IsGhostBranch" Value="True" />
+                                            <om:Property Name="ReportToAnalyst" Value="True" />
+                                            <om:Property Name="Name" Value="Initialize 1st Itinerary" />
+                                            <om:Property Name="Signal" Value="False" />
+                                            <om:Element Type="Exec" OID="c615c099-a9f9-41a1-bd2c-cc4ff45dd395" ParentLink="ComplexStatement_Statement" LowerBound="150.1" HigherBound="152.1">
+                                                <om:Property Name="Invokee" Value="ESB.Extensions.Services.InitializeItinerary" />
+                                                <om:Property Name="ReportToAnalyst" Value="True" />
+                                                <om:Property Name="Name" Value="StartInitializeItinerary" />
+                                                <om:Property Name="Signal" Value="False" />
+                                                <om:Element Type="Parameter" OID="35560119-26dc-480b-a831-5abdc26b61c6" ParentLink="InvokeStatement_Parameter">
+                                                    <om:Property Name="Direction" Value="In" />
+                                                    <om:Property Name="Name" Value="OutputMessage" />
+                                                    <om:Property Name="Type" Value="System.Xml.XmlDocument" />
+                                                    <om:Property Name="Signal" Value="False" />
+                                                </om:Element>
+                                                <om:Element Type="Parameter" OID="3af02c08-38f4-4450-91f4-c34017300abe" ParentLink="InvokeStatement_Parameter">
+                                                    <om:Property Name="Direction" Value="In" />
+                                                    <om:Property Name="Name" Value="newItineraryString1" />
+                                                    <om:Property Name="Type" Value="System.String" />
+                                                    <om:Property Name="Signal" Value="False" />
+                                                </om:Element>
+                                            </om:Element>
+                                        </om:Element>
+                                        <om:Element Type="DecisionBranch" OID="23cc83b7-f955-4d90-a6ac-592d20eddc35" ParentLink="ReallyComplexStatement_Branch">
+                                            <om:Property Name="IsGhostBranch" Value="True" />
+                                            <om:Property Name="ReportToAnalyst" Value="True" />
+                                            <om:Property Name="Name" Value="Advance" />
+                                            <om:Property Name="Signal" Value="True" />
+                                            <om:Element Type="Exec" OID="e87e9631-cac7-4fb6-a009-7d456484908a" ParentLink="ComplexStatement_Statement" LowerBound="155.1" HigherBound="157.1">
+                                                <om:Property Name="Invokee" Value="ESB.Extensions.Services.AdvanceItinerary" />
+                                                <om:Property Name="ReportToAnalyst" Value="True" />
+                                                <om:Property Name="Name" Value="StartAdvanceItinerary" />
+                                                <om:Property Name="Signal" Value="False" />
+                                                <om:Element Type="Parameter" OID="202913d1-2c3f-41a1-8e45-17363c93c00a" ParentLink="InvokeStatement_Parameter">
+                                                    <om:Property Name="Direction" Value="In" />
+                                                    <om:Property Name="Name" Value="OutputMessage" />
+                                                    <om:Property Name="Type" Value="System.Xml.XmlDocument" />
+                                                    <om:Property Name="Signal" Value="False" />
+                                                </om:Element>
+                                            </om:Element>
+                                        </om:Element>
+                                    </om:Element>
+                                    <om:Element Type="Decision" OID="bc25ee06-c6ac-49de-8e8a-65fd3ed03d84" ParentLink="ComplexStatement_Statement" LowerBound="158.1" HigherBound="166.1">
+                                        <om:Property Name="ReportToAnalyst" Value="True" />
+                                        <om:Property Name="Name" Value="Publish Go Message based on 2nd resolver?" />
+                                        <om:Property Name="Signal" Value="True" />
+                                        <om:Element Type="DecisionBranch" OID="2d28db77-6cfc-4e27-b0c0-78f6a6611dde" ParentLink="ReallyComplexStatement_Branch" LowerBound="159.37" HigherBound="166.1">
+                                            <om:Property Name="Expression" Value="fromSecondResolver &amp;&amp; (resolutionDictionary.GetValue(&quot;ESB.Extensions.Resolutions.Go&quot;) != null)" />
+                                            <om:Property Name="IsGhostBranch" Value="True" />
+                                            <om:Property Name="ReportToAnalyst" Value="True" />
+                                            <om:Property Name="Name" Value="YES" />
+                                            <om:Property Name="Signal" Value="True" />
+                                            <om:Element Type="VariableAssignment" OID="1f330f1d-c91e-47ca-9d25-f5a229b009be" ParentLink="ComplexStatement_Statement" LowerBound="161.1" HigherBound="163.1">
+                                                <om:Property Name="Expression" Value="go = (ESB.Extensions.Resolutions.Go) resolutionDictionary.GetValue(&quot;ESB.Extensions.Resolutions.Go&quot;);" />
+                                                <om:Property Name="ReportToAnalyst" Value="True" />
+                                                <om:Property Name="Name" Value="Get go resolution" />
+                                                <om:Property Name="Signal" Value="True" />
+                                            </om:Element>
+                                            <om:Element Type="Exec" OID="65b2e37d-16a6-4869-a59c-6541edbc24c9" ParentLink="ComplexStatement_Statement" LowerBound="163.1" HigherBound="165.1">
+                                                <om:Property Name="Invokee" Value="ESB.Extensions.Services.PublishGoMsg" />
+                                                <om:Property Name="ReportToAnalyst" Value="True" />
+                                                <om:Property Name="Name" Value="Start PublishGoMsg" />
+                                                <om:Property Name="Signal" Value="False" />
+                                                <om:Element Type="Parameter" OID="d19498fa-700d-4001-abfd-a11e27e3452d" ParentLink="InvokeStatement_Parameter">
+                                                    <om:Property Name="Direction" Value="In" />
+                                                    <om:Property Name="Name" Value="go" />
+                                                    <om:Property Name="Type" Value="ESB.Extensions.Resolutions.Go" />
+                                                    <om:Property Name="Signal" Value="False" />
+                                                </om:Element>
+                                            </om:Element>
+                                        </om:Element>
+                                        <om:Element Type="DecisionBranch" OID="6a5c0c08-6cf6-4347-b3eb-4e658f61a641" ParentLink="ReallyComplexStatement_Branch">
+                                            <om:Property Name="IsGhostBranch" Value="True" />
+                                            <om:Property Name="ReportToAnalyst" Value="True" />
+                                            <om:Property Name="Name" Value="Else" />
+                                            <om:Property Name="Signal" Value="False" />
+                                        </om:Element>
+                                    </om:Element>
+                                    <om:Element Type="Decision" OID="c887a0ea-d98b-46bb-9057-ac5844a6c228" ParentLink="ComplexStatement_Statement" LowerBound="166.1" HigherBound="174.1">
+                                        <om:Property Name="ReportToAnalyst" Value="True" />
+                                        <om:Property Name="Name" Value="Register Batch based on 2nd resolver?" />
+                                        <om:Property Name="Signal" Value="True" />
+                                        <om:Element Type="DecisionBranch" OID="51ed767e-df8c-41a5-82d5-844d2c628007" ParentLink="ReallyComplexStatement_Branch" LowerBound="167.37" HigherBound="174.1">
+                                            <om:Property Name="Expression" Value="fromSecondResolver &amp;&amp; resolutionDictionary.GetValue(&quot;ESB.Extensions.Resolutions.sp_MergeBatchSequence&quot;) != null" />
+                                            <om:Property Name="IsGhostBranch" Value="True" />
+                                            <om:Property Name="ReportToAnalyst" Value="True" />
+                                            <om:Property Name="Name" Value="YES" />
+                                            <om:Property Name="Signal" Value="True" />
+                                            <om:Element Type="VariableAssignment" OID="a100e387-ab89-4660-b954-050c192d1616" ParentLink="ComplexStatement_Statement" LowerBound="169.1" HigherBound="171.1">
+                                                <om:Property Name="Expression" Value="mergeBatchSequenceRequest = (ESB.Extensions.Resolutions.sp_MergeBatchSequence) resolutionDictionary.GetValue(&quot;ESB.Extensions.Resolutions.sp_MergeBatchSequence&quot;);" />
+                                                <om:Property Name="ReportToAnalyst" Value="True" />
+                                                <om:Property Name="Name" Value="Get mergeBatchSequenceRequest resolution" />
+                                                <om:Property Name="Signal" Value="True" />
+                                            </om:Element>
+                                            <om:Element Type="Exec" OID="2feaf0be-0e87-40ab-8257-14c650c7818a" ParentLink="ComplexStatement_Statement" LowerBound="171.1" HigherBound="173.1">
+                                                <om:Property Name="Invokee" Value="ESB.Extensions.Services.RegisterBatch" />
+                                                <om:Property Name="ReportToAnalyst" Value="True" />
+                                                <om:Property Name="Name" Value="Start RegisterBatch" />
+                                                <om:Property Name="Signal" Value="False" />
+                                                <om:Element Type="Parameter" OID="6603b7a2-d876-41cd-8efe-c94537019b93" ParentLink="InvokeStatement_Parameter">
+                                                    <om:Property Name="Direction" Value="In" />
+                                                    <om:Property Name="Name" Value="mergeBatchSequenceRequest" />
+                                                    <om:Property Name="Type" Value="ESB.Extensions.Resolutions.CompositeBatchInsert.Request" />
+                                                    <om:Property Name="Signal" Value="False" />
+                                                </om:Element>
+                                            </om:Element>
+                                        </om:Element>
+                                        <om:Element Type="DecisionBranch" OID="f854c7dc-2814-4a18-a124-9e124d5d7e38" ParentLink="ReallyComplexStatement_Branch">
+                                            <om:Property Name="IsGhostBranch" Value="True" />
+                                            <om:Property Name="ReportToAnalyst" Value="True" />
+                                            <om:Property Name="Name" Value="Else" />
+                                            <om:Property Name="Signal" Value="False" />
+                                        </om:Element>
+                                    </om:Element>
+                                </om:Element>
+                                <om:Element Type="TransactionAttribute" OID="e99759d8-44fc-4294-b75f-ca93e1705337" ParentLink="Statement_CLRAttribute" LowerBound="88.1" HigherBound="89.1">
+                                    <om:Property Name="Batch" Value="True" />
+                                    <om:Property Name="Retry" Value="True" />
+                                    <om:Property Name="Timeout" Value="60" />
+                                    <om:Property Name="Isolation" Value="Serializable" />
+                                    <om:Property Name="Signal" Value="False" />
+                                </om:Element>
+                            </om:Element>
+                        </om:Element>
+                        <om:Element Type="DecisionBranch" OID="21a54c82-fc31-427b-b43c-559a74384fbf" ParentLink="ReallyComplexStatement_Branch">
+                            <om:Property Name="IsGhostBranch" Value="True" />
+                            <om:Property Name="ReportToAnalyst" Value="True" />
+                            <om:Property Name="Name" Value="Else" />
+                            <om:Property Name="Signal" Value="False" />
+                            <om:Element Type="VariableAssignment" OID="63af0399-26bc-4d43-bb2a-84092f51c314" ParentLink="ComplexStatement_Statement" LowerBound="180.1" HigherBound="182.1">
+                                <om:Property Name="Expression" Value="throw new System.ApplicationException(&quot;There were no resolvers associated with this service config.&quot;);" />
+                                <om:Property Name="ReportToAnalyst" Value="True" />
+                                <om:Property Name="Name" Value="Throw Exception" />
+                                <om:Property Name="Signal" Value="False" />
+                            </om:Element>
+                        </om:Element>
+                    </om:Element>
+                    <om:Element Type="Catch" OID="4dc6bc80-d5d4-48b5-b339-6fecb43a9383" ParentLink="Scope_Catch" LowerBound="186.1" HigherBound="210.1">
+                        <om:Property Name="ExceptionName" Value="ex" />
+                        <om:Property Name="ExceptionType" Value="System.Exception" />
+                        <om:Property Name="IsFaultMessage" Value="False" />
+                        <om:Property Name="ReportToAnalyst" Value="True" />
+                        <om:Property Name="Name" Value="Catch Routing Resolution Exceptions" />
+                        <om:Property Name="Signal" Value="True" />
+                        <om:Element Type="Construct" OID="9623ca64-83af-4402-b6dd-9461f84e355d" ParentLink="Catch_Statement" LowerBound="189.1" HigherBound="205.1">
+                            <om:Property Name="ReportToAnalyst" Value="True" />
+                            <om:Property Name="Name" Value="Construct Routing and Resolution Fault Message" />
+                            <om:Property Name="Signal" Value="True" />
+                            <om:Element Type="MessageRef" OID="6b404caf-8696-4d32-81f8-b06b204594cd" ParentLink="Construct_MessageRef" LowerBound="190.35" HigherBound="190.47">
+                                <om:Property Name="Ref" Value="FaultMessage" />
+                                <om:Property Name="ReportToAnalyst" Value="True" />
+                                <om:Property Name="Signal" Value="False" />
+                            </om:Element>
+                            <om:Element Type="MessageAssignment" OID="631e73cf-9913-4d49-98aa-bcbdd9549cf8" ParentLink="ComplexStatement_Statement" LowerBound="192.1" HigherBound="204.1">
+                                <om:Property Name="Expression" Value="FaultMessage = Microsoft.Practices.ESB.ExceptionHandling.ExceptionMgmt.CreateFaultMessage();&#xD;&#xA;System.Diagnostics.Trace.WriteLine(&quot;&gt;&gt;&gt; Fault msg has been created&quot;);&#xD;&#xA;&#xD;&#xA;// Set Fault Message Properties&#xD;&#xA;FaultMessage.Body.FaultCode = &quot;2111&quot;;&#xD;&#xA;FaultMessage.Body.FaultDescription = &quot;Exception while attempting to work with Itinerary Step&quot;;&#xD;&#xA;FaultMessage.Body.FailureCategory = &quot;Routing Failure&quot;;&#xD;&#xA;FaultMessage.Body.FaultSeverity = Microsoft.Practices.ESB.ExceptionHandling.FaultSeverity.Critical;&#xD;&#xA;&#xD;&#xA;// Add message&#xD;&#xA;Microsoft.Practices.ESB.ExceptionHandling.ExceptionMgmt.AddMessage(FaultMessage, InboundMessage);" />
+                                <om:Property Name="ReportToAnalyst" Value="False" />
+                                <om:Property Name="Name" Value="Set Routing and Resolutoin Fault Message" />
+                                <om:Property Name="Signal" Value="False" />
+                            </om:Element>
+                        </om:Element>
+                        <om:Element Type="Send" OID="a5f47e6a-4115-4e13-99e2-bcd7218102cf" ParentLink="Catch_Statement" LowerBound="205.1" HigherBound="207.1">
+                            <om:Property Name="PortName" Value="FaultProcessing" />
+                            <om:Property Name="MessageName" Value="FaultMessage" />
+                            <om:Property Name="OperationName" Value="PostFault" />
+                            <om:Property Name="OperationMessageName" Value="Request" />
+                            <om:Property Name="ReportToAnalyst" Value="True" />
+                            <om:Property Name="Name" Value="Persist Fault Message" />
+                            <om:Property Name="Signal" Value="True" />
+                        </om:Element>
+                        <om:Element Type="Terminate" OID="50af0715-bf56-4025-86e2-0f1e45c8fecd" ParentLink="Catch_Statement" LowerBound="207.1" HigherBound="209.1">
+                            <om:Property Name="ErrorMessage" Value="&quot;An unexpected faulure occured during Resolution process : &quot; + ex.Message;" />
+                            <om:Property Name="ReportToAnalyst" Value="True" />
+                            <om:Property Name="Name" Value="Terminate" />
+                            <om:Property Name="Signal" Value="True" />
+                        </om:Element>
+                    </om:Element>
+                </om:Element>
+            </om:Element>
+            <om:Element Type="PortDeclaration" OID="dbe84d74-1e03-4a7a-9ca4-fe6ed64948db" ParentLink="ServiceDeclaration_PortDeclaration" LowerBound="25.1" HigherBound="27.1">
+                <om:Property Name="PortModifier" Value="Implements" />
+                <om:Property Name="Orientation" Value="Left" />
+                <om:Property Name="PortIndex" Value="2" />
+                <om:Property Name="IsWebPort" Value="False" />
+                <om:Property Name="OrderedDelivery" Value="False" />
+                <om:Property Name="DeliveryNotification" Value="None" />
+                <om:Property Name="Type" Value="ESB.Extensions.Services.XmlDocumentPortType" />
+                <om:Property Name="ParamDirection" Value="In" />
+                <om:Property Name="ReportToAnalyst" Value="True" />
+                <om:Property Name="Name" Value="DocumentProcessing" />
+                <om:Property Name="Signal" Value="False" />
+                <om:Element Type="DirectBindingAttribute" OID="7f8bc091-1e3a-4e88-9de8-ccced3f94bee" ParentLink="PortDeclaration_CLRAttribute" LowerBound="25.1" HigherBound="26.1">
+                    <om:Property Name="DirectBindingType" Value="MessageBox" />
+                    <om:Property Name="Signal" Value="False" />
+                </om:Element>
+            </om:Element>
+            <om:Element Type="PortDeclaration" OID="123e2929-0055-4f0f-831f-c02966fe67d9" ParentLink="ServiceDeclaration_PortDeclaration" LowerBound="27.1" HigherBound="29.1">
+                <om:Property Name="PortModifier" Value="Uses" />
+                <om:Property Name="Orientation" Value="Right" />
+                <om:Property Name="PortIndex" Value="75" />
+                <om:Property Name="IsWebPort" Value="False" />
+                <om:Property Name="OrderedDelivery" Value="False" />
+                <om:Property Name="DeliveryNotification" Value="None" />
+                <om:Property Name="Type" Value="ESB.Extensions.Services.FaultProcessingType" />
+                <om:Property Name="ParamDirection" Value="In" />
+                <om:Property Name="ReportToAnalyst" Value="True" />
+                <om:Property Name="Name" Value="FaultProcessing" />
+                <om:Property Name="Signal" Value="True" />
+                <om:Element Type="DirectBindingAttribute" OID="fde5ae50-c942-4425-afe0-00610c9b56af" ParentLink="PortDeclaration_CLRAttribute" LowerBound="27.1" HigherBound="28.1">
+                    <om:Property Name="DirectBindingType" Value="MessageBox" />
+                    <om:Property Name="Signal" Value="False" />
+                </om:Element>
+            </om:Element>
+        </om:Element>
+        <om:Element Type="MultipartMessageType" OID="103832de-0921-4143-82ce-0f895643412a" ParentLink="Module_MessageType" LowerBound="4.1" HigherBound="8.1">
+            <om:Property Name="TypeModifier" Value="Internal" />
+            <om:Property Name="ReportToAnalyst" Value="True" />
+            <om:Property Name="Name" Value="FaultMsgType" />
+            <om:Property Name="Signal" Value="True" />
+            <om:Element Type="PartDeclaration" OID="5a9011b2-7947-434f-9d01-e8a331ac51fd" ParentLink="MultipartMessageType_PartDeclaration" LowerBound="6.1" HigherBound="7.1">
+                <om:Property Name="ClassName" Value="Microsoft.Practices.ESB.ExceptionHandling.Schemas.Faults.FaultMessage" />
+                <om:Property Name="IsBodyPart" Value="True" />
+                <om:Property Name="ReportToAnalyst" Value="True" />
+                <om:Property Name="Name" Value="Body" />
+                <om:Property Name="Signal" Value="True" />
+            </om:Element>
+        </om:Element>
+    </om:Element>
+</om:MetaModel>
+#endif // __DESIGNER_DATA
+[Microsoft.XLANGs.BaseTypes.BPELExportable(false)]
+module ESB.Extensions.Services
+{
+    internal messagetype FaultMsgType
+    {
+        body Microsoft.Practices.ESB.ExceptionHandling.Schemas.Faults.FaultMessage Body;
+    };
+    internal porttype FaultProcessingType
+    {
+        oneway PostFault
+        {
+            FaultMsgType
+        };
+    };
+    internal porttype XmlDocumentPortType
+    {
+        oneway XmlDocument
+        {
+            System.Xml.XmlDocument
+        };
+    };
+    [Microsoft.XLANGs.BaseTypes.BPELExportable(false)]
+    internal service longrunning transaction ReceivePipelineService
+    {
+        [Microsoft.XLANGs.BaseTypes.DirectBinding()]
+        port implements XmlDocumentPortType DocumentProcessing;
+        [Microsoft.XLANGs.BaseTypes.DirectBinding()]
+        port uses FaultProcessingType FaultProcessing;
+        message System.Xml.XmlDocument InboundMessage;
+        message System.Xml.XmlDocument OutputMessage;
+        message FaultMsgType FaultMessage;
+        System.Boolean hasNextStep;
+        Microsoft.Practices.ESB.Itinerary.SerializableItineraryWrapper itinerary;
+        Microsoft.Practices.ESB.Itinerary.SerializableItineraryStepWrapper itineraryStep;
+        Microsoft.Practices.ESB.Itinerary.ResolverCollection resolvers;
+        System.String resolver;
+        ESB.Extensions.Resolution.ResolutionDictionary resolutionDictionary;
+        ESB.Extensions.Resolutions.ReceivePipelineServiceResolution resolution;
+        System.Boolean fromSecondResolver;
+        body ()
+        {
+            [Microsoft.XLANGs.BaseTypes.DesignerPosition("7f876254-e059-4783-8615-d577d596b512")]
+            activate ((Microsoft.Practices.ESB.Itinerary.Schemas.ServiceName == "ReceivePipelineService") && (Microsoft.Practices.ESB.Itinerary.Schemas.ServiceState == "Pending") && (Microsoft.Practices.ESB.Itinerary.Schemas.ServiceType == "Orchestration"))receive (DocumentProcessing.XmlDocument, InboundMessage);
+            hasNextStep = true;
+            itinerary = new Microsoft.Practices.ESB.Itinerary.SerializableItineraryWrapper();
+            itineraryStep = new Microsoft.Practices.ESB.Itinerary.SerializableItineraryStepWrapper();
+            resolvers = new Microsoft.Practices.ESB.Itinerary.ResolverCollection();
+            resolver = "";
+            resolutionDictionary = new ESB.Extensions.Resolution.ResolutionDictionary();
+            resolution = new ESB.Extensions.Resolutions.ReceivePipelineServiceResolution();
+            fromSecondResolver = false;
+            [Microsoft.XLANGs.BaseTypes.DesignerPosition("5b7bf5e6-1b96-4a86-8ec7-ded99a09d7d5")]
+            scope longrunning transaction TxItinerary
+            {
+                System.String newItineraryString1;
+                body
+                {
+                    newItineraryString1 = "";
+                    [Microsoft.XLANGs.BaseTypes.DesignerPosition("d7a5552f-e6f2-4b4e-8936-cf79303149d8")]
+                    // Retrieve the current itinerary step
+                    itinerary.Itinerary = Microsoft.Practices.ESB.Itinerary.ItineraryOMFactory.Create(InboundMessage);
+                    itineraryStep.ItineraryStep = itinerary.Itinerary.GetItineraryStep(InboundMessage);
+                    hasNextStep = itinerary.Itinerary.HasNextService();
+                    
+                    System.Diagnostics.Trace.WriteLine("ServiceName: " + itineraryStep.ItineraryStep.ServiceName);
+                    System.Diagnostics.Trace.WriteLine("ServiceType: " + System.Convert.ToString(itineraryStep.ItineraryStep.ServiceType));
+                    System.Diagnostics.Trace.WriteLine("Itinerary: " + itineraryStep.ItineraryStep.Itinerary.ToString());
+                    [Microsoft.XLANGs.BaseTypes.DesignerPosition("0fd2e58b-3497-44aa-b325-4f38e79bd15f")]
+                    resolvers = itineraryStep.ItineraryStep.ResolverCollection;
+                    System.Diagnostics.Trace.WriteLine("    Resolver Collection Count: " + System.Convert.ToString(resolvers.Count));
+                    [Microsoft.XLANGs.BaseTypes.DesignerPosition("4f3e3f65-16d0-404e-b795-86b2250ab443")]
+                    if (resolvers.Count > 0)
+                    {
+                        [Microsoft.XLANGs.BaseTypes.DesignerPosition("bf0a0f99-f0ef-4ee6-a5ae-6bbc2fb07e43")]
+                        resolvers.MoveNext();
+                        resolver = resolvers.Current;
+                        resolutionDictionary = ESB.Extensions.Resolution.ResolutionManager.Resolve(InboundMessage, resolver);
+                        resolution = (ESB.Extensions.Resolutions.ReceivePipelineServiceResolution) resolutionDictionary.GetValue("ESB.Extensions.Resolutions.ReceivePipelineServiceResolution");
+                        newItineraryString1 = resolutionDictionary.GetString("Microsoft.Practices.ESB.Itinerary.AsXml");
+                        [Microsoft.XLANGs.BaseTypes.DesignerPosition("7c30575c-6b5d-42fe-9ad1-85eb6d9766cd")]
+                        if (resolvers.MoveNext())
+                        {
+                            [Microsoft.XLANGs.BaseTypes.DesignerPosition("be2b906a-2a39-4ec0-86ad-768574610e3a")]
+                            resolver = resolvers.Current;
+                            fromSecondResolver = true;
+                        }
+                        [Microsoft.XLANGs.BaseTypes.DesignerPosition("dfbc7a4f-51f6-419e-a712-b8a3031fd134")]
+                        [Microsoft.XLANGs.BaseTypes.Transaction(Retry=true,Batch=true,Timeout=60,TranIsolationLevel=System.Data.IsolationLevel.Serializable)]
+                        scope atomic transaction TxExecuteReceivePipeline
+                        {
+                            Microsoft.XLANGs.Pipeline.ReceivePipelineOutputMessages outputMessages;
+                            ESB.Extensions.Resolutions.Go go;
+                            System.String newItineraryString2;
+                            ESB.Extensions.Resolutions.sp_MergeBatchSequence mergeBatchSequenceRequest;
+                            body
+                            {
+                                go = new ESB.Extensions.Resolutions.Go();
+                                newItineraryString2 = "";
+                                mergeBatchSequenceRequest = new ESB.Extensions.Resolutions.sp_MergeBatchSequence();
+                                [Microsoft.XLANGs.BaseTypes.DesignerPosition("2660d656-8b1e-40ac-9f6a-dc482482587a")]
+                                if (!System.String.IsNullOrEmpty(newItineraryString1) && hasNextStep)
+                                {
+                                    [Microsoft.XLANGs.BaseTypes.DesignerPosition("6c97eed1-c32a-4291-a60d-c0e5075bc4d3")]
+                                    exec ESB.Extensions.Services.AdvanceItinerary (InboundMessage);
+                                }
+                                [Microsoft.XLANGs.BaseTypes.DesignerPosition("5cc8c8b2-6983-4cef-8114-b08c35f9368e")]
+                                if (resolutionDictionary.GetValue("ESB.Extensions.Resolutions.Go") != null)
+                                {
+                                    [Microsoft.XLANGs.BaseTypes.DesignerPosition("89f1832e-2fef-434b-becc-4f21fdc43e2a")]
+                                    go = (ESB.Extensions.Resolutions.Go) resolutionDictionary.GetValue("ESB.Extensions.Resolutions.Go");
+                                    [Microsoft.XLANGs.BaseTypes.DesignerPosition("bec874fb-198f-46dc-9f1f-f8cf0dcd1976")]
+                                    exec ESB.Extensions.Services.PublishGoMsg (go);
+                                }
+                                [Microsoft.XLANGs.BaseTypes.DesignerPosition("c9309524-fe45-44f5-911d-ad25fab0af0e")]
+                                if (resolutionDictionary.GetValue("ESB.Extensions.Resolutions.sp_MergeBatchSequence") != null)
+                                {
+                                    [Microsoft.XLANGs.BaseTypes.DesignerPosition("7947c477-46e0-4032-990f-71c666bf2eb4")]
+                                    mergeBatchSequenceRequest = (ESB.Extensions.Resolutions.sp_MergeBatchSequence) resolutionDictionary.GetValue("ESB.Extensions.Resolutions.sp_MergeBatchSequence");
+                                    [Microsoft.XLANGs.BaseTypes.DesignerPosition("b5c6e179-0261-41ca-9d69-be0afd77182c")]
+                                    exec ESB.Extensions.Services.RegisterBatch (mergeBatchSequenceRequest);
+                                }
+                                [Microsoft.XLANGs.BaseTypes.DesignerPosition("f0a9e314-f9d7-41ba-b916-d792ecf24683")]
+                                outputMessages = Microsoft.XLANGs.Pipeline.XLANGPipelineManager.ExecuteReceivePipeline(resolution.ReceivePipelineType, InboundMessage);
+                                [Microsoft.XLANGs.BaseTypes.DesignerPosition("049dd6be-e43c-4c2c-bc3f-b1997a19595b")]
+                                while (outputMessages.MoveNext())
+                                {
+                                    [Microsoft.XLANGs.BaseTypes.DesignerPosition("da1bcaaf-4703-4f53-8b19-ada7bfbd194b")]
+                                    construct OutputMessage
+                                    {
+                                        [Microsoft.XLANGs.BaseTypes.DesignerPosition("b85598fc-5c11-4974-be2c-179d02b4d5ae")]
+                                        OutputMessage = null;
+                                        outputMessages.GetCurrent(OutputMessage);
+                                    }
+                                    [Microsoft.XLANGs.BaseTypes.DesignerPosition("884757c0-ee75-43f9-99f9-8501c68fe85a")]
+                                    if (fromSecondResolver)
+                                    {
+                                        [Microsoft.XLANGs.BaseTypes.DesignerPosition("7b20e0a0-9791-4ef4-ae69-2af67fcf77d7")]
+                                        System.Diagnostics.Trace.WriteLine("Resolving new itinerary from 2nd resolver.");
+                                        resolutionDictionary = ESB.Extensions.Resolution.ResolutionManager.Resolve(OutputMessage, resolver);
+                                        newItineraryString2 = resolutionDictionary.GetString("Microsoft.Practices.ESB.Itinerary.AsXml");
+                                    }
+                                    [Microsoft.XLANGs.BaseTypes.DesignerPosition("c1090042-649e-4f2b-bc33-936ffd824e80")]
+                                    if (fromSecondResolver && !System.String.IsNullOrEmpty(newItineraryString2))
+                                    {
+                                        [Microsoft.XLANGs.BaseTypes.DesignerPosition("90dd0245-7526-4a2c-b67f-e57714e92e2a")]
+                                        exec ESB.Extensions.Services.InitializeItinerary (OutputMessage, newItineraryString2);
+                                    }
+                                    else if (!System.String.IsNullOrEmpty(newItineraryString1))
+                                    {
+                                        [Microsoft.XLANGs.BaseTypes.DesignerPosition("c615c099-a9f9-41a1-bd2c-cc4ff45dd395")]
+                                        exec ESB.Extensions.Services.InitializeItinerary (OutputMessage, newItineraryString1);
+                                    }
+                                    else 
+                                    {
+                                        [Microsoft.XLANGs.BaseTypes.DesignerPosition("e87e9631-cac7-4fb6-a009-7d456484908a")]
+                                        exec ESB.Extensions.Services.AdvanceItinerary (OutputMessage);
+                                    }
+                                    [Microsoft.XLANGs.BaseTypes.DesignerPosition("bc25ee06-c6ac-49de-8e8a-65fd3ed03d84")]
+                                    if (fromSecondResolver && (resolutionDictionary.GetValue("ESB.Extensions.Resolutions.Go") != null))
+                                    {
+                                        [Microsoft.XLANGs.BaseTypes.DesignerPosition("1f330f1d-c91e-47ca-9d25-f5a229b009be")]
+                                        go = (ESB.Extensions.Resolutions.Go) resolutionDictionary.GetValue("ESB.Extensions.Resolutions.Go");
+                                        [Microsoft.XLANGs.BaseTypes.DesignerPosition("65b2e37d-16a6-4869-a59c-6541edbc24c9")]
+                                        exec ESB.Extensions.Services.PublishGoMsg (go);
+                                    }
+                                    [Microsoft.XLANGs.BaseTypes.DesignerPosition("c887a0ea-d98b-46bb-9057-ac5844a6c228")]
+                                    if (fromSecondResolver && resolutionDictionary.GetValue("ESB.Extensions.Resolutions.sp_MergeBatchSequence") != null)
+                                    {
+                                        [Microsoft.XLANGs.BaseTypes.DesignerPosition("a100e387-ab89-4660-b954-050c192d1616")]
+                                        mergeBatchSequenceRequest = (ESB.Extensions.Resolutions.sp_MergeBatchSequence) resolutionDictionary.GetValue("ESB.Extensions.Resolutions.sp_MergeBatchSequence");
+                                        [Microsoft.XLANGs.BaseTypes.DesignerPosition("2feaf0be-0e87-40ab-8257-14c650c7818a")]
+                                        exec ESB.Extensions.Services.RegisterBatch (mergeBatchSequenceRequest);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else 
+                    {
+                        [Microsoft.XLANGs.BaseTypes.DesignerPosition("63af0399-26bc-4d43-bb2a-84092f51c314")]
+                        throw new System.ApplicationException("There were no resolvers associated with this service config.");
+                    }
+                }
+                exceptions
+                {
+                    [Microsoft.XLANGs.BaseTypes.DesignerPosition("4dc6bc80-d5d4-48b5-b339-6fecb43a9383")]
+                    catch (System.Exception ex)
+                    {
+                        [Microsoft.XLANGs.BaseTypes.DesignerPosition("9623ca64-83af-4402-b6dd-9461f84e355d")]
+                        construct FaultMessage
+                        {
+                            [Microsoft.XLANGs.BaseTypes.DesignerPosition("631e73cf-9913-4d49-98aa-bcbdd9549cf8")]
+                            FaultMessage = Microsoft.Practices.ESB.ExceptionHandling.ExceptionMgmt.CreateFaultMessage();
+                            System.Diagnostics.Trace.WriteLine(">>> Fault msg has been created");
+                            
+                            // Set Fault Message Properties
+                            FaultMessage.Body.FaultCode = "2111";
+                            FaultMessage.Body.FaultDescription = "Exception while attempting to work with Itinerary Step";
+                            FaultMessage.Body.FailureCategory = "Routing Failure";
+                            FaultMessage.Body.FaultSeverity = Microsoft.Practices.ESB.ExceptionHandling.FaultSeverity.Critical;
+                            
+                            // Add message
+                            Microsoft.Practices.ESB.ExceptionHandling.ExceptionMgmt.AddMessage(FaultMessage, InboundMessage);
+                        }
+                        [Microsoft.XLANGs.BaseTypes.DesignerPosition("a5f47e6a-4115-4e13-99e2-bcd7218102cf")]
+                        send (FaultProcessing.PostFault, FaultMessage);
+                        [Microsoft.XLANGs.BaseTypes.DesignerPosition("50af0715-bf56-4025-86e2-0f1e45c8fecd")]
+                        terminate "An unexpected faulure occured during Resolution process : " + ex.Message;;
+                    }
+                }
+            }
+        }
+    }
+}
+

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<brl xmlns="http://schemas.microsoft.com/businessruleslanguage/2002">
+  <ruleset name="ESB.Extensions.Tests.OrderBatchDebatcher.GoResolution.Policy">
+    <version major="1" minor="0" description="" modifiedby="BTSDEV\Administrator" date="2009-10-09T21:35:55.2048015+02:00" />
+    <configuration />
+    <bindings>
+      <class ref="Go" class="Go" instance="0" instances="16" selectivity="1">
+        <assembly>ESB.Extensions.Resolutions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=70a94313e9b0b3df</assembly>
+        <!--C:\Windows\assembly\GAC_MSIL\ESB.Extensions.Resolutions\1.0.0.0__70a94313e9b0b3df\ESB.Extensions.Resolutions.dll-->
+        <namespace>ESB.Extensions.Resolutions</namespace>
+      </class>
+      <class ref="ResolutionDictionary" class="ResolutionDictionary" instance="0" instances="16" selectivity="1">
+        <assembly>ESB.Extensions.Resolution, Version=1.0.0.0, Culture=neutral, PublicKeyToken=70a94313e9b0b3df</assembly>
+        <!--C:\Windows\assembly\GAC_MSIL\ESB.Extensions.Resolution\1.0.0.0__70a94313e9b0b3df\ESB.Extensions.Resolution.dll-->
+        <namespace>ESB.Extensions.Resolution</namespace>
+      </class>
+    </bindings>
+    <rule name="Create GoResolution" priority="0" active="true">
+      <if>
+        <compare operator="equal">
+          <vocabularylink uri="3f0e9bcc-6212-4e6a-853c-e517f157a626" element="05703dd9-1111-40b8-890d-ad7bfc45a925" />
+          <lhs>
+            <constant>
+              <string>1</string>
+            </constant>
+          </lhs>
+          <rhs>
+            <constant>
+              <string>1</string>
+            </constant>
+          </rhs>
+        </compare>
+      </if>
+      <then>
+        <assert>
+          <vocabularylink uri="aee857f2-09d5-4615-a96c-87041791ec42" element="8a871580-7fd0-4910-9fbf-46f702a3f384" />
+          <object>
+            <createobject classref="Go">
+              <vocabularylink uri="aee857f2-09d5-4615-a96c-87041791ec42" element="71badb60-b7db-4e54-baf3-9cff27c316ee" />
+              <argument>
+                <function>
+                  <classmember member="GetString" sideeffects="true">
+                    <classref ref="ResolutionDictionary" />
+                    <argument>
+                      <constant>
+                        <string>ESB.Extensions.Schemas.BatchId</string>
+                      </constant>
+                    </argument>
+                  </classmember>
+                </function>
+              </argument>
+              <argument>
+                <constant>
+                  <string>000000</string>
+                </constant>
+              </argument>
+            </createobject>
+          </object>
+        </assert>
+      </then>
+    </rule>
+    <rule name="Set Go in ResolutionDictionary" priority="0" active="true">
+      <if>
+        <compare operator="equal">
+          <vocabularylink uri="3f0e9bcc-6212-4e6a-853c-e517f157a626" element="05703dd9-1111-40b8-890d-ad7bfc45a925" />
+          <lhs>
+            <constant>
+              <string>1</string>
+            </constant>
+          </lhs>
+          <rhs>
+            <constant>
+              <string>1</string>
+            </constant>
+          </rhs>
+        </compare>
+      </if>
+      <then>
+        <function>
+          <classmember member="SetValue" sideeffects="true">
+            <classref ref="ResolutionDictionary" />
+            <argument>
+              <constant>
+                <string>ESB.Extensions.Resolutions.Go</string>
+              </constant>
+            </argument>
+            <argument>
+              <reference>
+                <classref ref="Go" />
+              </reference>
+            </argument>
+          </classmember>
+        </function>
+        <retract>
+          <vocabularylink uri="aee857f2-09d5-4615-a96c-87041791ec42" element="d6515f3c-d7e6-4c24-80a9-d072fdeb2de5" />
+          <object>
+            <reference>
+              <classref ref="Go" />
+            </reference>
+          </object>
+        </retract>
+      </then>
+    </rule>
+  </ruleset>
+</brl>

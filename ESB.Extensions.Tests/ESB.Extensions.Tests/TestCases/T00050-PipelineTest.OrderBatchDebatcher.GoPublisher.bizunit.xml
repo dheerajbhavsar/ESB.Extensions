@@ -1,0 +1,32 @@
+﻿<TestCase testName="T00050-PipelineTest.OrderBatchDebatcher.GoPublisher">
+  <TestExecution>
+    <TestStep assemblyPath="" typeName="BizUnit.CreateDirectory">
+      <DirectoryName>.\T00050</DirectoryName>
+    </TestStep>
+    <TestStep assemblyPath="" typeName="BizUnit.BizTalkSteps.ExecuteReceivePipelineStep, BizUnit.BizTalkSteps, Version=3.1.0.0, Culture=neutral, PublicKeyToken=7eb7d82981ae5162">
+      <Pipeline assemblyPath="..\..\..\..\ESB.Extensions.Tests\ESB.Extensions.Tests.BizTalkArtifacts\bin\debug\ESB.Extensions.Tests.BizTalkArtifacts.dll" typeName="ESB.Extensions.Tests.BizTalkArtifacts.OrderBatchDebatcherGoPublisher">
+        <DocSpecs>
+          <DocSpec assemblyPath="..\..\..\..\ESB.Extensions.Tests\ESB.Extensions.Tests.BizTalkArtifacts\bin\debug\ESB.Extensions.Tests.BizTalkArtifacts.dll" typeName="ESB.Extensions.Tests.BizTalkArtifacts.OrderBatch" />
+          <DocSpec assemblyPath="..\..\..\..\ESB.Extensions.Tests\ESB.Extensions.Tests.BizTalkArtifacts\bin\debug\ESB.Extensions.Tests.BizTalkArtifacts.dll" typeName="ESB.Extensions.Tests.BizTalkArtifacts.Order" />
+        </DocSpecs>
+      </Pipeline>
+      <Source Encoding="UTF-16">..\..\..\..\ESB.Extensions.Tests\ESB.Extensions.Tests.BizTalkArtifacts\Instances\OrderBatch5Reversed.xml</Source>
+      <DestinationDir>.\T00050</DestinationDir>
+      <DestinationFileFormat>output.{0}.xml</DestinationFileFormat>
+      <OutputContextFileFormat>output.{0}.context.xml</OutputContextFileFormat>
+    </TestStep>
+    <TestStep assemblyPath="" typeName="BizUnit.FilesExistStep">
+      <Timeout>2000</Timeout>
+      <DirectoryPath>.\T00050</DirectoryPath>
+      <SearchPattern>output.*.xml</SearchPattern>
+      <ExpectedNoOfFiles>6</ExpectedNoOfFiles>
+    </TestStep>
+    <TestStep assemblyPath="" typeName="BizUnit.FilesExistStep">
+      <Timeout>2000</Timeout>
+      <DirectoryPath>.\T00050</DirectoryPath>
+      <SearchPattern>output.*.context.xml</SearchPattern>
+      <ExpectedNoOfFiles>6</ExpectedNoOfFiles>
+    </TestStep>
+  </TestExecution>
+</TestCase>
+
